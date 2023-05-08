@@ -1,0 +1,704 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		40D7ED392A090F5500BFB428 /* DayRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED382A090F5500BFB428 /* DayRoomApp.swift */; };
+		40D7ED3D2A090F5700BFB428 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D7ED3C2A090F5700BFB428 /* Assets.xcassets */; };
+		40D7ED402A090F5700BFB428 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */; };
+		40D7ED452A090F5700BFB428 /* DayRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */; };
+		40D7ED4F2A090F5700BFB428 /* DayRoomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED4E2A090F5700BFB428 /* DayRoomTests.swift */; };
+		40D7ED592A090F5700BFB428 /* DayRoomUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED582A090F5700BFB428 /* DayRoomUITests.swift */; };
+		40D7ED5B2A090F5700BFB428 /* DayRoomUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED5A2A090F5700BFB428 /* DayRoomUITestsLaunchTests.swift */; };
+		40D7ED6E2A090FA100BFB428 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED6D2A090FA100BFB428 /* RootView.swift */; };
+		40D7ED702A090FAA00BFB428 /* RootFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED6F2A090FAA00BFB428 /* RootFeature.swift */; };
+		40D7ED722A090FB100BFB428 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED712A090FB100BFB428 /* SettingView.swift */; };
+		40D7ED752A09101200BFB428 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 40D7ED742A09101200BFB428 /* ComposableArchitecture */; };
+		40D7ED792A09103B00BFB428 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED782A09103B00BFB428 /* Persistence.swift */; };
+		40D7ED7B2A0913FD00BFB428 /* DayRoomDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED7A2A0913FD00BFB428 /* DayRoomDiary.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		40D7ED4B2A090F5700BFB428 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40D7ED2D2A090F5500BFB428 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40D7ED342A090F5500BFB428;
+			remoteInfo = DayRoom;
+		};
+		40D7ED552A090F5700BFB428 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40D7ED2D2A090F5500BFB428 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40D7ED342A090F5500BFB428;
+			remoteInfo = DayRoom;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		40D7ED352A090F5500BFB428 /* DayRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		40D7ED382A090F5500BFB428 /* DayRoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomApp.swift; sourceTree = "<group>"; };
+		40D7ED3C2A090F5700BFB428 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		40D7ED442A090F5700BFB428 /* DayRoom.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DayRoom.xcdatamodel; sourceTree = "<group>"; };
+		40D7ED4A2A090F5700BFB428 /* DayRoomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRoomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		40D7ED4E2A090F5700BFB428 /* DayRoomTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomTests.swift; sourceTree = "<group>"; };
+		40D7ED542A090F5700BFB428 /* DayRoomUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRoomUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		40D7ED582A090F5700BFB428 /* DayRoomUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomUITests.swift; sourceTree = "<group>"; };
+		40D7ED5A2A090F5700BFB428 /* DayRoomUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		40D7ED6D2A090FA100BFB428 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		40D7ED6F2A090FAA00BFB428 /* RootFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFeature.swift; sourceTree = "<group>"; };
+		40D7ED712A090FB100BFB428 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		40D7ED782A09103B00BFB428 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		40D7ED7A2A0913FD00BFB428 /* DayRoomDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomDiary.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		40D7ED322A090F5500BFB428 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40D7ED752A09101200BFB428 /* ComposableArchitecture in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40D7ED472A090F5700BFB428 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40D7ED512A090F5700BFB428 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		40D7ED2C2A090F5500BFB428 = {
+			isa = PBXGroup;
+			children = (
+				40D7ED372A090F5500BFB428 /* DayRoom */,
+				40D7ED4D2A090F5700BFB428 /* DayRoomTests */,
+				40D7ED572A090F5700BFB428 /* DayRoomUITests */,
+				40D7ED362A090F5500BFB428 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		40D7ED362A090F5500BFB428 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				40D7ED352A090F5500BFB428 /* DayRoom.app */,
+				40D7ED4A2A090F5700BFB428 /* DayRoomTests.xctest */,
+				40D7ED542A090F5700BFB428 /* DayRoomUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		40D7ED372A090F5500BFB428 /* DayRoom */ = {
+			isa = PBXGroup;
+			children = (
+				40D7ED672A090F7000BFB428 /* Sources */,
+				40D7ED682A090F7300BFB428 /* Resources */,
+			);
+			path = DayRoom;
+			sourceTree = "<group>";
+		};
+		40D7ED3E2A090F5700BFB428 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		40D7ED4D2A090F5700BFB428 /* DayRoomTests */ = {
+			isa = PBXGroup;
+			children = (
+				40D7ED4E2A090F5700BFB428 /* DayRoomTests.swift */,
+			);
+			path = DayRoomTests;
+			sourceTree = "<group>";
+		};
+		40D7ED572A090F5700BFB428 /* DayRoomUITests */ = {
+			isa = PBXGroup;
+			children = (
+				40D7ED582A090F5700BFB428 /* DayRoomUITests.swift */,
+				40D7ED5A2A090F5700BFB428 /* DayRoomUITestsLaunchTests.swift */,
+			);
+			path = DayRoomUITests;
+			sourceTree = "<group>";
+		};
+		40D7ED672A090F7000BFB428 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				40D7ED762A09102000BFB428 /* Features */,
+				40D7ED772A09102C00BFB428 /* Core */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		40D7ED682A090F7300BFB428 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				40D7ED3E2A090F5700BFB428 /* Preview Content */,
+				40D7ED3C2A090F5700BFB428 /* Assets.xcassets */,
+				40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		40D7ED692A090F7A00BFB428 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				40D7ED382A090F5500BFB428 /* DayRoomApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		40D7ED6A2A090F7C00BFB428 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				40D7ED6F2A090FAA00BFB428 /* RootFeature.swift */,
+				40D7ED6D2A090FA100BFB428 /* RootView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		40D7ED6B2A090F7F00BFB428 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				40D7ED712A090FB100BFB428 /* SettingView.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		40D7ED762A09102000BFB428 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				40D7ED692A090F7A00BFB428 /* App */,
+				40D7ED6A2A090F7C00BFB428 /* Root */,
+				40D7ED6B2A090F7F00BFB428 /* Setting */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		40D7ED772A09102C00BFB428 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				40D7ED782A09103B00BFB428 /* Persistence.swift */,
+				40D7ED7A2A0913FD00BFB428 /* DayRoomDiary.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		40D7ED342A090F5500BFB428 /* DayRoom */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40D7ED5E2A090F5700BFB428 /* Build configuration list for PBXNativeTarget "DayRoom" */;
+			buildPhases = (
+				40D7ED312A090F5500BFB428 /* Sources */,
+				40D7ED322A090F5500BFB428 /* Frameworks */,
+				40D7ED332A090F5500BFB428 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DayRoom;
+			packageProductDependencies = (
+				40D7ED742A09101200BFB428 /* ComposableArchitecture */,
+			);
+			productName = DayRoom;
+			productReference = 40D7ED352A090F5500BFB428 /* DayRoom.app */;
+			productType = "com.apple.product-type.application";
+		};
+		40D7ED492A090F5700BFB428 /* DayRoomTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40D7ED612A090F5700BFB428 /* Build configuration list for PBXNativeTarget "DayRoomTests" */;
+			buildPhases = (
+				40D7ED462A090F5700BFB428 /* Sources */,
+				40D7ED472A090F5700BFB428 /* Frameworks */,
+				40D7ED482A090F5700BFB428 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				40D7ED4C2A090F5700BFB428 /* PBXTargetDependency */,
+			);
+			name = DayRoomTests;
+			productName = DayRoomTests;
+			productReference = 40D7ED4A2A090F5700BFB428 /* DayRoomTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		40D7ED532A090F5700BFB428 /* DayRoomUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40D7ED642A090F5700BFB428 /* Build configuration list for PBXNativeTarget "DayRoomUITests" */;
+			buildPhases = (
+				40D7ED502A090F5700BFB428 /* Sources */,
+				40D7ED512A090F5700BFB428 /* Frameworks */,
+				40D7ED522A090F5700BFB428 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				40D7ED562A090F5700BFB428 /* PBXTargetDependency */,
+			);
+			name = DayRoomUITests;
+			productName = DayRoomUITests;
+			productReference = 40D7ED542A090F5700BFB428 /* DayRoomUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		40D7ED2D2A090F5500BFB428 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					40D7ED342A090F5500BFB428 = {
+						CreatedOnToolsVersion = 14.3;
+					};
+					40D7ED492A090F5700BFB428 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 40D7ED342A090F5500BFB428;
+					};
+					40D7ED532A090F5700BFB428 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 40D7ED342A090F5500BFB428;
+					};
+				};
+			};
+			buildConfigurationList = 40D7ED302A090F5500BFB428 /* Build configuration list for PBXProject "DayRoom" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 40D7ED2C2A090F5500BFB428;
+			packageReferences = (
+				40D7ED732A09101200BFB428 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
+			productRefGroup = 40D7ED362A090F5500BFB428 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				40D7ED342A090F5500BFB428 /* DayRoom */,
+				40D7ED492A090F5700BFB428 /* DayRoomTests */,
+				40D7ED532A090F5700BFB428 /* DayRoomUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		40D7ED332A090F5500BFB428 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40D7ED402A090F5700BFB428 /* Preview Assets.xcassets in Resources */,
+				40D7ED3D2A090F5700BFB428 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40D7ED482A090F5700BFB428 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40D7ED522A090F5700BFB428 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		40D7ED312A090F5500BFB428 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40D7ED392A090F5500BFB428 /* DayRoomApp.swift in Sources */,
+				40D7ED7B2A0913FD00BFB428 /* DayRoomDiary.swift in Sources */,
+				40D7ED722A090FB100BFB428 /* SettingView.swift in Sources */,
+				40D7ED792A09103B00BFB428 /* Persistence.swift in Sources */,
+				40D7ED452A090F5700BFB428 /* DayRoom.xcdatamodeld in Sources */,
+				40D7ED702A090FAA00BFB428 /* RootFeature.swift in Sources */,
+				40D7ED6E2A090FA100BFB428 /* RootView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40D7ED462A090F5700BFB428 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40D7ED4F2A090F5700BFB428 /* DayRoomTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40D7ED502A090F5700BFB428 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40D7ED5B2A090F5700BFB428 /* DayRoomUITestsLaunchTests.swift in Sources */,
+				40D7ED592A090F5700BFB428 /* DayRoomUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		40D7ED4C2A090F5700BFB428 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40D7ED342A090F5500BFB428 /* DayRoom */;
+			targetProxy = 40D7ED4B2A090F5700BFB428 /* PBXContainerItemProxy */;
+		};
+		40D7ED562A090F5700BFB428 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40D7ED342A090F5500BFB428 /* DayRoom */;
+			targetProxy = 40D7ED552A090F5700BFB428 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		40D7ED5C2A090F5700BFB428 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		40D7ED5D2A090F5700BFB428 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		40D7ED5F2A090F5700BFB428 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DayRoom/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = 85329TR25G;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.havi.DayRoom;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		40D7ED602A090F5700BFB428 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DayRoom/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = 85329TR25G;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.havi.DayRoom;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		40D7ED622A090F5700BFB428 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 85329TR25G;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.havi.DayRoomTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DayRoom.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DayRoom";
+			};
+			name = Debug;
+		};
+		40D7ED632A090F5700BFB428 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 85329TR25G;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.havi.DayRoomTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DayRoom.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DayRoom";
+			};
+			name = Release;
+		};
+		40D7ED652A090F5700BFB428 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 85329TR25G;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.havi.DayRoomUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DayRoom;
+			};
+			name = Debug;
+		};
+		40D7ED662A090F5700BFB428 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 85329TR25G;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.havi.DayRoomUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DayRoom;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		40D7ED302A090F5500BFB428 /* Build configuration list for PBXProject "DayRoom" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40D7ED5C2A090F5700BFB428 /* Debug */,
+				40D7ED5D2A090F5700BFB428 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40D7ED5E2A090F5700BFB428 /* Build configuration list for PBXNativeTarget "DayRoom" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40D7ED5F2A090F5700BFB428 /* Debug */,
+				40D7ED602A090F5700BFB428 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40D7ED612A090F5700BFB428 /* Build configuration list for PBXNativeTarget "DayRoomTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40D7ED622A090F5700BFB428 /* Debug */,
+				40D7ED632A090F5700BFB428 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40D7ED642A090F5700BFB428 /* Build configuration list for PBXNativeTarget "DayRoomUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40D7ED652A090F5700BFB428 /* Debug */,
+				40D7ED662A090F5700BFB428 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		40D7ED732A09101200BFB428 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				branch = prerelease/1.0;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		40D7ED742A09101200BFB428 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40D7ED732A09101200BFB428 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				40D7ED442A090F5700BFB428 /* DayRoom.xcdatamodel */,
+			);
+			currentVersion = 40D7ED442A090F5700BFB428 /* DayRoom.xcdatamodel */;
+			path = DayRoom.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 40D7ED2D2A090F5500BFB428 /* Project object */;
+}
