@@ -1,30 +1,27 @@
 //
-//  RootFeature.swift
+//  Password.swift
 //  DayRoom
 //
-//  Created by 한상진 on 2023/05/08.
+//  Created by 한상진 on 2023/05/12.
 //
 
-import Foundation
 import ComposableArchitecture
 
-struct RootFeature: Reducer {
+struct Password: Reducer {
     
     // MARK: State
     
-    struct State: Equatable, Sendable {
+    struct State: Equatable {
         
     }
     
     // MARK: Action
     
-    enum Action: Equatable, Sendable {
-        case onAppear
+    enum Action: Equatable {
+        
     }
     
     // MARK: Dependency
-    
-    @Dependency(\.persistence) private var persistence
     
     // MARK: Body
     
@@ -34,8 +31,8 @@ struct RootFeature: Reducer {
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
-        case .onAppear:
-            return .none
+            
         }
     }
 }
+

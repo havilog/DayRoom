@@ -9,10 +9,14 @@ import CoreData
 import XCTestDynamicOverlay
 import ComposableArchitecture
 
-struct PersistenceManager {
+class PersistenceManager {
     private enum Constant {
         static let diaryContainerName: String = "DayRoomDiary"
     }
+    
+    static let shared: PersistenceManager = .init()
+    
+    private init() { }
     
     private lazy var container: NSPersistentContainer = {
         let container = NSPersistentContainer(name: Constant.diaryContainerName)
@@ -29,7 +33,7 @@ struct PersistenceManager {
 }
 
 extension PersistenceManager: DependencyKey {
-    static var liveValue: PersistenceManager = .init()
+    static var liveValue: PersistenceManager = .shared
     static var testValue: PersistenceManager = unimplemented()
 }
 
