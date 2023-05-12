@@ -24,24 +24,33 @@ struct RootView: View {
     }
     
     var body: some View {
-        SwitchStore(store) { state in
+        bodyView
+            .onFirstAppear { viewStore.send(.onFirstAppear) }
+    }
+    
+    private var bodyView: some View {
+        SwitchStore(
+            store.scope(
+                state: \.destination, 
+                action: Root.Action.destination
+            )
+        ) { state in
             switch state {
             case .splash:
                 Image("app_logo")
-                    .onAppear { viewStore.send(.onAppear) }       
                 
             case .nickname:
-                CaseLet(/Root.State.nickname, action: Root.Action.nickname) { store in
+                CaseLet(/Root.Destination.State.nickname, action: Root.Destination.Action.nickname) { store in
                     NicknameView(store: store)
                 }
                 
             case .password:
-                CaseLet(/Root.State.password, action: Root.Action.password) { store in
+                CaseLet(/Root.Destination.State.password, action: Root.Destination.Action.password) { store in
                     PasswordView(store: store)
                 }
                 
             case .feed:
-                CaseLet(/Root.State.feed, action: Root.Action.feed) { store in
+                CaseLet(/Root.Destination.State.feed, action: Root.Destination.Action.feed) { store in
                     FeedView(store: store)
                 }
                 
@@ -54,7 +63,7 @@ struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         RootView(
             store: .init(
-                initialState: .splash, 
+                initialState: .init(), 
                 reducer: Root()
             )
         )

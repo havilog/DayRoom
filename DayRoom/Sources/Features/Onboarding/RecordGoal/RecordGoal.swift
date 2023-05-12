@@ -46,7 +46,12 @@ struct RecordGoal: Reducer {
         case backButtonTapped
         case completeButtonTapped
         
+        case delegate(Delegate)
         case binding(BindingAction<State>)
+        
+        enum Delegate {
+            case completeButtonTapped
+        }
     }
     
     // MARK: Dependency
@@ -67,11 +72,14 @@ struct RecordGoal: Reducer {
         case .binding:
             return .none
             
+        case .delegate:
+            return .none
+            
         case .backButtonTapped:
             return .none
             
         case .completeButtonTapped:
-            return .none
+            return .send(.delegate(.completeButtonTapped), animation: .default)
         }
     }
     

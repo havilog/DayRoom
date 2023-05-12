@@ -24,7 +24,7 @@ struct FeedView: View {
     }
     
     var body: some View {
-        Text("")
+        Text("feed")
     }
 }
 

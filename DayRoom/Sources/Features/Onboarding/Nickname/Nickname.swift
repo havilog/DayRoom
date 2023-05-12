@@ -33,6 +33,10 @@ struct Nickname: Reducer {
         
         case binding(BindingAction<State>)
         case path(StackAction<Path.State, Path.Action>)
+        case delegate(Delegate)
+        enum Delegate: Equatable {
+            case onboardingFinished
+        }
     }
     
     // MARK: Path
@@ -82,7 +86,16 @@ struct Nickname: Reducer {
         case .binding:
             return .none
             
+        case let .path(.element(_, action: .recordGoal(.delegate(action)))):
+            switch action {
+            case .completeButtonTapped:
+                return .send(.delegate(.onboardingFinished))    
+            }
+            
         case .path:
+            return .none
+            
+        case .delegate:
             return .none
         }
     }

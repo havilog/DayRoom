@@ -14,7 +14,7 @@ struct DayRoomApp: App {
         WindowGroup {
             RootView(
                 store: .init(
-                    initialState: .splash, 
+                    initialState: .init(), 
                     reducer: Root()
                 )
             )

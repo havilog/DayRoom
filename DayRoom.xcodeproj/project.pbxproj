@@ -39,6 +39,7 @@
 		403903E22A0D7FE900C7D077 /* EBGaramond-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903992A0D3BB700C7D077 /* EBGaramond-Regular.ttf */; };
 		403903E32A0D7FEC00C7D077 /* EBGaramond-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4039039A2A0D3BB700C7D077 /* EBGaramond-SemiBold.ttf */; };
 		403903E42A0D7FF000C7D077 /* EBGaramond-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4039039E2A0D3BB800C7D077 /* EBGaramond-SemiBoldItalic.ttf */; };
+		403903E62A0E017100C7D077 /* onFirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903E52A0E017100C7D077 /* onFirstAppear.swift */; };
 		40D7ED392A090F5500BFB428 /* DayRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED382A090F5500BFB428 /* DayRoomApp.swift */; };
 		40D7ED3D2A090F5700BFB428 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D7ED3C2A090F5700BFB428 /* Assets.xcassets */; };
 		40D7ED402A090F5700BFB428 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */; };
@@ -105,6 +106,7 @@
 		403903C92A0D50F300C7D077 /* RecordGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordGoalView.swift; sourceTree = "<group>"; };
 		403903CB2A0D6EAC00C7D077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		403903CE2A0D74F300C7D077 /* View+DebugFrameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+DebugFrameInfo.swift"; sourceTree = "<group>"; };
+		403903E52A0E017100C7D077 /* onFirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onFirstAppear.swift; sourceTree = "<group>"; };
 		40D7ED352A090F5500BFB428 /* DayRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40D7ED382A090F5500BFB428 /* DayRoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomApp.swift; sourceTree = "<group>"; };
 		40D7ED3C2A090F5700BFB428 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				403903CE2A0D74F300C7D077 /* View+DebugFrameInfo.swift */,
+				403903E52A0E017100C7D077 /* onFirstAppear.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -554,6 +557,7 @@
 				403903AC2A0D3C5500C7D077 /* Font+Custom.swift in Sources */,
 				40D7ED7B2A0913FD00BFB428 /* DayRoomDiary.swift in Sources */,
 				403903CF2A0D74F300C7D077 /* View+DebugFrameInfo.swift in Sources */,
+				403903E62A0E017100C7D077 /* onFirstAppear.swift in Sources */,
 				403903B02A0D3C6C00C7D077 /* UIColor+DayRoom.swift in Sources */,
 				403903BD2A0D4BE800C7D077 /* Feed.swift in Sources */,
 				40D7ED722A090FB100BFB428 /* SettingView.swift in Sources */,

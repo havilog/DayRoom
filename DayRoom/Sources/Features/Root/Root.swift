@@ -12,22 +12,43 @@ struct Root: Reducer {
     
     // MARK: State
     
-    enum State: Equatable, Sendable {
-        case splash
-        case nickname(Nickname.State)
-        case password(Password.State)
-        case feed(Feed.State)
+    struct State: Equatable, Sendable {
+        var destination: Destination.State = .splash
+    }
+    
+    struct Destination: Reducer {
+        enum State: Equatable {
+            case splash
+            case nickname(Nickname.State)
+            case password(Password.State)
+            case feed(Feed.State)
+        }
+        enum Action: Equatable {
+            case nickname(Nickname.Action)
+            case password(Password.Action)
+            case feed(Feed.Action)
+        }
+        var body: some ReducerProtocolOf<Self> {
+            Scope(state: /State.nickname, action: /Action.nickname) {
+                Nickname()
+            }
+            Scope(state: /State.password, action: /Action.password) {
+                Password()
+            }
+            Scope(state: /State.feed, action: /Action.feed) {
+                Feed()
+            }
+        }
     }
     
     // MARK: Action
     
     enum Action: Equatable, Sendable {
-        case onAppear
+        case onFirstAppear
         case splashCompleted
+        case onboardingCompleted
         
-        case nickname(Nickname.Action)
-        case password(Password.Action)
-        case feed(Feed.Action)
+        case destination(Destination.Action)
     }
     
     // MARK: Dependency
@@ -38,21 +59,17 @@ struct Root: Reducer {
     // MARK: Body
     
     var body: some ReducerOf<Self> {
+        Scope(state: \State.destination, action: /Action.destination) { 
+            Destination()
+        }
+        
         Reduce(core)
-            .ifCaseLet(/State.nickname, action: /Action.nickname) {
-                Nickname()
-            }
-            .ifCaseLet(/State.password, action: /Action.password) {
-                Password()
-            }
-            .ifCaseLet(/State.feed, action: /Action.feed) {
-                Feed()
-            }
     }
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
-        case .onAppear:
+        case .onFirstAppear:
+            preferences.onboardingFinished = false
             return .task { 
                 try await self.clock.sleep(for: .seconds(1))
                 return .splashCompleted
@@ -61,25 +78,38 @@ struct Root: Reducer {
             
         case .splashCompleted:
             guard preferences.onboardingFinished else { 
-                state = .nickname(.init()) 
+                state.destination = .nickname(.init()) 
                 return .none
             }
             
             if let _ = preferences.password {
-                state = .password(.init())
+                state.destination = .password(.init())
             } else {
-                state = .feed(.init())
+                state.destination = .feed(.init())
             }
             
             return .none
             
-        case .nickname:
+        case .onboardingCompleted:
+            if let _ = preferences.password {
+                state.destination = .password(.init())
+            } else {
+                state.destination = .feed(.init())
+            }
             return .none
             
-        case .password:
-            return .none
+        case let .destination(.nickname(.delegate(action))):
+            switch action {
+            case .onboardingFinished:
+                preferences.onboardingFinished = true
+                return .task { 
+                    try await self.clock.sleep(for: .seconds(0.1))
+                    return .onboardingCompleted
+                }
+                .animation()
+            }          
             
-        case .feed:
+        case .destination:
             return .none
         }
     }

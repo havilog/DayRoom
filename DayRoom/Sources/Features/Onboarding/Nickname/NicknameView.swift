@@ -33,7 +33,7 @@ struct NicknameView: View {
                     state: /Nickname.Path.State.recordGoal, 
                     action: Nickname.Path.Action.recordGoal
                 ) { store in
-                    Text("기록 목표가 무엇인가요?")
+                    RecordGoalView(store: store)
                 }
             }
         }
