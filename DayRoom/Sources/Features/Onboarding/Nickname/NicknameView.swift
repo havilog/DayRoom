@@ -11,7 +11,7 @@ import ComposableArchitecture
 struct NicknameView: View {
     let store: StoreOf<Nickname>
     @ObservedObject var viewStore: ViewStoreOf<Nickname>
-    @FocusState var focusedField: Nickname.State.Field?
+    @FocusState var focus: Nickname.State.Field?
     
     init(store: StoreOf<Nickname>) {
         self.store = store
@@ -37,55 +37,80 @@ struct NicknameView: View {
                 }
             }
         }
-
-        Text("")
     }
     
-    var bodyView: some View {
-        VStack(alignment: .leading, spacing: .zero) {
-            Text("별명을 알려주세요")
-                .padding(.top, 56)
+    private var bodyView: some View {
+        VStack(spacing: .zero) { 
+            VStack(alignment: .leading, spacing: .zero) {
+                title
+                description
+                nicknameTextField
+                
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            
+            nextButton
+        }
+        .onAppear { viewStore.send(.onAppear) }
+    }
+    
+    private var title: some View {
+        Text("별명을 알려주세요")
+            .font(pretendard: .heading1)
+            .foregroundColor(.text_primary)
+            .debug()
+            .padding(.top, 56)
+            .padding(.bottom, 4)
+    }
+    
+    private var description: some View {
+        Text("마이페이지에서 언제든지 바꿀 수 있어요!")
+            .font(pretendard: .body2)
+            .foregroundColor(.text_secondary)
+            .debug()
+            .padding(.bottom, 56)
+    }
+    
+    private var nicknameTextField: some View {
+        VStack(spacing: .zero) { 
+            TextField("8자 이내 한글, 영문, 숫자", text: viewStore.binding(\.$nickname))
+                .foregroundColor(.text_primary)
+                .font(pretendard: .heading3)
+                .frame(maxHeight: 30)
+                .focused($focus, equals: .nickname)
+                .disableAutocorrection(true)
+                .debug()
                 .padding(.bottom, 4)
             
-            Text("마이페이지에서 언제든지 바꿀 수 있어요!")
-                .padding(.bottom, 56)
+            Rectangle()
+                .foregroundColor(viewStore.isNicknameValid ? .text_primary : .error)
+                .frame(height: 1)
+                .padding(.bottom, 4)
             
-            VStack(spacing: .zero) { 
-                TextField("8자 이내 한글, 영문, 숫자", text: viewStore.binding(\.$nickname))
-                    .focused($focusedField, equals: .nickname)
-                    .disableAutocorrection(true)
-                    .padding(.bottom, 4)
+            HStack(spacing: .zero) {
+                Text(viewStore.isNicknameValid ? "" : "8자 이내 한글, 영문, 숫자로 작성해주세요.")
+                    .font(pretendard: .caption)
+                    .foregroundColor(.error)
                 
-                Rectangle()
-                    .background(Color.primary)
-                    .frame(height: 1)
-                    .padding(.bottom, 4)
+                Spacer()
                 
-                HStack(spacing: .zero) {
-                    Text("8자 이내 한글, 영문, 숫자로 작성해주세요.")
-                    
-                    Spacer()
-                    
-                    Text("0 / 8")
-                }
+                Text("\(viewStore.nickname.count) / 8")
+                    .font(pretendard: .caption)
+                    .foregroundColor(viewStore.isNicknameValid ? .text_disabled : .error)
             }
-            
-            Spacer()
-            
-            Button("다음") { viewStore.send(.nextButtonTapped) }
         }
-        .padding(.horizontal, 20)
     }
-}
-
-extension View {
-    func synchronize<Value>(
-        _ first: Binding<Value>,
-        _ second: FocusState<Value>.Binding
-    ) -> some View {
-        self
-            .onChange(of: first.wrappedValue) { second.wrappedValue = $0 }
-            .onChange(of: second.wrappedValue) { first.wrappedValue = $0 }
+    
+    private var nextButton: some View {
+        Button("다음") { viewStore.send(.nextButtonTapped) }
+            .contentShape(Rectangle())
+            .font(pretendard: .heading3)
+            .foregroundColor(viewStore.isNextButtonDisabled ? Color.text_disabled : Color.day_white)
+            .frame(maxWidth: .infinity, minHeight: 56)
+            .background(viewStore.isNextButtonDisabled ? Color.grey20 : Color.day_green)
+            .disabled(viewStore.isNextButtonDisabled)
+            .debug()
     }
 }
 

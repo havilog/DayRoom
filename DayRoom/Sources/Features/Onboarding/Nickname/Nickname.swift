@@ -5,6 +5,7 @@
 //  Created by 한상진 on 2023/05/12.
 //
 
+import Foundation
 import ComposableArchitecture
 
 struct Nickname: Reducer {
@@ -12,9 +13,12 @@ struct Nickname: Reducer {
     // MARK: State
     
     struct State: Equatable {
+        var isNicknameValid: Bool = true
+        var isNextButtonDisabled: Bool { !isNicknameValid || nickname.isEmpty }
+        
         var path: StackState<Path.State> = .init()
         @BindingState var nickname: String = ""
-        @BindingState var focusedField: Field = .nickname
+        @BindingState var focus: Field?
         
         enum Field: String, Hashable {
             case nickname
@@ -24,6 +28,7 @@ struct Nickname: Reducer {
     // MARK: Action
     
     enum Action: Equatable, BindableAction {
+        case onAppear
         case nextButtonTapped
         
         case binding(BindingAction<State>)
@@ -62,11 +67,16 @@ struct Nickname: Reducer {
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
+        case .onAppear:
+            state.focus = .nickname
+            return .none
+            
         case .nextButtonTapped:
             state.path.append(.recordGoal(.init()))
             return .none
             
-        case .binding(\.nickname):
+        case .binding(\.$nickname):
+            state.isNicknameValid = validate(nickname: state.nickname)
             return .none
             
         case .binding:
@@ -75,6 +85,12 @@ struct Nickname: Reducer {
         case .path:
             return .none
         }
+    }
+    
+    private func validate(nickname: String) -> Bool {
+        let regex = "[A-Za-z0-9]{0,8}"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        return predicate.evaluate(with: nickname)
     }
 }
 

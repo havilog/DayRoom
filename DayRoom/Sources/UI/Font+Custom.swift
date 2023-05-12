@@ -5,20 +5,111 @@
 //  Created by 한상진 on 2023/05/12.
 //
 
-import UIKit
+import SwiftUI
 
-public extension UIFont {
-//    static var display5: UIFont? = .init(name: "Pretendard-Bold", size: 40)
-//    static var display4: UIFont? = .init(name: "Pretendard-Bold", size: 36)
-//    static var display3: UIFont? = .init(name: "Pretendard-Bold", size: 32)
-//    static var display2: UIFont? = .init(name: "Pretendard-Bold", size: 28)
-//    static var display1: UIFont? = .init(name: "Pretendard-Bold", size: 24)
-//    static var headline: UIFont? = .init(name: "Pretendard-Bold", size: 20)
-//    static var subhead3: UIFont? = .init(name: "Pretendard-Bold", size: 16)
-//    static var subhead2: UIFont? = .init(name: "Pretendard-Bold", size: 14)
-//    static var subhead1: UIFont? = .init(name: "Pretendard-Bold", size: 12)
-//    
-//    static var body2: UIFont? = .init(name: "Pretendard-Regular", size: 16)
-//    static var body1: UIFont? = .init(name: "Pretendard-Regular", size: 14)
-//    static var caption: UIFont? = .init(name: "Pretendard-Regular", size: 12)
+public protocol FontLineHeightConfigurable {
+    var font: UIFont { get }
+    var lineHeight: CGFloat { get }
+}
+
+public enum Pretendard: FontLineHeightConfigurable {
+    case heading1
+    case heading2
+    case heading3
+    case heading4
+    case body1
+    case body2
+    case body3
+    case body4
+    case body5
+    case caption
+}
+
+public extension Pretendard {
+    var font: UIFont {
+        switch self {
+        case .heading1: return .init(name: "Pretendard-SemiBold", size: 24)!
+        case .heading2: return .init(name: "Pretendard-SemiBold", size: 20)!
+        case .heading3: return .init(name: "Pretendard-SemiBold", size: 18)!
+        case .heading4: return .init(name: "Pretendard-Regular", size: 18)!
+        case .body1: return .init(name: "Pretendard-SemiBold", size: 16)!
+        case .body2: return .init(name: "Pretendard-Regular", size: 16)!
+        case .body3: return .init(name: "Pretendard-ExtraLight", size: 16)!
+        case .body4: return .init(name: "Pretendard-SemiBold", size: 14)!
+        case .body5: return .init(name: "Pretendard-Regular", size: 14)!
+        case .caption: return .init(name: "Pretendard-Regular", size: 12)!
+        }
+    }
+    var lineHeight: CGFloat {
+        switch self {
+        case .heading1: return 38
+        case .heading2: return 32
+        case .heading3: return 30
+        case .heading4: return 30
+        case .body1: return 28
+        case .body2: return 28
+        case .body3: return 28
+        case .body4: return 24
+        case .body5: return 24
+        case .caption: return 22
+        }
+    }
+}
+
+public enum Garamond: FontLineHeightConfigurable {
+    case hero
+    case heading1
+    case heading2
+    case heading3
+    case heading4
+    case body1
+    case body2
+}
+
+public extension Garamond {
+    var font: UIFont {
+        switch self {
+        case .hero: return .init(name: "EBGaramond-Regular", size: 64)!
+        case .heading1: return .init(name: "EBGaramond-Regular", size: 32)!
+        case .heading2: return .init(name: "EBGaramond-Medium", size: 24)!
+        case .heading3: return .init(name: "EBGaramond-Medium", size: 22)!
+        case .heading4: return .init(name: "EBGaramond-Regular", size: 20)!
+        case .body1: return .init(name: "EBGaramond-Regular", size: 18)!
+        case .body2: return .init(name: "EBGaramond-Regular", size: 16)!
+        }
+    } 
+    var lineHeight: CGFloat {
+        switch self {
+        case .hero: return 76
+        case .heading1: return 40
+        case .heading2: return 32
+        case .heading3: return 30
+        case .heading4: return 28
+        case .body1: return 26
+        case .body2: return 24
+        }
+    }
+}
+
+import SwiftUI
+
+struct FontWithLineHeight: ViewModifier {
+    let fontLineHeight: FontLineHeightConfigurable
+    
+    func body(content: Content) -> some View {
+        content
+            .font(Font(fontLineHeight.font))
+            .lineSpacing(fontLineHeight.lineHeight - fontLineHeight.font.lineHeight)
+            .padding(.vertical, (fontLineHeight.lineHeight - fontLineHeight.font.lineHeight) / 2)
+    }
+}
+
+extension View {
+    func font(pretendard: Pretendard) -> some View {
+        return modifier(FontWithLineHeight(fontLineHeight: pretendard as FontLineHeightConfigurable))
+    }
+    
+    func font(garamond: Garamond) -> some View {
+        modifier(FontWithLineHeight(fontLineHeight: garamond as FontLineHeightConfigurable))
+    }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Pretendard-Black.ttf</string>
+		<string>Pretendard-Bold.ttf</string>
+		<string>Pretendard-ExtraBold.ttf</string>
+		<string>Pretendard-ExtraLight.ttf</string>
+		<string>Pretendard-Light.ttf</string>
+		<string>Pretendard-Medium.ttf</string>
+		<string>Pretendard-Regular.ttf</string>
+		<string>Pretendard-SemiBold.ttf</string>
+		<string>Pretendard-Thin.ttf</string>
+		<string>Pretendard-Black.ttf</string>
+		<string>EBGaramond-Bold.ttf</string>
+		<string>EBGaramond-BoldItalic.ttf</string>
+		<string>EBGaramond-ExtraBold.ttf</string>
+		<string>EBGaramond-ExtraBoldItalic.ttf</string>
+		<string>EBGaramond-Italic.ttf</string>
+		<string>EBGaramond-Medium.ttf</string>
+		<string>EBGaramond-MediumItalic.ttf</string>
+		<string>EBGaramond-Regular.ttf</string>
+		<string>EBGaramond-SemiBold.ttf</string>
+		<string>EBGaramond-SemiBoldItalic.ttf</string>
+	</array>
+</dict>
+</plist>

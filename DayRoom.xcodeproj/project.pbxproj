@@ -19,6 +19,26 @@
 		403903C32A0D4C0A00C7D077 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903C22A0D4C0A00C7D077 /* PasswordView.swift */; };
 		403903C82A0D50ED00C7D077 /* RecordGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903C72A0D50ED00C7D077 /* RecordGoal.swift */; };
 		403903CA2A0D50F300C7D077 /* RecordGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903C92A0D50F300C7D077 /* RecordGoalView.swift */; };
+		403903CF2A0D74F300C7D077 /* View+DebugFrameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903CE2A0D74F300C7D077 /* View+DebugFrameInfo.swift */; };
+		403903D22A0D7FB500C7D077 /* Pretendard-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903A82A0D3BD000C7D077 /* Pretendard-Black.ttf */; };
+		403903D32A0D7FB800C7D077 /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903A12A0D3BCE00C7D077 /* Pretendard-Bold.ttf */; };
+		403903D42A0D7FBB00C7D077 /* Pretendard-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903A72A0D3BCF00C7D077 /* Pretendard-ExtraBold.ttf */; };
+		403903D52A0D7FBF00C7D077 /* Pretendard-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903A22A0D3BCE00C7D077 /* Pretendard-ExtraLight.ttf */; };
+		403903D62A0D7FC200C7D077 /* Pretendard-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903A92A0D3BD000C7D077 /* Pretendard-Light.ttf */; };
+		403903D72A0D7FC500C7D077 /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903A52A0D3BCF00C7D077 /* Pretendard-Medium.ttf */; };
+		403903D82A0D7FC900C7D077 /* Pretendard-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903A62A0D3BCF00C7D077 /* Pretendard-Regular.ttf */; };
+		403903D92A0D7FCC00C7D077 /* Pretendard-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903A32A0D3BCF00C7D077 /* Pretendard-SemiBold.ttf */; };
+		403903DA2A0D7FCF00C7D077 /* Pretendard-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903A42A0D3BCF00C7D077 /* Pretendard-Thin.ttf */; };
+		403903DB2A0D7FD200C7D077 /* EBGaramond-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4039039D2A0D3BB800C7D077 /* EBGaramond-Bold.ttf */; };
+		403903DC2A0D7FD600C7D077 /* EBGaramond-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903982A0D3BB700C7D077 /* EBGaramond-BoldItalic.ttf */; };
+		403903DD2A0D7FD900C7D077 /* EBGaramond-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4039039B2A0D3BB800C7D077 /* EBGaramond-ExtraBold.ttf */; };
+		403903DE2A0D7FDC00C7D077 /* EBGaramond-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4039039F2A0D3BB800C7D077 /* EBGaramond-ExtraBoldItalic.ttf */; };
+		403903DF2A0D7FDE00C7D077 /* EBGaramond-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4039039C2A0D3BB800C7D077 /* EBGaramond-Italic.ttf */; };
+		403903E02A0D7FE200C7D077 /* EBGaramond-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903A02A0D3BB900C7D077 /* EBGaramond-Medium.ttf */; };
+		403903E12A0D7FE600C7D077 /* EBGaramond-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903972A0D3BB700C7D077 /* EBGaramond-MediumItalic.ttf */; };
+		403903E22A0D7FE900C7D077 /* EBGaramond-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903992A0D3BB700C7D077 /* EBGaramond-Regular.ttf */; };
+		403903E32A0D7FEC00C7D077 /* EBGaramond-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4039039A2A0D3BB700C7D077 /* EBGaramond-SemiBold.ttf */; };
+		403903E42A0D7FF000C7D077 /* EBGaramond-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4039039E2A0D3BB800C7D077 /* EBGaramond-SemiBoldItalic.ttf */; };
 		40D7ED392A090F5500BFB428 /* DayRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED382A090F5500BFB428 /* DayRoomApp.swift */; };
 		40D7ED3D2A090F5700BFB428 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D7ED3C2A090F5700BFB428 /* Assets.xcassets */; };
 		40D7ED402A090F5700BFB428 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */; };
@@ -83,6 +103,8 @@
 		403903C22A0D4C0A00C7D077 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		403903C72A0D50ED00C7D077 /* RecordGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordGoal.swift; sourceTree = "<group>"; };
 		403903C92A0D50F300C7D077 /* RecordGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordGoalView.swift; sourceTree = "<group>"; };
+		403903CB2A0D6EAC00C7D077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		403903CE2A0D74F300C7D077 /* View+DebugFrameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+DebugFrameInfo.swift"; sourceTree = "<group>"; };
 		40D7ED352A090F5500BFB428 /* DayRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40D7ED382A090F5500BFB428 /* DayRoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomApp.swift; sourceTree = "<group>"; };
 		40D7ED3C2A090F5700BFB428 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -231,6 +253,22 @@
 			path = Greetings;
 			sourceTree = "<group>";
 		};
+		403903CC2A0D74DF00C7D077 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				403903CD2A0D74E500C7D077 /* SwiftUI */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		403903CD2A0D74E500C7D077 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				403903CE2A0D74F300C7D077 /* View+DebugFrameInfo.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 		40D7ED2C2A090F5500BFB428 = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +292,7 @@
 		40D7ED372A090F5500BFB428 /* DayRoom */ = {
 			isa = PBXGroup;
 			children = (
+				403903CB2A0D6EAC00C7D077 /* Info.plist */,
 				40D7ED672A090F7000BFB428 /* Sources */,
 				40D7ED682A090F7300BFB428 /* Resources */,
 			);
@@ -347,6 +386,7 @@
 		40D7ED772A09102C00BFB428 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				403903CC2A0D74DF00C7D077 /* Extensions */,
 				403903B32A0D490100C7D077 /* Preferences.swift */,
 				40D7ED782A09103B00BFB428 /* Persistence.swift */,
 				40D7ED7A2A0913FD00BFB428 /* DayRoomDiary.swift */,
@@ -464,8 +504,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				403903DD2A0D7FD900C7D077 /* EBGaramond-ExtraBold.ttf in Resources */,
+				403903D72A0D7FC500C7D077 /* Pretendard-Medium.ttf in Resources */,
 				40D7ED402A090F5700BFB428 /* Preview Assets.xcassets in Resources */,
+				403903D92A0D7FCC00C7D077 /* Pretendard-SemiBold.ttf in Resources */,
+				403903DF2A0D7FDE00C7D077 /* EBGaramond-Italic.ttf in Resources */,
 				40D7ED3D2A090F5700BFB428 /* Assets.xcassets in Resources */,
+				403903D42A0D7FBB00C7D077 /* Pretendard-ExtraBold.ttf in Resources */,
+				403903E32A0D7FEC00C7D077 /* EBGaramond-SemiBold.ttf in Resources */,
+				403903DC2A0D7FD600C7D077 /* EBGaramond-BoldItalic.ttf in Resources */,
+				403903E02A0D7FE200C7D077 /* EBGaramond-Medium.ttf in Resources */,
+				403903D52A0D7FBF00C7D077 /* Pretendard-ExtraLight.ttf in Resources */,
+				403903D82A0D7FC900C7D077 /* Pretendard-Regular.ttf in Resources */,
+				403903D32A0D7FB800C7D077 /* Pretendard-Bold.ttf in Resources */,
+				403903E42A0D7FF000C7D077 /* EBGaramond-SemiBoldItalic.ttf in Resources */,
+				403903DA2A0D7FCF00C7D077 /* Pretendard-Thin.ttf in Resources */,
+				403903E12A0D7FE600C7D077 /* EBGaramond-MediumItalic.ttf in Resources */,
+				403903DB2A0D7FD200C7D077 /* EBGaramond-Bold.ttf in Resources */,
+				403903E22A0D7FE900C7D077 /* EBGaramond-Regular.ttf in Resources */,
+				403903D22A0D7FB500C7D077 /* Pretendard-Black.ttf in Resources */,
+				403903D62A0D7FC200C7D077 /* Pretendard-Light.ttf in Resources */,
+				403903DE2A0D7FDC00C7D077 /* EBGaramond-ExtraBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +553,7 @@
 				403903C32A0D4C0A00C7D077 /* PasswordView.swift in Sources */,
 				403903AC2A0D3C5500C7D077 /* Font+Custom.swift in Sources */,
 				40D7ED7B2A0913FD00BFB428 /* DayRoomDiary.swift in Sources */,
+				403903CF2A0D74F300C7D077 /* View+DebugFrameInfo.swift in Sources */,
 				403903B02A0D3C6C00C7D077 /* UIColor+DayRoom.swift in Sources */,
 				403903BD2A0D4BE800C7D077 /* Feed.swift in Sources */,
 				40D7ED722A090FB100BFB428 /* SettingView.swift in Sources */,
@@ -670,6 +730,7 @@
 				DEVELOPMENT_TEAM = 85329TR25G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DayRoom/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -699,6 +760,7 @@
 				DEVELOPMENT_TEAM = 85329TR25G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DayRoom/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
