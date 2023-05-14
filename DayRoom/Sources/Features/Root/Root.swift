@@ -46,14 +46,13 @@ struct Root: Reducer {
     enum Action: Equatable, Sendable {
         case onFirstAppear
         case splashCompleted
-        case onboardingCompleted
         
         case destination(Destination.Action)
     }
     
     // MARK: Dependency
     
-    @Dependency(\.continuousClock) var clock
+    @Dependency(\.continuousClock) private var clock
     @Dependency(\.preferences) private var preferences
     
     // MARK: Body
@@ -69,7 +68,6 @@ struct Root: Reducer {
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .onFirstAppear:
-            preferences.onboardingFinished = false
             return .task { 
                 try await self.clock.sleep(for: .seconds(1))
                 return .splashCompleted
@@ -83,31 +81,31 @@ struct Root: Reducer {
             }
             
             if let _ = preferences.password {
-                state.destination = .password(.init())
+                state.destination = .password(.init(mode: .normal))
             } else {
                 state.destination = .feed(.init())
             }
             
-            return .none
-            
-        case .onboardingCompleted:
-            if let _ = preferences.password {
-                state.destination = .password(.init())
-            } else {
-                state.destination = .feed(.init())
-            }
             return .none
             
         case let .destination(.nickname(.delegate(action))):
             switch action {
             case .onboardingFinished:
                 preferences.onboardingFinished = true
-                return .task { 
-                    try await self.clock.sleep(for: .seconds(0.1))
-                    return .onboardingCompleted
+                if let _ = preferences.password {
+                    state.destination = .password(.init(mode: .normal))
+                } else {
+                    state.destination = .feed(.init())
                 }
-                .animation()
-            }          
+                return .none
+            }
+            
+        case let .destination(.password(.delegate(action))):
+            switch action {
+            case .passwordConfirmed:
+                state.destination = .feed(.init())
+                return .none
+            }
             
         case .destination:
             return .none

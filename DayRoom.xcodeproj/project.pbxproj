@@ -40,8 +40,8 @@
 		403903E32A0D7FEC00C7D077 /* EBGaramond-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4039039A2A0D3BB700C7D077 /* EBGaramond-SemiBold.ttf */; };
 		403903E42A0D7FF000C7D077 /* EBGaramond-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4039039E2A0D3BB800C7D077 /* EBGaramond-SemiBoldItalic.ttf */; };
 		403903E62A0E017100C7D077 /* onFirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903E52A0E017100C7D077 /* onFirstAppear.swift */; };
+		403903E82A0E131D00C7D077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 403903E72A0E131D00C7D077 /* Assets.xcassets */; };
 		40D7ED392A090F5500BFB428 /* DayRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED382A090F5500BFB428 /* DayRoomApp.swift */; };
-		40D7ED3D2A090F5700BFB428 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D7ED3C2A090F5700BFB428 /* Assets.xcassets */; };
 		40D7ED402A090F5700BFB428 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */; };
 		40D7ED452A090F5700BFB428 /* DayRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */; };
 		40D7ED4F2A090F5700BFB428 /* DayRoomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED4E2A090F5700BFB428 /* DayRoomTests.swift */; };
@@ -107,9 +107,9 @@
 		403903CB2A0D6EAC00C7D077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		403903CE2A0D74F300C7D077 /* View+DebugFrameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+DebugFrameInfo.swift"; sourceTree = "<group>"; };
 		403903E52A0E017100C7D077 /* onFirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onFirstAppear.swift; sourceTree = "<group>"; };
+		403903E72A0E131D00C7D077 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40D7ED352A090F5500BFB428 /* DayRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40D7ED382A090F5500BFB428 /* DayRoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomApp.swift; sourceTree = "<group>"; };
-		40D7ED3C2A090F5700BFB428 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		40D7ED442A090F5700BFB428 /* DayRoom.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DayRoom.xcdatamodel; sourceTree = "<group>"; };
 		40D7ED4A2A090F5700BFB428 /* DayRoomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRoomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -340,9 +340,9 @@
 		40D7ED682A090F7300BFB428 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				403903E72A0E131D00C7D077 /* Assets.xcassets */,
 				403903942A0D3B1E00C7D077 /* Font */,
 				40D7ED3E2A090F5700BFB428 /* Preview Content */,
-				40D7ED3C2A090F5700BFB428 /* Assets.xcassets */,
 				40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */,
 			);
 			path = Resources;
@@ -511,8 +511,8 @@
 				403903D72A0D7FC500C7D077 /* Pretendard-Medium.ttf in Resources */,
 				40D7ED402A090F5700BFB428 /* Preview Assets.xcassets in Resources */,
 				403903D92A0D7FCC00C7D077 /* Pretendard-SemiBold.ttf in Resources */,
+				403903E82A0E131D00C7D077 /* Assets.xcassets in Resources */,
 				403903DF2A0D7FDE00C7D077 /* EBGaramond-Italic.ttf in Resources */,
-				40D7ED3D2A090F5700BFB428 /* Assets.xcassets in Resources */,
 				403903D42A0D7FBB00C7D077 /* Pretendard-ExtraBold.ttf in Resources */,
 				403903E32A0D7FEC00C7D077 /* EBGaramond-SemiBold.ttf in Resources */,
 				403903DC2A0D7FD600C7D077 /* EBGaramond-BoldItalic.ttf in Resources */,

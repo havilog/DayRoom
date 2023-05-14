@@ -52,7 +52,7 @@ public final class Preferences {
     public var onboardingFinished: Bool
     
     @ValueProperty(uniqueKey: "Preferences::password", defaultValue: nil)
-    public var password: UInt?
+    public var password: String?
 }
 
 private protocol AnyOptional {
