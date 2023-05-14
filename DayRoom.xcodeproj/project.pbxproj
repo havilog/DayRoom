@@ -41,6 +41,9 @@
 		403903E42A0D7FF000C7D077 /* EBGaramond-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4039039E2A0D3BB800C7D077 /* EBGaramond-SemiBoldItalic.ttf */; };
 		403903E62A0E017100C7D077 /* onFirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903E52A0E017100C7D077 /* onFirstAppear.swift */; };
 		403903E82A0E131D00C7D077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 403903E72A0E131D00C7D077 /* Assets.xcassets */; };
+		403903EB2A11077A00C7D077 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903EA2A11077A00C7D077 /* Main.swift */; };
+		403903EF2A11085F00C7D077 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903EE2A11085F00C7D077 /* Setting.swift */; };
+		403903F12A11096000C7D077 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903F02A11096000C7D077 /* MainView.swift */; };
 		40D7ED392A090F5500BFB428 /* DayRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED382A090F5500BFB428 /* DayRoomApp.swift */; };
 		40D7ED402A090F5700BFB428 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */; };
 		40D7ED452A090F5700BFB428 /* DayRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */; };
@@ -108,6 +111,9 @@
 		403903CE2A0D74F300C7D077 /* View+DebugFrameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+DebugFrameInfo.swift"; sourceTree = "<group>"; };
 		403903E52A0E017100C7D077 /* onFirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onFirstAppear.swift; sourceTree = "<group>"; };
 		403903E72A0E131D00C7D077 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		403903EA2A11077A00C7D077 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		403903EE2A11085F00C7D077 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		403903F02A11096000C7D077 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		40D7ED352A090F5500BFB428 /* DayRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40D7ED382A090F5500BFB428 /* DayRoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomApp.swift; sourceTree = "<group>"; };
 		40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -272,6 +278,15 @@
 			path = SwiftUI;
 			sourceTree = "<group>";
 		};
+		403903E92A11077100C7D077 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				403903EA2A11077A00C7D077 /* Main.swift */,
+				403903F02A11096000C7D077 /* MainView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		40D7ED2C2A090F5500BFB428 = {
 			isa = PBXGroup;
 			children = (
@@ -368,6 +383,7 @@
 		40D7ED6B2A090F7F00BFB428 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				403903EE2A11085F00C7D077 /* Setting.swift */,
 				40D7ED712A090FB100BFB428 /* SettingView.swift */,
 			);
 			path = Setting;
@@ -379,6 +395,7 @@
 				40D7ED692A090F7A00BFB428 /* App */,
 				40D7ED6A2A090F7C00BFB428 /* Root */,
 				403903B72A0D4BB300C7D077 /* Onboarding */,
+				403903E92A11077100C7D077 /* Main */,
 				403903B62A0D4BB000C7D077 /* Feed */,
 				403903B52A0D4BAC00C7D077 /* Password */,
 				40D7ED6B2A090F7F00BFB428 /* Setting */,
@@ -553,11 +570,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				40D7ED392A090F5500BFB428 /* DayRoomApp.swift in Sources */,
+				403903F12A11096000C7D077 /* MainView.swift in Sources */,
 				403903C32A0D4C0A00C7D077 /* PasswordView.swift in Sources */,
 				403903AC2A0D3C5500C7D077 /* Font+Custom.swift in Sources */,
 				40D7ED7B2A0913FD00BFB428 /* DayRoomDiary.swift in Sources */,
 				403903CF2A0D74F300C7D077 /* View+DebugFrameInfo.swift in Sources */,
 				403903E62A0E017100C7D077 /* onFirstAppear.swift in Sources */,
+				403903EF2A11085F00C7D077 /* Setting.swift in Sources */,
 				403903B02A0D3C6C00C7D077 /* UIColor+DayRoom.swift in Sources */,
 				403903BD2A0D4BE800C7D077 /* Feed.swift in Sources */,
 				40D7ED722A090FB100BFB428 /* SettingView.swift in Sources */,
@@ -566,6 +585,7 @@
 				403903B42A0D490100C7D077 /* Preferences.swift in Sources */,
 				403903AE2A0D3C6400C7D077 /* UIColor+hex.swift in Sources */,
 				403903BF2A0D4BFD00C7D077 /* FeedView.swift in Sources */,
+				403903EB2A11077A00C7D077 /* Main.swift in Sources */,
 				403903B92A0D4BCF00C7D077 /* Nickname.swift in Sources */,
 				40D7ED702A090FAA00BFB428 /* Root.swift in Sources */,
 				403903BB2A0D4BDC00C7D077 /* NicknameView.swift in Sources */,

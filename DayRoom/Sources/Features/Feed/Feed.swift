@@ -11,14 +11,20 @@ struct Feed: Reducer {
     
     // MARK: State
     
-    struct State: Equatable {
+    struct State: Hashable {
         
     }
     
     // MARK: Action
     
     enum Action: Equatable {
+        case settingButtonTapped
+        case createButtonTapped
+        case delegate(Delegate)
         
+        enum Delegate: Equatable {
+            case settingButtonTapped 
+        }
     }
     
     // MARK: Dependency
@@ -31,7 +37,14 @@ struct Feed: Reducer {
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
+        case .settingButtonTapped:
+            return .send(.delegate(.settingButtonTapped))
             
+        case .createButtonTapped:
+            return .none
+            
+        case .delegate:
+            return .none
         }
     }
 }

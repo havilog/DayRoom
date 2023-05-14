@@ -6,15 +6,35 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct SettingView: View {
+    let store: StoreOf<Setting>
+    @ObservedObject var viewStore: ViewStore<ViewState, Setting.Action>
+    
+    struct ViewState: Equatable {
+        init(state: Setting.State) {
+            
+        }
+    }
+    
+    init(store: StoreOf<Setting>) {
+        self.store = store
+        self.viewStore = ViewStore(store, observe: ViewState.init)
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("")
     }
 }
 
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView()
+        SettingView(
+            store: .init(
+                initialState: .init(), 
+                reducer: Setting()
+            )
+        )
     }
 }

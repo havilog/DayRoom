@@ -49,9 +49,9 @@ struct RootView: View {
                     PasswordView(store: store)
                 }
                 
-            case .feed:
-                CaseLet(/Root.Destination.State.feed, action: Root.Destination.Action.feed) { store in
-                    FeedView(store: store)
+            case .main:
+                CaseLet(/Root.Destination.State.main, action: Root.Destination.Action.main) { store in
+                    MainView(store: store)
                 }
                 
             }

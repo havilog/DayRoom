@@ -21,12 +21,12 @@ struct Root: Reducer {
             case splash
             case nickname(Nickname.State)
             case password(Password.State)
-            case feed(Feed.State)
+            case main(Main.State)
         }
         enum Action: Equatable {
             case nickname(Nickname.Action)
             case password(Password.Action)
-            case feed(Feed.Action)
+            case main(Main.Action)
         }
         var body: some ReducerProtocolOf<Self> {
             Scope(state: /State.nickname, action: /Action.nickname) {
@@ -35,8 +35,8 @@ struct Root: Reducer {
             Scope(state: /State.password, action: /Action.password) {
                 Password()
             }
-            Scope(state: /State.feed, action: /Action.feed) {
-                Feed()
+            Scope(state: /State.main, action: /Action.main) {
+                Main()
             }
         }
     }
@@ -83,7 +83,7 @@ struct Root: Reducer {
             if let _ = preferences.password {
                 state.destination = .password(.init(mode: .normal))
             } else {
-                state.destination = .feed(.init())
+                state.destination = .main(.init())
             }
             
             return .none
@@ -95,7 +95,7 @@ struct Root: Reducer {
                 if let _ = preferences.password {
                     state.destination = .password(.init(mode: .normal))
                 } else {
-                    state.destination = .feed(.init())
+                    state.destination = .main(.init())
                 }
                 return .none
             }
@@ -103,7 +103,7 @@ struct Root: Reducer {
         case let .destination(.password(.delegate(action))):
             switch action {
             case .passwordConfirmed:
-                state.destination = .feed(.init())
+                state.destination = .main(.init())
                 return .none
             }
             
