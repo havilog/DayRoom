@@ -42,16 +42,19 @@ struct RootView: View {
             case .nickname:
                 CaseLet(/Root.Destination.State.nickname, action: Root.Destination.Action.nickname) { store in
                     NicknameView(store: store)
+                        .transition(.opacity.animation(.default))
                 }
                 
             case .password:
                 CaseLet(/Root.Destination.State.password, action: Root.Destination.Action.password) { store in
                     PasswordView(store: store)
+                        .transition(.opacity.animation(.default))
                 }
                 
             case .main:
                 CaseLet(/Root.Destination.State.main, action: Root.Destination.Action.main) { store in
                     MainView(store: store)
+                        .transition(.opacity.animation(.default))
                 }
                 
             }

@@ -103,13 +103,19 @@ struct RecordGoalView: View {
     }
     
     private var completeButton: some View {
-        Button("완료") { viewStore.send(.completeButtonTapped) }
-            .font(pretendard: .heading3)
-            .foregroundColor(viewStore.isCompleteButtonDisabled ? Color.text_disabled : Color.day_white)
-            .frame(maxWidth: .infinity, minHeight: 56)
-            .background(viewStore.isCompleteButtonDisabled ? Color.grey20 : Color.day_green)
-            .disabled(viewStore.isCompleteButtonDisabled)
-            .debug()
+        
+        
+        Button { viewStore.send(.completeButtonTapped) } label: {
+            Text("완료")
+                .font(pretendard: .heading3)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        
+        .foregroundColor(viewStore.isCompleteButtonDisabled ? Color.text_disabled : Color.day_white)
+        .frame(maxWidth: .infinity, maxHeight: 56)
+        .background(viewStore.isCompleteButtonDisabled ? Color.grey20 : Color.day_green)
+        .disabled(viewStore.isCompleteButtonDisabled)
+        .debug()
     }
 }
 

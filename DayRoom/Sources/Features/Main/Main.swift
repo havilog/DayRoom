@@ -64,7 +64,6 @@ struct Main: Reducer {
             }
             
         case let .feed(action):
-            print(action)
             return .none
             
         case .path:

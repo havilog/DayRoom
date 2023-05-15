@@ -134,11 +134,11 @@ struct PasswordView: View {
             GridRow { 
                 numberPad(nil)
                 numberPad(0)
-                Image("ic_delete_24")
-                    .frame(width: 109, height: 88)
-                    .contentShape(Rectangle())
-                    .onTapGesture { viewStore.send(.backButtonTapped) }
-                    .debug()
+                Button { viewStore.send(.backButtonTapped) } label: { 
+                    Image("ic_delete_24").frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                .frame(width: 109, height: 88)
+                .debug()
             }
         }
     }
@@ -146,13 +146,15 @@ struct PasswordView: View {
     @ViewBuilder
     private func numberPad(_ number: Int?) -> some View {
         if let number {
-            Text("\(number)")
-                .font(garamond: .heading1)
-                .foregroundColor(.text_primary)
-                .frame(width: 109, height: 88)
-                .contentShape(Rectangle())
-                .onTapGesture { viewStore.send(.keypadTapped(number: String(number))) }
-                .debug()
+            Button { viewStore.send(.keypadTapped(number: String(number))) } label: { 
+                Text("\(number)")
+                    .font(garamond: .heading1)
+                    .foregroundColor(.text_primary)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            .frame(width: 109, height: 88)
+            .debug()
+                
         } else {
             Color.clear
                 .frame(width: 109, height: 88)

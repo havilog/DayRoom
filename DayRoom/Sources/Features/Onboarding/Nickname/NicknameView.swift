@@ -103,14 +103,16 @@ struct NicknameView: View {
     }
     
     private var nextButton: some View {
-        Button("다음") { viewStore.send(.nextButtonTapped) }
-            .contentShape(Rectangle())
-            .font(pretendard: .heading3)
-            .foregroundColor(viewStore.isNextButtonDisabled ? Color.text_disabled : Color.day_white)
-            .frame(maxWidth: .infinity, minHeight: 56)
-            .background(viewStore.isNextButtonDisabled ? Color.grey20 : Color.day_green)
-            .disabled(viewStore.isNextButtonDisabled)
-            .debug()
+        Button { viewStore.send(.nextButtonTapped) } label: { 
+            Text("다음")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .font(pretendard: .heading3)
+        }
+        .foregroundColor(viewStore.isNextButtonDisabled ? Color.text_disabled : Color.day_white)
+        .frame(maxWidth: .infinity, maxHeight: 56)
+        .background(viewStore.isNextButtonDisabled ? Color.grey20 : Color.day_green)
+        .disabled(viewStore.isNextButtonDisabled)
+        .debug()
     }
 }
 

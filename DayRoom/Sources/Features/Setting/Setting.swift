@@ -18,7 +18,7 @@ struct Setting: Reducer {
     // MARK: Action
     
     enum Action: Equatable {
-        
+        case backButtonTapped
     }
     
     // MARK: Dependency
@@ -31,7 +31,8 @@ struct Setting: Reducer {
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
-            
+        case .backButtonTapped:
+            return .none
         }
     }
 }
