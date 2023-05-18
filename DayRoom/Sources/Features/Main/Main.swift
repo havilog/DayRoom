@@ -15,6 +15,7 @@ struct Main: Reducer {
     struct State: Equatable {
         var feed: Feed.State = .init()
         var path: StackState<Path.State> = .init()
+        @PresentationState var destination: Destination.State? = nil
     }
     
     // MARK: Action
@@ -22,6 +23,7 @@ struct Main: Reducer {
     enum Action: Equatable {
         case feed(Feed.Action)
         case path(StackAction<Path.State, Path.Action>)
+        case destination(PresentationAction<Destination.Action>)
     }
     
     // MARK: Path
@@ -47,6 +49,24 @@ struct Main: Reducer {
         }
     }
     
+    // MARK: Destination
+    
+    struct Destination: Reducer {
+        enum State: Equatable {
+            case diaryCreate(DiaryCreate.State)
+        }
+        
+        enum Action: Equatable {
+            case diaryCreate(DiaryCreate.Action)
+        }
+        
+        var body: some ReducerOf<Self> {
+            Scope(state: /State.diaryCreate, action: /Action.diaryCreate) { 
+                DiaryCreate()
+            }
+        }
+    }
+    
     // MARK: Dependency
     
     @Dependency(\.preferences) private var preferences 
@@ -62,6 +82,9 @@ struct Main: Reducer {
             .forEach(\.path, action: /Action.path) { 
                 Path()
             }
+            .ifLet(\.$destination, action: /Action.destination) {
+                Destination()
+            }
     }
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -70,7 +93,11 @@ struct Main: Reducer {
             switch action {
             case .settingButtonTapped:
                 state.path.append(.setting(.init()))
-                return .none    
+                return .none
+                
+            case .createButtonTapped:
+                state.destination = .diaryCreate(.init(date: .now))
+                return .none
             }
             
         case let .feed(action):
@@ -96,6 +123,9 @@ struct Main: Reducer {
             
         case .path:
             return .none
+            
+        case .destination:
+            return .none
         }
     }
 }
@@ -110,6 +140,12 @@ struct MainView: View {
     var body: some View {
         NavigationStackStore(store.scope(state: \.path, action: Main.Action.path)) { 
             FeedView(store: store.scope(state: \.feed, action: Main.Action.feed))
+                .fullScreenCover(
+                    store: store.scope(state: \.$destination, action: Main.Action.destination), 
+                    state: /Main.Destination.State.diaryCreate, 
+                    action: Main.Destination.Action.diaryCreate, 
+                    content: DiaryCreateView.init
+                )
         } destination: { destination in
             switch destination {
             case .setting:

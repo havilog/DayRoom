@@ -24,7 +24,8 @@ struct Feed: Reducer {
         case delegate(Delegate)
         
         enum Delegate: Equatable {
-            case settingButtonTapped 
+            case settingButtonTapped
+            case createButtonTapped
         }
     }
     
@@ -42,7 +43,7 @@ struct Feed: Reducer {
             return .send(.delegate(.settingButtonTapped))
             
         case .createButtonTapped:
-            return .none
+            return .send(.delegate(.createButtonTapped))
             
         case .delegate:
             return .none
