@@ -23,18 +23,21 @@ struct PersistenceManager {
         return container
     }()
     
-    var save: @Sendable (Data, Date, String) throws -> Void
+    var save: @Sendable (Data?, Date, String) throws -> Void
+    var load: @Sendable () throws -> [Diary]
 }
 
 extension PersistenceManager: DependencyKey {
     static var liveValue: PersistenceManager = .init(
         save: { imageData, date, content in
             let newDiary: Diary = .init(context: Self.container.viewContext)
-            // TODO: id, image, identifiable
-            newDiary.setValue(imageData, forKey: #keyPath(Diary.image))
+            if let imageData { newDiary.setValue(imageData, forKey: #keyPath(Diary.image)) }
             newDiary.setValue(date, forKey: #keyPath(Diary.date))
             newDiary.setValue(content, forKey: #keyPath(Diary.content))
             try Self.container.viewContext.save()
+        },
+        load: {
+            return []
         }
     )
     static var testValue: PersistenceManager = unimplemented()

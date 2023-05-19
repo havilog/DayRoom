@@ -8,9 +8,17 @@
 import Foundation
 
 public extension Date {
-    var formatted: String {
+    var yearMonthDay: String {
         let formatter: DateFormatter = .init()
         formatter.dateFormat = "yyyy. MM. dd"
         return formatter.string(from: self)
+    }
+    
+    var day: String {
+        return ""
+    }
+    
+    var dayOfWeek: String {
+        return ""
     }
 }

@@ -71,56 +71,42 @@ struct FeedView: View {
     }
     
     private var bodyView: some View {
-        ZStack {
-            VStack(spacing: .zero) {
-                navigationTitle
-                
-                ScrollView {
-                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 16, alignment: .top)]) { 
-                        CardView()
-                        CardView()
-                        CardView()
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 12)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .debug(.red)
-            }
+        VStack(spacing: .zero) {
+            navigationTitle
             
-            createButton
-                .frame(maxHeight: .infinity, alignment: .bottom)
-                .padding(.bottom, 48)
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.flexible(), spacing: 16, alignment: .top)]) { 
+                    CardView()
+                    CardView()
+                    CardView()
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 12)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .debug(.red)
         }
         .ignoresSafeArea(edges: .bottom)
     }
     
     private var navigationTitle: some View {
         HStack(spacing: .zero) {
-            Color.clear.frame(width: 48, height: 48)
-            
-            Spacer()
-            
             Text("April, 2023")
                 .font(garamond: .heading2)
                 .foregroundColor(.text_primary)
             
             Spacer()
             
+            Button { viewStore.send(.createButtonTapped) } label: { Image("ic_edit_3_24") }
+                .frame(width: 48, height: 48)
+            
             Button { viewStore.send(.settingButtonTapped) } label: { Image("ic_user_24") }
                 .frame(width: 48, height: 48)
         }
         .frame(height: 56)
-        .padding(.horizontal, 12)
+        .padding(.leading, 20)
+        .padding(.trailing, 12)
         .debug()
-    }
-    
-    private var createButton: some View {
-        Button { viewStore.send(.createButtonTapped) } label: { Image("ic_plus_24") }
-            .frame(width: 56, height: 56)
-            .background(Color.day_green)
-            .cornerRadius(28)
-            .debug()
     }
 }
 
