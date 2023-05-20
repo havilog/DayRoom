@@ -13,6 +13,8 @@ struct Main: Reducer {
     // MARK: State
     
     struct State: Equatable {
+        var date: Date = .now
+        
         var feed: Feed.State = .init()
         var path: StackState<Path.State> = .init()
         @PresentationState var destination: Destination.State? = nil
@@ -96,6 +98,10 @@ struct Main: Reducer {
                 return .none
                 
             case .createButtonTapped:
+                state.destination = .diaryCreate(.init(date: state.date))
+                return .none
+                
+            case .todayCardTapped:
                 state.destination = .diaryCreate(.init(date: .now))
                 return .none
             }

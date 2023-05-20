@@ -52,7 +52,8 @@
 		40EFCEBF2A16798A00B30839 /* DiaryCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EFCEBE2A16798A00B30839 /* DiaryCreate.swift */; };
 		40EFCEC12A16799000B30839 /* DiaryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EFCEC02A16799000B30839 /* DiaryDetail.swift */; };
 		40EFCEC32A167E8300B30839 /* DiaryImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EFCEC22A167E8300B30839 /* DiaryImagePicker.swift */; };
-		40EFCEC62A16800F00B30839 /* String+Formatted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EFCEC52A16800F00B30839 /* String+Formatted.swift */; };
+		40EFCEC62A16800F00B30839 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EFCEC52A16800F00B30839 /* Date+Extension.swift */; };
+		40EFCECB2A18C56B00B30839 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 40EFCECA2A18C56B00B30839 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,7 +122,7 @@
 		40EFCEBE2A16798A00B30839 /* DiaryCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCreate.swift; sourceTree = "<group>"; };
 		40EFCEC02A16799000B30839 /* DiaryDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetail.swift; sourceTree = "<group>"; };
 		40EFCEC22A167E8300B30839 /* DiaryImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryImagePicker.swift; sourceTree = "<group>"; };
-		40EFCEC52A16800F00B30839 /* String+Formatted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Formatted.swift"; sourceTree = "<group>"; };
+		40EFCEC52A16800F00B30839 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40EFCECB2A18C56B00B30839 /* Kingfisher in Frameworks */,
 				40D7ED752A09101200BFB428 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -408,7 +410,7 @@
 		40EFCEC42A16800600B30839 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				40EFCEC52A16800F00B30839 /* String+Formatted.swift */,
+				40EFCEC52A16800F00B30839 /* Date+Extension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -431,6 +433,7 @@
 			name = DayRoom;
 			packageProductDependencies = (
 				40D7ED742A09101200BFB428 /* ComposableArchitecture */,
+				40EFCECA2A18C56B00B30839 /* Kingfisher */,
 			);
 			productName = DayRoom;
 			productReference = 40D7ED352A090F5500BFB428 /* DayRoom.app */;
@@ -506,6 +509,7 @@
 			mainGroup = 40D7ED2C2A090F5500BFB428;
 			packageReferences = (
 				40D7ED732A09101200BFB428 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				40EFCEC92A18C56B00B30839 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 40D7ED362A090F5500BFB428 /* Products */;
 			projectDirPath = "";
@@ -580,7 +584,7 @@
 				403903B42A0D490100C7D077 /* Preferences.swift in Sources */,
 				40EFCEC12A16799000B30839 /* DiaryDetail.swift in Sources */,
 				403903AE2A0D3C6400C7D077 /* UIColor+hex.swift in Sources */,
-				40EFCEC62A16800F00B30839 /* String+Formatted.swift in Sources */,
+				40EFCEC62A16800F00B30839 /* Date+Extension.swift in Sources */,
 				403903EB2A11077A00C7D077 /* Main.swift in Sources */,
 				403903B92A0D4BCF00C7D077 /* Nickname.swift in Sources */,
 				40D7ED702A090FAA00BFB428 /* Root.swift in Sources */,
@@ -925,6 +929,14 @@
 				kind = branch;
 			};
 		};
+		40EFCEC92A18C56B00B30839 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -932,6 +944,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 40D7ED732A09101200BFB428 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
+		};
+		40EFCECA2A18C56B00B30839 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40EFCEC92A18C56B00B30839 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 

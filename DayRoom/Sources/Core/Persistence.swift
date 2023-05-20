@@ -12,7 +12,7 @@ import ComposableArchitecture
 
 struct PersistenceManager {
     private enum Constant {
-        static let diaryContainerName: String = "DayRoomDiary"
+        static let diaryContainerName: String = "DayRoom"
     }
     
     private static var container: NSPersistentContainer = {
@@ -31,13 +31,19 @@ extension PersistenceManager: DependencyKey {
     static var liveValue: PersistenceManager = .init(
         save: { imageData, date, content in
             let newDiary: Diary = .init(context: Self.container.viewContext)
-            if let imageData { newDiary.setValue(imageData, forKey: #keyPath(Diary.image)) }
-            newDiary.setValue(date, forKey: #keyPath(Diary.date))
-            newDiary.setValue(content, forKey: #keyPath(Diary.content))
+            newDiary.id = .init()
+            newDiary.image = imageData
+            newDiary.date = date
+            newDiary.content = content
             try Self.container.viewContext.save()
         },
         load: {
-            return []
+            let context = container.newBackgroundContext()
+            let fetchRequest: NSFetchRequest<Diary> = Diary.fetchRequest()
+            let sortByDate: NSSortDescriptor = .init(key: #keyPath(Diary.date), ascending: false)
+            fetchRequest.sortDescriptors = [sortByDate]
+            let results = try container.viewContext.fetch(fetchRequest)
+            return results
         }
     )
     static var testValue: PersistenceManager = unimplemented()

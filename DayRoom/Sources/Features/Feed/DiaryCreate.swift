@@ -13,16 +13,11 @@ struct DiaryCreate: Reducer {
     // MARK: State
     
     struct State: Equatable {
-        var mode: DiaryCreateMode = .photo
+        var mode: DiaryMode = .photo(nil)
         var date: Date
         var selectedImage: UIImage? = nil
         @BindingState var content: String = ""
         @PresentationState var destination: Destination.State? = nil
-    }
-    
-    enum DiaryCreateMode: Equatable {
-        case photo
-        case content
     }
     
     // MARK: Action
@@ -75,7 +70,7 @@ struct DiaryCreate: Reducer {
         case let .imageSelected(image):
             state.selectedImage = image
             state.destination = nil
-            state.mode = .content
+            state.mode = .content("")
             return .none
             
         case .imagePickerDismissed:
@@ -86,15 +81,14 @@ struct DiaryCreate: Reducer {
             return .fireAndForget { await dismiss() }
             
         case .saveButtonTapped:
-            return .fireAndForget { await dismiss() }
-//            return .task { [imageData = state.selectedImage?.jpegData(compressionQuality: 1.0), date = state.date, content = state.content] in
-//                await .saveResponse(
-//                    TaskResult { 
-//                        try persistence.save(imageData, date, content)
-//                        return true
-//                    }
-//                )
-//            }
+            return .task { [imageData = state.selectedImage?.jpegData(compressionQuality: 1.0), date = state.date, content = state.content] in
+                await .saveResponse(
+                    TaskResult { 
+                        try persistence.save(imageData, date, content)
+                        return true
+                    }
+                )
+            }
             
         case .saveResponse(.success):
             // TODO: 무언가 예쁜 확인
@@ -144,7 +138,12 @@ struct DiaryCreateView: View {
             ScrollView {
                 VStack(spacing: .zero) {
                     title
-                    if viewStore.mode == .photo { diaryImageView }
+                    if case let .photo(image) = viewStore.mode {
+                        CardView(
+                            date: viewStore.date,
+                            diaryMode: .photo(image)
+                        ) { viewStore.send(.imageAreaTapped) }
+                    }
                     else { diaryContent }
                 }
             }
@@ -156,7 +155,7 @@ struct DiaryCreateView: View {
         HStack(spacing: .zero) { 
             closeButton
             Spacer()
-            if viewStore.mode == .content { saveButton }
+            if case .content = viewStore.mode { saveButton }
         }
     }
     
@@ -174,49 +173,12 @@ struct DiaryCreateView: View {
     }
     
     private var title: some View {
-        Text(viewStore.mode == .photo ? "오늘의 추억은\n무엇인가요?" : "오늘 하루는\n어땠어요?")
+        Text("오늘의 추억은\n무엇인가요?")
             .font(garamond: .heading2)
             .foregroundColor(.text_primary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .debug()
             .padding(.vertical, 12)
-    }
-    
-    private var diaryImageView: some View {
-        ZStack(alignment: .bottom) { 
-            diaryImage
-            VStack(spacing: .zero) { 
-                Text("1")
-                    .font(garamond: .hero)
-                    .foregroundColor(.text_disabled)
-                
-                Text("monday")
-                    .font(garamond: .body2)
-                    .foregroundColor(.text_disabled)
-            }
-            .padding(24)
-        }
-    }
-    
-    @ViewBuilder
-    private var diaryImage: some View {
-        if let image = viewStore.selectedImage {
-            Image(uiImage: image)
-                .resizable()
-                .frame(height: 500)
-                .frame(maxWidth: .infinity)
-                .cornerRadius(24)
-                .contentShape(Rectangle())
-                .onTapGesture { viewStore.send(.imageAreaTapped) }
-        } else {
-            // FIXME: 임시 뷰
-            Color.elevated
-                .frame(height: 500)
-                .frame(maxWidth: .infinity)
-                .cornerRadius(24)
-                .contentShape(Rectangle())
-                .onTapGesture { viewStore.send(.imageAreaTapped) }
-        }
     }
     
     private var diaryContent: some View {
@@ -229,38 +191,26 @@ struct DiaryCreateView: View {
                     .background(Color.day_brown)
                     .cornerRadius(20)
             }
-//            .debug()
             .padding(.bottom, 16)
             
-            Text(viewStore.date.yearMonthDay)
+            Text(viewStore.date.toString(format: "yyyy. MM. dd"))
                 .font(garamond: .heading4)
                 .foregroundColor(.day_brown)
                 .padding(.bottom, 24)
             
-            ZStack(alignment: .leading) {
-                if viewStore.content.isEmpty {
-                    Text("오늘 하루는 어땠어요?")
-                        .font(pretendard: .body2)
-                        .foregroundColor(.day_black)
-                        .padding(.leading, 16)
-                        .padding(.top, 12)
-                        .frame(maxHeight: .infinity, alignment: .topLeading)
-                }
-                
-                TextEditor(text: viewStore.binding(\.$content))
-                    .font(Font(UIFont(name: "Pretendard-Regular", size: 16)!))
-                    .foregroundColor(.grey80)
-                    .autocorrectionDisabled(true)
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 10)
-                    .background(Color.day_white)
-                    .opacity(viewStore.content.isEmpty ? 0.7 : 1)
-                    .cornerRadius(8)
-            }
+            TextEditor(text: viewStore.binding(\.$content))
+                .font(Font(UIFont(name: "Pretendard-Regular", size: 16)!))
+                .foregroundColor(.grey80)
+                .autocorrectionDisabled(true)
+                .padding(.vertical, 10)
+                .padding(.horizontal, 10)
+                .background(Color.day_white)
+                .cornerRadius(8)
         }
         .padding(.horizontal, 28)
         .padding(.vertical, 32)
-        .frame(maxWidth: .infinity, minHeight: 500)
+        .frame(height: 500)
+        .frame(maxWidth: .infinity)
         .background(Color.day_brown_light)
         .cornerRadius(24)
     }
@@ -274,5 +224,35 @@ struct DiaryCreateView_Previews: PreviewProvider {
                 reducer: DiaryCreate()
             )
         )
+        
+        DiaryCreateView(
+            store: .init(
+                initialState: .init(mode: .content(""), date: .now), 
+                reducer: DiaryCreate()
+            )
+        )
     }
 }
+
+// 이미지
+//        if let image = viewStore.selectedImage {
+//            Image(uiImage: image)
+//                .resizable()
+//                .frame(height: 500)
+//                .frame(maxWidth: .infinity)
+//                .cornerRadius(24)
+//                .contentShape(Rectangle())
+//                .onTapGesture { viewStore.send(.imageAreaTapped) }
+//        } else {
+
+// 플레이스 홀더
+//            ZStack(alignment: .leading) {
+//                if viewStore.content.isEmpty {
+//                    Text("오늘 하루는 어땠어요?")
+//                        .font(pretendard: .body2)
+//                        .foregroundColor(.day_black)
+//                        .padding(.leading, 16)
+//                        .padding(.top, 12)
+//                        .frame(maxHeight: .infinity, alignment: .topLeading)
+//                }
+//            }
