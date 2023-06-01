@@ -15,7 +15,7 @@ struct Nickname: Reducer {
     
     struct State: Equatable {
         var isNicknameValid: Bool = true
-        var isNextButtonDisabled: Bool { !isNicknameValid || nickname.isEmpty }
+        var isDoneButtonDisabled: Bool { !isNicknameValid || nickname.isEmpty }
         
         @BindingState var nickname: String = ""
         @BindingState var focus: Field?
@@ -29,12 +29,12 @@ struct Nickname: Reducer {
     
     enum Action: Equatable, BindableAction {
         case onAppear
-        case nextButtonTapped
+        case doneButtonTapped
         
         case binding(BindingAction<State>)
         case delegate(Delegate)
         enum Delegate: Equatable {
-            case onboardingFinished
+            case nicknameDetermined
         }
     }
     
@@ -51,8 +51,8 @@ struct Nickname: Reducer {
             state.focus = .nickname
             return .none
             
-        case .nextButtonTapped:
-            return .none
+        case .doneButtonTapped:
+            return .send(.delegate(.nicknameDetermined))
             
         case .binding(\.$nickname):
             state.isNicknameValid = validate(nickname: state.nickname)
@@ -97,7 +97,7 @@ struct NicknameView: View {
             }
             .padding(.horizontal, 20)
             
-            nextButton
+            doneButton
         }
         .onAppear { viewStore.send(.onAppear) }
     }
@@ -149,16 +149,16 @@ struct NicknameView: View {
         }
     }
     
-    private var nextButton: some View {
-        Button { viewStore.send(.nextButtonTapped) } label: { 
+    private var doneButton: some View {
+        Button { viewStore.send(.doneButtonTapped) } label: { 
             Text("다음")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .font(pretendard: .heading3)
         }
-        .foregroundColor(viewStore.isNextButtonDisabled ? Color.text_disabled : Color.day_white)
+        .foregroundColor(viewStore.isDoneButtonDisabled ? Color.text_disabled : Color.day_white)
         .frame(maxWidth: .infinity, maxHeight: 56)
-        .background(viewStore.isNextButtonDisabled ? Color.grey20 : Color.day_green)
-        .disabled(viewStore.isNextButtonDisabled)
+        .background(viewStore.isDoneButtonDisabled ? Color.grey20 : Color.day_green)
+        .disabled(viewStore.isDoneButtonDisabled)
         .debug()
     }
 }

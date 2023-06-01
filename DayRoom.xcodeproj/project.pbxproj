@@ -221,14 +221,6 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
-		403903B72A0D4BB300C7D077 /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				403903C42A0D50C200C7D077 /* Nickname */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
 		403903C42A0D50C200C7D077 /* Nickname */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,7 +361,7 @@
 			children = (
 				40D7ED692A090F7A00BFB428 /* App */,
 				40D7ED6A2A090F7C00BFB428 /* Root */,
-				403903B72A0D4BB300C7D077 /* Onboarding */,
+				403903C42A0D50C200C7D077 /* Nickname */,
 				403903E92A11077100C7D077 /* Main */,
 				403903B62A0D4BB000C7D077 /* Feed */,
 				403903B52A0D4BAC00C7D077 /* Password */,

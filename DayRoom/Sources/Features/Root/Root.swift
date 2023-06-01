@@ -20,6 +20,7 @@ struct Root: Reducer {
     struct Destination: Reducer {
         enum State: Equatable {
             case splash
+            case welcome
             case nickname(Nickname.State)
             case password(Password.State)
             case main(Main.State)
@@ -47,6 +48,7 @@ struct Root: Reducer {
     enum Action: Equatable {
         case onFirstAppear
         case splashCompleted
+        case welcomeAnimationFinished
         
         case destination(Destination.Action)
     }
@@ -89,16 +91,23 @@ struct Root: Reducer {
             
             return .none
             
+        case .welcomeAnimationFinished:
+            if let _ = preferences.password {
+                state.destination = .password(.init(mode: .normal))
+            } else {
+                state.destination = .main(.init())
+            }
+            return .none
+            
         case let .destination(.nickname(.delegate(action))):
             switch action {
-            case .onboardingFinished:
+            case .nicknameDetermined:
                 preferences.onboardingFinished = true
-                if let _ = preferences.password {
-                    state.destination = .password(.init(mode: .normal))
-                } else {
-                    state.destination = .main(.init())
+                state.destination = .welcome
+                return .task {
+                    try await clock.sleep(for: .seconds(2))
+                    return .welcomeAnimationFinished
                 }
-                return .none
             }
             
         case let .destination(.password(.delegate(action))):
@@ -144,6 +153,10 @@ struct RootView: View {
             switch state {
             case .splash:
                 Image("app_logo")
+                
+            case .welcome:
+                Image("app_logo") // FIXME: 로띠로 변경
+                    .transition(.opacity.animation(.default))
                 
             case .nickname:
                 CaseLet(/Root.Destination.State.nickname, action: Root.Destination.Action.nickname) { store in
