@@ -1,5 +1,5 @@
 //
-//  FeedFeature.swift
+//  DiaryFeedFeature.swift
 //  DayRoom
 //
 //  Created by 한상진 on 2023/05/12.
@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 import ComposableArchitecture
 
-struct Feed: Reducer {
+struct DiaryFeed: Reducer {
     
     // MARK: State
     
@@ -78,22 +78,22 @@ struct Feed: Reducer {
     }
 }
 
-struct FeedView: View {
-    let store: StoreOf<Feed>
-    @ObservedObject var viewStore: ViewStore<ViewState, Feed.Action>
+struct DiaryFeedView: View {
+    let store: StoreOf<DiaryFeed>
+    @ObservedObject var viewStore: ViewStore<ViewState, DiaryFeed.Action>
     
     struct ViewState: Equatable {
         let date: Date
         let diaries: IdentifiedArrayOf<Diary>
         let isWrittenToday: Bool
-        init(state: Feed.State) {
+        init(state: DiaryFeed.State) {
             self.date = state.date
             self.diaries = state.diaries
-            self.isWrittenToday = state.diaries.compactMap(\.date).allSatisfy(\.isToday)
+            self.isWrittenToday = state.diaries.isEmpty ? false : state.diaries.compactMap(\.date).allSatisfy(\.isToday)
         }
     }
     
-    init(store: StoreOf<Feed>) {
+    init(store: StoreOf<DiaryFeed>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: ViewState.init)
     }
@@ -155,73 +155,13 @@ struct FeedView: View {
     }
 }
 
-enum DiaryMode: Equatable {
-    case photo(UIImage?)
-    case content(String)
-}
-
-struct CardView: View {
-    /// diary를 받아서, 일기의 날짜를 표시해주고
-    /// 액션을 인지하면, 토글
-    let date: Date
-    let diaryMode: DiaryMode
-    
-    var perform: () -> Void
-    
-    var body: some View {
-        bodyView
-    }
-    
-    @ViewBuilder
-    private var bodyView: some View {
-        switch diaryMode {
-        case let .photo(uiImage):
-            photoBody(uiImage)
-            
-        case let .content(content):
-            Text(content)
-        }
-    }
-    
-    private func photoBody(_ image: UIImage?) -> some View {
-        ZStack(alignment: .bottom) {
-            photoContent(image)
-                .frame(height: 500)
-                .frame(maxWidth: .infinity)
-                .cornerRadius(24)
-                .contentShape(Rectangle())
-                .onTapGesture(perform: perform)
-            
-            VStack(spacing: .zero) { 
-                Text(String(date.day))
-                    .font(garamond: .hero)
-                    .foregroundColor(image == nil ? .text_disabled : .day_white)
-                
-                Text(date.weekday.english)
-                    .font(garamond: .body2)
-                    .foregroundColor(image == nil ? .text_disabled : .day_white)
-            }
-            .padding(24)
-        }
-    }
-    
-    @ViewBuilder
-    private func photoContent(_ image: UIImage?) -> some View {
-        if let image {
-            Image(uiImage: image).resizable()
-        } else {
-            Color.elevated
-        }
-    }
-}
-
-struct FeedView_Previews: PreviewProvider {
+struct DiaryFeedView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            FeedView(
+            DiaryFeedView(
                 store: .init(
                     initialState: .init(diaries: []), 
-                    reducer: Feed()
+                    reducer: DiaryFeed()
                 )
             )
         }

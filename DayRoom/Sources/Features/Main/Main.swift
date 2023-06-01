@@ -15,7 +15,7 @@ struct Main: Reducer {
     struct State: Equatable {
         var date: Date = .now
         
-        var feed: Feed.State = .init()
+        var diaryFeed: DiaryFeed.State = .init()
         var path: StackState<Path.State> = .init()
         @PresentationState var destination: Destination.State? = nil
     }
@@ -23,7 +23,7 @@ struct Main: Reducer {
     // MARK: Action
     
     enum Action: Equatable {
-        case feed(Feed.Action)
+        case diaryFeed(DiaryFeed.Action)
         case path(StackAction<Path.State, Path.Action>)
         case destination(PresentationAction<Destination.Action>)
     }
@@ -76,8 +76,8 @@ struct Main: Reducer {
     // MARK: Body
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.feed, action: /Action.feed) { 
-            Feed()
+        Scope(state: \.diaryFeed, action: /Action.diaryFeed) { 
+            DiaryFeed()
         }
         
         Reduce(core)
@@ -91,7 +91,7 @@ struct Main: Reducer {
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
-        case let .feed(.delegate(action)):
+        case let .diaryFeed(.delegate(action)):
             switch action {
             case .settingButtonTapped:
                 state.path.append(.setting(.init()))
@@ -106,7 +106,7 @@ struct Main: Reducer {
                 return .none
             }
             
-        case let .feed(action):
+        case let .diaryFeed(action):
             return .none
             
         case let .path(.element(id: id, action: .setting(.delegate(action)))):
@@ -145,7 +145,7 @@ struct MainView: View {
     
     var body: some View {
         NavigationStackStore(store.scope(state: \.path, action: Main.Action.path)) { 
-            FeedView(store: store.scope(state: \.feed, action: Main.Action.feed))
+            DiaryFeedView(store: store.scope(state: \.diaryFeed, action: Main.Action.diaryFeed))
                 .fullScreenCover(
                     store: store.scope(state: \.$destination, action: Main.Action.destination), 
                     state: /Main.Destination.State.diaryCreate, 

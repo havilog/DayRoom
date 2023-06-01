@@ -13,8 +13,10 @@ struct DiaryCreate: Reducer {
     // MARK: State
     
     struct State: Equatable {
-        var mode: DiaryMode = .photo(nil)
         var date: Date
+        var card: DiaryCard.State? = nil
+        
+        var mode: DiaryMode = .photo(nil)
         var selectedImage: UIImage? = nil
         @BindingState var content: String = ""
         @PresentationState var destination: Destination.State? = nil
@@ -23,11 +25,15 @@ struct DiaryCreate: Reducer {
     // MARK: Action
     
     enum Action: Equatable, BindableAction {
+        case onFirstAppear
         case imageAreaTapped
         case imageSelected(UIImage)
         case imagePickerDismissed
         case closeButtonTapped
         case saveButtonTapped
+        
+        case card(DiaryCard.Action)
+        
         case saveResponse(TaskResult<Bool>)
         case destination(PresentationAction<Destination.Action>)
         case binding(BindingAction<State>)
@@ -38,14 +44,18 @@ struct DiaryCreate: Reducer {
     struct Destination: Reducer {
         enum State: Equatable {
             case imagePicker
+            case moodPicker(MoodPicker.State)
         }
         
         enum Action: Equatable {
             case imagePicker
+            case moodPicker(MoodPicker.Action)
         }
         
         var body: some ReducerOf<Self> {
-            EmptyReducer()
+            Scope(state: /State.moodPicker, action: /Action.moodPicker) { 
+                MoodPicker()
+            }
         }
     }
     
@@ -59,10 +69,20 @@ struct DiaryCreate: Reducer {
     var body: some ReducerOf<Self> {
         BindingReducer()
         Reduce(core)
+            .ifLet(\.card, action: /Action.card) {
+                DiaryCard()
+            }
+            .ifLet(\.$destination, action: /Action.destination) {
+                Destination()
+            }
     }
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
+        case .onFirstAppear:
+            state.destination = .moodPicker(.init())
+            return .none
+            
         case .imageAreaTapped:
             state.destination = .imagePicker
             return .none
@@ -102,6 +122,13 @@ struct DiaryCreate: Reducer {
             // TODO: 실패한거 알리기
             return .none
             
+        case let .destination(.presented(.moodPicker(.delegate(action)))):
+            switch action {
+            case let .moodSelected(mood):
+                state.card = .init(date: state.date, mood: mood)
+                return .none
+            }
+            
         case .destination:
             return .none
             
@@ -122,6 +149,13 @@ struct DiaryCreateView: View {
     
     var body: some View {
         bodyView
+            .onFirstAppear { viewStore.send(.onFirstAppear) }
+            .sheet(
+                store: store.scope(state: \.$destination, action: DiaryCreate.Action.destination),
+                state: /DiaryCreate.Destination.State.moodPicker,
+                action: DiaryCreate.Destination.Action.moodPicker,
+                content: MoodPickerView.init
+            )
             .sheet(
                 isPresented: .init(
                     get: { viewStore.state.destination == .imagePicker }, 
@@ -142,13 +176,11 @@ struct DiaryCreateView: View {
             ScrollView {
                 VStack(spacing: .zero) {
                     title
-                    if case let .photo(image) = viewStore.mode {
-                        CardView(
-                            date: viewStore.date,
-                            diaryMode: .photo(image)
-                        ) { viewStore.send(.imageAreaTapped) }
-                    }
-                    else { diaryContent }
+                    
+                    IfLetStore(
+                        store.scope(state: \.card, action: DiaryCreate.Action.card), 
+                        then: DiaryCardView.init
+                    )
                 }
             }
             .padding(.horizontal, 20)
@@ -178,11 +210,12 @@ struct DiaryCreateView: View {
     
     private var title: some View {
         Text("오늘의 추억은\n무엇인가요?")
-            .font(garamond: .heading2)
+            .font(pretendard: .heading1)
             .foregroundColor(.text_primary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .debug()
-            .padding(.vertical, 12)
+            .padding(.top, 24)
+            .padding(.bottom, 32)
     }
     
     private var diaryContent: some View {
@@ -231,7 +264,7 @@ struct DiaryCreateView_Previews: PreviewProvider {
         
         DiaryCreateView(
             store: .init(
-                initialState: .init(mode: .content(""), date: .now), 
+                initialState: .init(date: .now, mode: .content("")), 
                 reducer: DiaryCreate()
             )
         )
