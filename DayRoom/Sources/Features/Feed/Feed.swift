@@ -161,6 +161,8 @@ enum DiaryMode: Equatable {
 }
 
 struct CardView: View {
+    /// diary를 받아서, 일기의 날짜를 표시해주고
+    /// 액션을 인지하면, 토글
     let date: Date
     let diaryMode: DiaryMode
     

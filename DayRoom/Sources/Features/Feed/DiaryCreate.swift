@@ -81,7 +81,11 @@ struct DiaryCreate: Reducer {
             return .fireAndForget { await dismiss() }
             
         case .saveButtonTapped:
-            return .task { [imageData = state.selectedImage?.jpegData(compressionQuality: 1.0), date = state.date, content = state.content] in
+            return .task { [
+                imageData = state.selectedImage?.jpegData(compressionQuality: 1.0), 
+                date = state.date,
+                content = state.content
+            ] in
                 await .saveResponse(
                     TaskResult { 
                         try persistence.save(imageData, date, content)

@@ -14,7 +14,6 @@
 		403903B92A0D4BCF00C7D077 /* Nickname.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903B82A0D4BCF00C7D077 /* Nickname.swift */; };
 		403903BD2A0D4BE800C7D077 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903BC2A0D4BE800C7D077 /* Feed.swift */; };
 		403903C12A0D4C0300C7D077 /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903C02A0D4C0300C7D077 /* Password.swift */; };
-		403903C82A0D50ED00C7D077 /* RecordGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903C72A0D50ED00C7D077 /* RecordGoal.swift */; };
 		403903CF2A0D74F300C7D077 /* View+DebugFrameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903CE2A0D74F300C7D077 /* View+DebugFrameInfo.swift */; };
 		403903D22A0D7FB500C7D077 /* Pretendard-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903A82A0D3BD000C7D077 /* Pretendard-Black.ttf */; };
 		403903D32A0D7FB800C7D077 /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 403903A12A0D3BCE00C7D077 /* Pretendard-Bold.ttf */; };
@@ -100,7 +99,6 @@
 		403903B82A0D4BCF00C7D077 /* Nickname.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nickname.swift; sourceTree = "<group>"; };
 		403903BC2A0D4BE800C7D077 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		403903C02A0D4C0300C7D077 /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
-		403903C72A0D50ED00C7D077 /* RecordGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordGoal.swift; sourceTree = "<group>"; };
 		403903CB2A0D6EAC00C7D077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		403903CE2A0D74F300C7D077 /* View+DebugFrameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+DebugFrameInfo.swift"; sourceTree = "<group>"; };
 		403903E52A0E017100C7D077 /* onFirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onFirstAppear.swift; sourceTree = "<group>"; };
@@ -227,8 +225,6 @@
 			isa = PBXGroup;
 			children = (
 				403903C42A0D50C200C7D077 /* Nickname */,
-				403903C52A0D50CA00C7D077 /* RecordGoal */,
-				403903C62A0D50DC00C7D077 /* Greetings */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -239,21 +235,6 @@
 				403903B82A0D4BCF00C7D077 /* Nickname.swift */,
 			);
 			path = Nickname;
-			sourceTree = "<group>";
-		};
-		403903C52A0D50CA00C7D077 /* RecordGoal */ = {
-			isa = PBXGroup;
-			children = (
-				403903C72A0D50ED00C7D077 /* RecordGoal.swift */,
-			);
-			path = RecordGoal;
-			sourceTree = "<group>";
-		};
-		403903C62A0D50DC00C7D077 /* Greetings */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Greetings;
 			sourceTree = "<group>";
 		};
 		403903CC2A0D74DF00C7D077 /* Extensions */ = {
@@ -591,7 +572,6 @@
 				40EFCEC32A167E8300B30839 /* DiaryImagePicker.swift in Sources */,
 				40EFCEBD2A16237E00B30839 /* PasswordSetting.swift in Sources */,
 				40EFCEBF2A16798A00B30839 /* DiaryCreate.swift in Sources */,
-				403903C82A0D50ED00C7D077 /* RecordGoal.swift in Sources */,
 				403903C12A0D4C0300C7D077 /* Password.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -78,7 +78,7 @@ public extension Date {
     }
     
     var weekday: Weekday {
-        return Weekday(rawValue: self.weekday())!
+        return Weekday(rawValue: weekday()) ?? .sunday
     }
     
     enum Weekday: Int {

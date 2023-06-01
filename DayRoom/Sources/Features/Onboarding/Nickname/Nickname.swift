@@ -17,7 +17,6 @@ struct Nickname: Reducer {
         var isNicknameValid: Bool = true
         var isNextButtonDisabled: Bool { !isNicknameValid || nickname.isEmpty }
         
-        var path: StackState<Path.State> = .init()
         @BindingState var nickname: String = ""
         @BindingState var focus: Field?
         
@@ -33,41 +32,17 @@ struct Nickname: Reducer {
         case nextButtonTapped
         
         case binding(BindingAction<State>)
-        case path(StackAction<Path.State, Path.Action>)
         case delegate(Delegate)
         enum Delegate: Equatable {
             case onboardingFinished
         }
     }
     
-    // MARK: Path
-    
-    struct Path: Reducer {
-        enum State: Hashable {
-            case recordGoal(RecordGoal.State)
-        }
-        
-        enum Action: Equatable {
-            case recordGoal(RecordGoal.Action)
-        }
-        
-        var body: some ReducerOf<Self> {
-            Scope(state: /State.recordGoal, action: /Action.recordGoal) { 
-                RecordGoal()
-            }
-        }
-    }
-    
-    // MARK: Dependency
-    
     // MARK: Body
     
     var body: some ReducerOf<Self> {
         BindingReducer()
         Reduce(core)
-            .forEach(\.path, action: /Action.path) { 
-                Path()
-            }
     }
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -77,7 +52,6 @@ struct Nickname: Reducer {
             return .none
             
         case .nextButtonTapped:
-            state.path.append(.recordGoal(.init()))
             return .none
             
         case .binding(\.$nickname):
@@ -85,19 +59,6 @@ struct Nickname: Reducer {
             return .none
             
         case .binding:
-            return .none
-            
-        case let .path(.element(id, action: .recordGoal(.delegate(action)))):
-            switch action {
-            case .backButtonTapped:
-                state.path.pop(from: id)
-                return .none
-                
-            case .completeButtonTapped:
-                return .send(.delegate(.onboardingFinished))    
-            }
-            
-        case .path:
             return .none
             
         case .delegate:
@@ -123,24 +84,7 @@ struct NicknameView: View {
     }
     
     var body: some View {
-        NavigationStackStore(
-            store.scope(
-                state: \.path, 
-                action: Nickname.Action.path
-            )
-        ) { 
-            bodyView.debug()
-        } destination: { destination in
-            switch destination {
-            case .recordGoal:
-                CaseLet(
-                    state: /Nickname.Path.State.recordGoal, 
-                    action: Nickname.Path.Action.recordGoal
-                ) { store in
-                    RecordGoalView(store: store)
-                }
-            }
-        }
+        bodyView
     }
     
     private var bodyView: some View {
