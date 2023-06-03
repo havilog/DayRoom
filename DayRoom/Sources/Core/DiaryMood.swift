@@ -27,23 +27,23 @@ public enum DiaryMood: Identifiable, Equatable, CaseIterable {
         }
     }
     
-    public var fontColor: Color {
+    public var imageName: String {
         switch self {
-        case .lucky: return .green
-        case .happy: return .yellow
-        case .soso: return .white
-        case .angry: return .red
-        case .sad: return .blue
+        case .lucky: return "img_lucky"
+        case .happy: return "img_happy"
+        case .soso: return "img_soso"
+        case .angry: return "img_angry"
+        case .sad: return "img_sad"
         }
     }
     
-    public var backgroundColor: Color {
+    public var foregroundColor: Color {
         switch self {
-        case .lucky: return .green
-        case .happy: return .yellow
-        case .soso: return .white
-        case .angry: return .red
-        case .sad: return .blue
+        case .lucky: return .mood_lucky
+        case .happy: return .mood_happy
+        case .soso: return .mood_soso
+        case .angry: return .mood_angry
+        case .sad: return .mood_sad
         }
     }
 }

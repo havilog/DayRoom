@@ -58,23 +58,59 @@ struct MoodPickerView: View {
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            VStack(spacing: .zero) { 
-                ForEach(DiaryMood.allCases) { mood in
-                    Button { viewStore.send(.moodSelected(mood)) } label: { 
-                        Text(mood.title)
-                            .foregroundColor(.black)
-                            .frame(height: 110)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .background(mood.backgroundColor)
-                    .cornerRadius(radius: 24, corners: [.topLeft, .topRight])
-                    .debug()
+            VStack(spacing: .zero) {
+                moodView(mood: .lucky) { 
+                    viewStore.send(.moodSelected(.lucky))
                 }
+                .offset(y: 80)
+                
+                moodView(mood: .happy) { 
+                    viewStore.send(.moodSelected(.happy))
+                }
+                .offset(y: 60)
+                
+                moodView(mood: .soso) { 
+                    viewStore.send(.moodSelected(.soso))
+                }
+                .offset(y: 40)
+                
+                moodView(mood: .angry) { 
+                    viewStore.send(.moodSelected(.angry))
+                }
+                .offset(y: 20)
+                
+                moodView(mood: .sad) { 
+                    viewStore.send(.moodSelected(.sad))
+                }
+                .offset(y: 0)
             }
-            .ignoresSafeArea()
             .presentationDetents([.height(450)])
+            .presentationCornerRadius(24)
             .interactiveDismissDisabled()
+            .ignoresSafeArea()
+            .offset(y: -20)
+            .debug(.green)
         }
+    }
+    
+    private func moodView(
+        mood: DiaryMood, 
+        perform action: @escaping () -> Void
+    ) -> some View {
+        ZStack {
+            Image(mood.imageName)
+                .resizable()
+            Text(mood.title)
+                .font(garamond: .heading3)
+                .foregroundColor(mood.foregroundColor)
+                .offset(y: -20)
+        }
+        .contentShape(Rectangle())
+        .onTapGesture(perform: action)
+        .frame(maxWidth: .infinity)
+        .frame(height: mood == .sad ? 130 : 110)
+        .cornerRadius(radius: 24, corners: [.topLeft, .topRight])
+        .debug(.red)
     }
 }
 

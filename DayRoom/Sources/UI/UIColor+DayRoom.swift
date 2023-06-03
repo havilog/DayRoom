@@ -122,3 +122,13 @@ public extension Color {
     static var text_secondary: Color = Color(uiColor: UIColor { $0.userInterfaceStyle == .light ? .init(hex: "7D7B7A") : .init(hex: "C4C3C2") })
     static var text_disabled: Color = Color(uiColor: UIColor { $0.userInterfaceStyle == .light ? .init(hex: "C4C3C2") : .init(hex: "615F5D") })
 }
+
+// MARK: Mood
+
+public extension Color {
+    static let mood_lucky: Color = .init(uiColor: .init(hex: "618C5A"))
+    static let mood_happy: Color = .init(uiColor: .init(hex: "DF9339"))
+    static let mood_soso: Color = .init(uiColor: .init(hex: "9D816E"))
+    static let mood_angry: Color = .init(uiColor: .init(hex: "D66A52"))
+    static let mood_sad: Color = .init(uiColor: .init(hex: "7A79AA"))
+}
