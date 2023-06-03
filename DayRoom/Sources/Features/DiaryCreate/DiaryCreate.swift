@@ -16,9 +16,6 @@ struct DiaryCreate: Reducer {
         var date: Date
         var card: DiaryCard.State? = nil
         
-        var mode: DiaryMode = .photo(nil)
-        var selectedImage: UIImage? = nil
-        @BindingState var content: String = ""
         @PresentationState var destination: Destination.State? = nil
     }
     
@@ -26,7 +23,6 @@ struct DiaryCreate: Reducer {
     
     enum Action: Equatable, BindableAction {
         case onFirstAppear
-        case imageAreaTapped
         case imageSelected(UIImage)
         case imagePickerDismissed
         case closeButtonTapped
@@ -34,7 +30,9 @@ struct DiaryCreate: Reducer {
         
         case card(DiaryCard.Action)
         
+        case imageSelectedAnimation
         case saveResponse(TaskResult<Bool>)
+        
         case destination(PresentationAction<Destination.Action>)
         case binding(BindingAction<State>)
     }
@@ -62,6 +60,7 @@ struct DiaryCreate: Reducer {
     // MARK: Dependency
     
     @Dependency(\.dismiss) private var dismiss
+    @Dependency(\.continuousClock) private var clock
     @Dependency(\.persistence) private var persistence
     
     // MARK: Body
@@ -83,14 +82,16 @@ struct DiaryCreate: Reducer {
             state.destination = .moodPicker(.init())
             return .none
             
-        case .imageAreaTapped:
-            state.destination = .imagePicker
-            return .none
-            
         case let .imageSelected(image):
-            state.selectedImage = image
+            state.card?.selectedImage = image
             state.destination = nil
-            state.mode = .content("")
+            return .task { 
+                try await clock.sleep(for: .seconds(0.75))
+                return .imageSelectedAnimation
+            }
+            
+        case .imageSelectedAnimation:
+            state.card?.page = .content
             return .none
             
         case .imagePickerDismissed:
@@ -102,17 +103,27 @@ struct DiaryCreate: Reducer {
             
         case .saveButtonTapped:
             return .task { [
-                imageData = state.selectedImage?.jpegData(compressionQuality: 1.0), 
+                imageData = state.card?.selectedImage?.jpegData(compressionQuality: 1.0), 
                 date = state.date,
-                content = state.content
+                content = state.card?.content
             ] in
                 await .saveResponse(
                     TaskResult { 
-                        try persistence.save(imageData, date, content)
+                        try persistence.save(imageData, date, content ?? "")
                         return true
                     }
                 )
             }
+            
+        case let .card(.delegate(action)):
+            switch action {
+            case .needPhotoPicker:
+                state.destination = .imagePicker
+                return .none
+            }
+            
+        case .card:
+            return .none
             
         case .saveResponse(.success):
             // TODO: 무언가 예쁜 확인
@@ -191,7 +202,6 @@ struct DiaryCreateView: View {
         HStack(spacing: .zero) { 
             closeButton
             Spacer()
-            if case .content = viewStore.mode { saveButton }
         }
     }
     
@@ -217,40 +227,6 @@ struct DiaryCreateView: View {
             .padding(.top, 24)
             .padding(.bottom, 32)
     }
-    
-    private var diaryContent: some View {
-        VStack(spacing: .zero) { 
-            Button { } label: { 
-                Text("soso")
-                    .font(garamond: .heading3)
-                    .padding(.horizontal, 16)
-                    .foregroundColor(.day_white)
-                    .background(Color.day_brown)
-                    .cornerRadius(20)
-            }
-            .padding(.bottom, 16)
-            
-            Text(viewStore.date.toString(format: "yyyy. MM. dd"))
-                .font(garamond: .heading4)
-                .foregroundColor(.day_brown)
-                .padding(.bottom, 24)
-            
-            TextEditor(text: viewStore.binding(\.$content))
-                .font(Font(UIFont(name: "Pretendard-Regular", size: 16)!))
-                .foregroundColor(.grey80)
-                .autocorrectionDisabled(true)
-                .padding(.vertical, 10)
-                .padding(.horizontal, 10)
-                .background(Color.day_white)
-                .cornerRadius(8)
-        }
-        .padding(.horizontal, 28)
-        .padding(.vertical, 32)
-        .frame(height: 500)
-        .frame(maxWidth: .infinity)
-        .background(Color.day_brown_light)
-        .cornerRadius(24)
-    }
 }
 
 struct DiaryCreateView_Previews: PreviewProvider {
@@ -264,7 +240,7 @@ struct DiaryCreateView_Previews: PreviewProvider {
         
         DiaryCreateView(
             store: .init(
-                initialState: .init(date: .now, mode: .content("")), 
+                initialState: .init(date: .now), 
                 reducer: DiaryCreate()
             )
         )

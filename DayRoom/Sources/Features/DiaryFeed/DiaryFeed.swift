@@ -111,18 +111,13 @@ struct DiaryFeedView: View {
                 Spacer().frame(height: 12)
                 
                 if viewStore.isWrittenToday == false {
-                    CardView(date: viewStore.date, diaryMode: .photo(nil)) { 
-                        viewStore.send(.todayCardTapped) 
-                    }
+                    Text("card")
                     .padding(.horizontal, 20)
                 }
                 
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: 16, alignment: .top)]) {
                     ForEach(viewStore.diaries) { diary in
-                        // FIXME: 대충한거 고치기
-                        CardView(date: diary.date!, diaryMode: .photo(UIImage(data: diary.image!))) {
-                            viewStore.send(.diaryCardTapped(diary.id))
-                        }
+                        Text("card")
                     }
                 }
                 .padding(.horizontal, 20)
