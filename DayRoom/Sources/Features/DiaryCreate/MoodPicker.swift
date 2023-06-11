@@ -89,7 +89,6 @@ struct MoodPickerView: View {
             .interactiveDismissDisabled()
             .ignoresSafeArea()
             .offset(y: -20)
-            .debug(.green)
         }
     }
     
@@ -110,7 +109,6 @@ struct MoodPickerView: View {
         .frame(maxWidth: .infinity)
         .frame(height: mood == .sad ? 130 : 110)
         .cornerRadius(radius: 24, corners: [.topLeft, .topRight])
-        .debug(.red)
     }
 }
 

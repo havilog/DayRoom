@@ -15,6 +15,7 @@ struct DiaryCreate: Reducer {
     struct State: Equatable {
         var date: Date
         var card: DiaryCard.State? = nil
+        var isCreateFinished: Bool = false
         
         @PresentationState var destination: Destination.State? = nil
     }
@@ -27,6 +28,9 @@ struct DiaryCreate: Reducer {
         case imagePickerDismissed
         case closeButtonTapped
         case saveButtonTapped
+        case noteButtonTapped
+        case imageButtonTapped
+        case calendarButtonTapped
         
         case card(DiaryCard.Action)
         
@@ -115,6 +119,18 @@ struct DiaryCreate: Reducer {
                 )
             }
             
+        case .noteButtonTapped:
+            state.card?.page = .content
+            return .none
+            
+        case .imageButtonTapped:
+            state.card?.page = .photo
+            return .none
+            
+        case .calendarButtonTapped:
+            // calendar 띄우기
+            return .none
+            
         case let .card(.delegate(action)):
             switch action {
             case .needPhotoPicker:
@@ -126,8 +142,11 @@ struct DiaryCreate: Reducer {
             return .none
             
         case .saveResponse(.success):
-            // TODO: 무언가 예쁜 확인
-            return .fireAndForget { await dismiss() }
+            state.isCreateFinished = true
+            return .fireAndForget {
+                try await self.clock.sleep(for: .seconds(2))
+                await dismiss() 
+            }
             
         case .saveResponse(.failure):
             // TODO: 실패한거 알리기
@@ -180,11 +199,10 @@ struct DiaryCreateView: View {
             }
     }
     
-    @ViewBuilder
     private var bodyView: some View {
         VStack(spacing: .zero) { 
             navigationBar
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack(spacing: .zero) {
                     title
                     
@@ -193,6 +211,10 @@ struct DiaryCreateView: View {
                         then: DiaryCardView.init
                     )
                     .transition(.opacity.animation(.easeInOut))
+                    .padding(.bottom, 32)
+                    
+                    bottomButtons
+                        .opacity(viewStore.card?.mood == nil ? 0 : 1)
                 }
             }
             .padding(.horizontal, 20)
@@ -213,14 +235,18 @@ struct DiaryCreateView: View {
     private var closeButton: some View {
         Button { viewStore.send(.closeButtonTapped) } label: { Image("ic_cancel_24") }
             .frame(width: 48, height: 48)
-            .debug()
             .padding(.leading, 12)
     }
     
     private var saveButton: some View {
-        Button { viewStore.send(.saveButtonTapped) } label: { Image("ic_check_24") }
-            .frame(width: 48, height: 48)
-            .padding(.trailing, 8)
+        Button {
+            hideKeyboard()
+            viewStore.send(.saveButtonTapped) 
+        } label: { 
+            Image("ic_check_24") 
+        }
+        .frame(width: 48, height: 48)
+        .padding(.trailing, 8)
     }
     
     private var title: some View {
@@ -228,9 +254,64 @@ struct DiaryCreateView: View {
             .font(pretendard: .heading1)
             .foregroundColor(.text_primary)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .debug()
-            .padding(.top, 24)
-            .padding(.bottom, 32)
+            .padding(.top, 16)
+            .padding(.bottom, 24)
+            .onTapGesture { hideKeyboard() }
+    }
+    
+    private var bottomButtons: some View {
+        HStack(spacing: .zero) { 
+            if viewStore.card?.page == .photo {
+                noteButton
+            } else {
+                imageButton
+            }
+            calendarButton
+        }
+    }
+    
+    private var noteButton: some View {
+        Button {  viewStore.send(.noteButtonTapped) } label: { 
+            Image("ic_note_24")
+                .renderingMode(.template)
+                .foregroundColor(viewStore.card?.selectedImage == nil ? .text_disabled : .text_primary)
+        }
+        .frame(width: 52, height: 52)
+        .background(Color.day_white)
+        .cornerRadius(26)
+        .shadow(color: .day_black.opacity(0.03), radius: 2, y: 1)
+        .shadow(color: .day_black.opacity(0.03), radius: 6, y: 4)
+        .disabled(viewStore.card?.selectedImage == nil ? true : false)
+        .padding(.trailing, 16)
+    }
+    
+    private var imageButton: some View {
+        Button {  viewStore.send(.imageButtonTapped) } label: { 
+            Image("ic_image_24")
+        }
+        .frame(width: 52, height: 52)
+        .background(Color.day_white)
+        .cornerRadius(26)
+        .shadow(color: .day_black.opacity(0.03), radius: 2, y: 1)
+        .shadow(color: .day_black.opacity(0.03), radius: 6, y: 4)
+        .padding(.trailing, 16)
+    }
+    
+    private var calendarButton: some View {
+        Button {  viewStore.send(.calendarButtonTapped) } label: { 
+            Image("ic_calendar_24")
+        }
+        .frame(width: 52, height: 52)
+        .background(Color.day_white)
+        .cornerRadius(26)
+        .shadow(color: .day_black.opacity(0.03), radius: 2, y: 1)
+        .shadow(color: .day_black.opacity(0.03), radius: 6, y: 4)
+    }
+}
+
+struct CreateFinishView: View {
+    var body: some View {
+        LottieView(jsonName: "clover_motion", loopMode: .playOnce)
     }
 }
 

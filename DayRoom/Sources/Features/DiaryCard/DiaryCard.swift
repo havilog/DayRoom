@@ -93,14 +93,15 @@ struct DiaryCardView: View {
     private var bodyView: some View {
         ZStack {
             photoView
-                .opacity(viewStore.page == .photo ? 1 : 0)
+                .flip(opacity: viewStore.page == .photo ? 1 : 0)
                 .rotation3DEffect(
                     .degrees(viewStore.page == .photo ? 0 : 180), 
                     axis: (x: .zero, y: -1, z: .zero),
                     perspective: 0.3
                 )
+            
             contentView
-                .opacity(viewStore.page == .photo ? 0 : 1)
+                .flip(opacity: viewStore.page == .photo ? 0 : 1)
                 .rotation3DEffect(
                     .degrees(viewStore.page == .photo ? -180 : 0), 
                     axis: (x: .zero, y: -1, z: .zero),
@@ -109,15 +110,14 @@ struct DiaryCardView: View {
         }
         .animation(.easeInOut(duration: 0.75), value: viewStore.page)
         .onTapGesture { viewStore.send(.viewTapped) }
-        .debug(.day_brown)
     }
     
     private var photoView: some View {
         ZStack(alignment: .bottom) {
             photoContent(viewStore.selectedImage)
-                .frame(height: 500)
                 .frame(maxWidth: .infinity)
                 .cornerRadius(24)
+                .frame(height: (UIScreen.main.bounds.size.width - 40) / 3 * 4)
                 .contentShape(Rectangle())
             
             VStack(spacing: .zero) { 
@@ -137,50 +137,55 @@ struct DiaryCardView: View {
             }
             .padding(24)
         }
+        //        .frame(height: (UIScreen.main.bounds.size.width - 40) / 3 * 4)
     }
     
     @ViewBuilder
     private func photoContent(_ image: UIImage?) -> some View {
         if let image {
-            Image(uiImage: image).resizable()
+            Image(uiImage: image)
+                .resizable()
         } else {
             Image(viewStore.mood.imageName)
                 .resizable()
                 .opacity(viewStore.mood.backgroundOpacity)
         }
     }
-
+    
     private var contentView: some View {
         VStack(spacing: .zero) { 
             Text(viewStore.mood.title)
                 .font(garamond: .heading3)
                 .foregroundColor(viewStore.mood.foregroundColor)
-                .debug()
                 .padding(.bottom, 16)
             
-            ZStack(alignment: .leading) {
-                TextEditor(text: viewStore.binding(\.$content))
-                    .font(Font(UIFont(name: "Pretendard-Regular", size: 16)!))
-                    .foregroundColor(.grey80)
-                    .autocorrectionDisabled(true)
-                    .frame(
-                        maxWidth: .infinity,
-                        maxHeight: .infinity,
-                        alignment: .topLeading
-                    )
-                    .cornerRadius(8)
-                    .debug()
-                
-                if viewStore.content.isEmpty {
-                    Text("오늘 하루는 어땠어요?")
-                        .font(pretendard: .body2)
-                        .foregroundColor(.text_disabled)
-                        .frame(maxHeight: .infinity, alignment: .topLeading)
-                }
-            }
+            TextEditor(text: viewStore.binding(\.$content))
+                .font(Font(UIFont(name: "Pretendard-Regular", size: 16)!))
+                .foregroundColor(.grey80)
+                .autocorrectionDisabled(true)
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity,
+                    alignment: .topLeading
+                )
+                .cornerRadius(8)
+                .scrollContentBackground(.hidden)
+                .background(Color.clear)
+            
+//                if viewStore.content.isEmpty {
+//                    Text("오늘 하루는 어땠어요?")
+//                        .font(pretendard: .body2)
+//                        .foregroundColor(.text_disabled)
+//                        .frame(
+//                            maxWidth: .infinity, 
+//                            maxHeight: .infinity, 
+//                            alignment: .topLeading
+//                        )
+//                        .cornerRadius(8)
+//                }
         }
         .padding(24)
-        .frame(height: 500)
+        .frame(height: (UIScreen.main.bounds.size.width - 40) / 3 * 4)
         .frame(maxWidth: .infinity)
         .background(
             Image(viewStore.mood.imageName)
@@ -188,6 +193,7 @@ struct DiaryCardView: View {
                 .opacity(viewStore.mood.backgroundOpacity)
         )
         .cornerRadius(24)
+        .onTapGesture { hideKeyboard() }
     }
 }
 

@@ -159,10 +159,7 @@ struct WhoMadeThisView: View {
                     .font(pretendard: .body2)
                     .foregroundColor(.text_secondary)
             }
-            Text("team.dayroom@gmail.com")
-                .font(pretendard: .body2)
-                .foregroundColor(.text_secondary)
-                .padding(.bottom, 48)
+            .padding(.bottom, 48)
         }
     }
 }
