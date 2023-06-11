@@ -86,7 +86,7 @@ struct DiaryCreate: Reducer {
             state.card?.selectedImage = image
             state.destination = nil
             return .task { 
-                try await clock.sleep(for: .seconds(0.75))
+                try await clock.sleep(for: .seconds(1))
                 return .imageSelectedAnimation
             }
             
@@ -136,7 +136,7 @@ struct DiaryCreate: Reducer {
         case let .destination(.presented(.moodPicker(.delegate(action)))):
             switch action {
             case let .moodSelected(mood):
-                state.card = .init(date: state.date, mood: mood)
+                state.card = .init(canFlipByTouch: false, date: state.date, mood: mood)
                 return .none
             }
             
@@ -192,6 +192,7 @@ struct DiaryCreateView: View {
                         store.scope(state: \.card, action: DiaryCreate.Action.card), 
                         then: DiaryCardView.init
                     )
+                    .transition(.opacity.animation(.easeInOut))
                 }
             }
             .padding(.horizontal, 20)
@@ -202,6 +203,10 @@ struct DiaryCreateView: View {
         HStack(spacing: .zero) { 
             closeButton
             Spacer()
+            
+            if viewStore.card?.selectedImage != nil, viewStore.card?.content.isEmpty == false {
+                saveButton
+            }
         }
     }
     
@@ -213,7 +218,7 @@ struct DiaryCreateView: View {
     }
     
     private var saveButton: some View {
-        Button("save", action: { viewStore.send(.saveButtonTapped) })
+        Button { viewStore.send(.saveButtonTapped) } label: { Image("ic_check_24") }
             .frame(width: 48, height: 48)
             .padding(.trailing, 8)
     }
@@ -246,26 +251,3 @@ struct DiaryCreateView_Previews: PreviewProvider {
         )
     }
 }
-
-// 이미지
-//        if let image = viewStore.selectedImage {
-//            Image(uiImage: image)
-//                .resizable()
-//                .frame(height: 500)
-//                .frame(maxWidth: .infinity)
-//                .cornerRadius(24)
-//                .contentShape(Rectangle())
-//                .onTapGesture { viewStore.send(.imageAreaTapped) }
-//        } else {
-
-// 플레이스 홀더
-//            ZStack(alignment: .leading) {
-//                if viewStore.content.isEmpty {
-//                    Text("오늘 하루는 어땠어요?")
-//                        .font(pretendard: .body2)
-//                        .foregroundColor(.day_black)
-//                        .padding(.leading, 16)
-//                        .padding(.top, 12)
-//                        .frame(maxHeight: .infinity, alignment: .topLeading)
-//                }
-//            }

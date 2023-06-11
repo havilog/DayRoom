@@ -89,74 +89,62 @@ struct NicknameView: View {
     
     private var bodyView: some View {
         VStack(spacing: .zero) { 
+            cloverWithMailImage
             VStack(alignment: .leading, spacing: .zero) {
                 title
-                description
                 nicknameTextField
-                Spacer()
             }
             .padding(.horizontal, 20)
-            
+            Spacer()
             doneButton
         }
         .onAppear { viewStore.send(.onAppear) }
     }
     
-    private var title: some View {
-        Text("별명을 알려주세요")
-            .font(pretendard: .heading1)
-            .foregroundColor(.text_primary)
-            .debug()
-            .padding(.top, 56)
-            .padding(.bottom, 4)
+    private var cloverWithMailImage: some View {
+        Image("name_illust")
+            .padding(.top, 48)
+            .padding(.bottom, 44)
     }
     
-    private var description: some View {
-        Text("마이페이지에서 언제든지 바꿀 수 있어요!")
-            .font(pretendard: .body2)
-            .foregroundColor(.text_secondary)
+    private var title: some View {
+        Text("기록가님 반가워요!")
+            .font(pretendard: .heading2)
+            .foregroundColor(.text_primary)
             .debug()
-            .padding(.bottom, 56)
+            .padding(.bottom, 16)
     }
     
     private var nicknameTextField: some View {
-        VStack(spacing: .zero) { 
-            TextField("8자 이내 한글, 영문, 숫자", text: viewStore.binding(\.$nickname))
-                .foregroundColor(.text_primary)
-                .font(pretendard: .heading3)
-                .frame(maxHeight: 30)
-                .focused($focus, equals: .nickname)
-                .disableAutocorrection(true)
-                .debug()
-                .padding(.bottom, 4)
+        TextField("8자 이내 한글, 영문, 숫자", text: viewStore.binding(\.$nickname))
+            .frame(height: 28)
+            .foregroundColor(.text_primary)
+            .font(pretendard: .heading3)
+        
+            .focused($focus, equals: .nickname)
+            .disableAutocorrection(true)
+        
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+        
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.divider, lineWidth: 1)
+            )
+        
             
-            Rectangle()
-                .foregroundColor(viewStore.isNicknameValid ? .text_primary : .error)
-                .frame(height: 1)
-                .padding(.bottom, 4)
-            
-            HStack(spacing: .zero) {
-                Text(viewStore.isNicknameValid ? "" : "8자 이내 한글, 영문, 숫자로 작성해주세요.")
-                    .font(pretendard: .caption)
-                    .foregroundColor(.error)
-                
-                Spacer()
-                
-                Text("\(viewStore.nickname.count) / 8")
-                    .font(pretendard: .caption)
-                    .foregroundColor(viewStore.isNicknameValid ? .text_disabled : .error)
-            }
-        }
+
     }
     
     private var doneButton: some View {
         Button { viewStore.send(.doneButtonTapped) } label: { 
-            Text("다음")
+            Text("시작하기")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .font(pretendard: .heading3)
+                .font(pretendard: .body1)
         }
         .foregroundColor(viewStore.isDoneButtonDisabled ? Color.text_disabled : Color.day_white)
-        .frame(maxWidth: .infinity, maxHeight: 56)
+        .frame(height: 52)
+        .frame(maxWidth: .infinity)
         .background(viewStore.isDoneButtonDisabled ? Color.grey20 : Color.day_green)
         .disabled(viewStore.isDoneButtonDisabled)
         .debug()

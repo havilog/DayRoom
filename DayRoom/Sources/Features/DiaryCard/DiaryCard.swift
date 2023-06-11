@@ -19,18 +19,20 @@ struct DiaryCard: Reducer {
     // MARK: State
     
     struct State: Equatable {
+        var canFlipByTouch: Bool = true
+        
         var date: Date = .today
         var mood: DiaryMood
         var selectedImage: UIImage? = nil
-        var content: String = ""
+        @BindingState var content: String = ""
         var page: CardPage = .photo
     }
     
     // MARK: Action
     
-    enum Action: Equatable {
+    enum Action: Equatable, BindableAction {
         case viewTapped
-        case flipCard
+        case binding(BindingAction<State>)
         case delegate(Delegate)
         enum Delegate: Equatable {
             case needPhotoPicker
@@ -42,19 +44,22 @@ struct DiaryCard: Reducer {
     // MARK: Body
     
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce(core)
     }
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .viewTapped:
-            if state.selectedImage == nil {
+            if state.selectedImage == nil, state.page == .photo {
                 return .send(.delegate(.needPhotoPicker))
             }
+            
+            guard state.canFlipByTouch else { return .none }
             return flip(&state)
             
-        case .flipCard:
-            return flip(&state)
+        case .binding:
+            return .none
             
         case .delegate:
             return .none
@@ -118,11 +123,17 @@ struct DiaryCardView: View {
             VStack(spacing: .zero) { 
                 Text(String(viewStore.date.day))
                     .font(garamond: .hero)
-                    .foregroundColor(viewStore.selectedImage == nil ? .text_disabled : .day_white)
+                    .foregroundColor(
+                        viewStore.selectedImage == nil ? 
+                        viewStore.mood.foregroundColor : .day_white
+                    )
                 
                 Text(viewStore.date.weekday.english)
                     .font(garamond: .body2)
-                    .foregroundColor(viewStore.selectedImage == nil ? .text_disabled : .day_white)
+                    .foregroundColor(
+                        viewStore.selectedImage == nil ? 
+                        viewStore.mood.foregroundColor : .day_white
+                    )
             }
             .padding(24)
         }
@@ -133,16 +144,50 @@ struct DiaryCardView: View {
         if let image {
             Image(uiImage: image).resizable()
         } else {
-            Color.elevated
+            Image(viewStore.mood.imageName)
+                .resizable()
+                .opacity(viewStore.mood.backgroundOpacity)
         }
     }
 
     private var contentView: some View {
-        Color.day_brown
-            .frame(height: 500)
-            .frame(maxWidth: .infinity)
-            .cornerRadius(24)
-            .contentShape(Rectangle())
+        VStack(spacing: .zero) { 
+            Text(viewStore.mood.title)
+                .font(garamond: .heading3)
+                .foregroundColor(viewStore.mood.foregroundColor)
+                .debug()
+                .padding(.bottom, 16)
+            
+            ZStack(alignment: .leading) {
+                TextEditor(text: viewStore.binding(\.$content))
+                    .font(Font(UIFont(name: "Pretendard-Regular", size: 16)!))
+                    .foregroundColor(.grey80)
+                    .autocorrectionDisabled(true)
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: .infinity,
+                        alignment: .topLeading
+                    )
+                    .cornerRadius(8)
+                    .debug()
+                
+                if viewStore.content.isEmpty {
+                    Text("오늘 하루는 어땠어요?")
+                        .font(pretendard: .body2)
+                        .foregroundColor(.text_disabled)
+                        .frame(maxHeight: .infinity, alignment: .topLeading)
+                }
+            }
+        }
+        .padding(24)
+        .frame(height: 500)
+        .frame(maxWidth: .infinity)
+        .background(
+            Image(viewStore.mood.imageName)
+                .resizable()
+                .opacity(viewStore.mood.backgroundOpacity)
+        )
+        .cornerRadius(24)
     }
 }
 
@@ -150,46 +195,27 @@ struct DiaryCardView_Previews: PreviewProvider {
     static var previews: some View {
         DiaryCardView(
             store: .init(
-                initialState: .init(date: .today, mood: .lucky), 
+                initialState: .init(
+                    date: .today, 
+                    mood: .lucky, 
+                    page: .photo
+                ), 
                 reducer: DiaryCard()
             )
         )
+        .previewDisplayName("사진")
+        
+        DiaryCardView(
+            store: .init(
+                initialState: .init(
+                    canFlipByTouch: false,
+                    date: .today, 
+                    mood: .lucky, 
+                    page: .content
+                ), 
+                reducer: DiaryCard()
+            )
+        )
+        .previewDisplayName("일기")
     }
 }
-
-//extension AnyTransition {
-//    static var rotate: AnyTransition { get {
-//        AnyTransition.modifier(active: RotateTransition(percent: 0), identity: RotateTransition(percent: 1))
-//        }
-//    }
-//}
-//
-//struct RotateTransition: GeometryEffect {
-//    var percent: Double
-//    
-//    var animatableData: Double {
-//        get { percent }
-//        set { percent = newValue }
-//    }
-//    
-//    func effectValue(size: CGSize) -> ProjectionTransform {
-//
-//        let rotationPercent = percent
-//        let a = CGFloat(Angle(degrees: 170 * (1-rotationPercent)).radians)
-//        
-//        var transform3d = CATransform3DIdentity;
-//        transform3d.m34 = -1/max(size.width, size.height)
-//        
-//        transform3d = CATransform3DRotate(transform3d, a, 0, 1, 0)
-//        transform3d = CATransform3DTranslate(transform3d, -size.width/2.0, -size.height/2.0, 0)
-//        
-//        let affineTransform1 = ProjectionTransform(CGAffineTransform(translationX: size.width/2.0, y: size.height / 2.0))
-//        let affineTransform2 = ProjectionTransform(CGAffineTransform(scaleX: CGFloat(percent * 2), y: CGFloat(percent * 2)))
-//        
-//        if percent <= 0.5 {
-//            return ProjectionTransform(transform3d).concatenating(affineTransform2).concatenating(affineTransform1)
-//        } else {
-//            return ProjectionTransform(transform3d).concatenating(affineTransform1)
-//        }
-//    }
-//}

@@ -94,7 +94,7 @@ struct Main: Reducer {
         case let .diaryFeed(.delegate(action)):
             switch action {
             case .settingButtonTapped:
-                state.path.append(.setting(.init()))
+                state.path.append(.setting(.init(isUsingPassword: !preferences.password.isNil)))
                 return .none
                 
             case .createButtonTapped:
@@ -112,8 +112,18 @@ struct Main: Reducer {
         case let .path(.element(id: id, action: .setting(.delegate(action)))):
             switch action {
             case let .settingRowTapped(row):
-                state.path.append(.passwordSetting(.init(isUsingPassword: preferences.password.isNil ? false : true)))
-                return .none
+                switch row {
+                case .lock:
+                    state.path.append(.passwordSetting(.init(isUsingPassword: preferences.password.isNil ? false : true)))
+                    return .none
+                    
+                case .whoMadeThis:
+                    // 만든 사람들 페이지로 이동
+                    return .none
+                    
+                case .version:
+                    return .none
+                }
                 
             case .backButtonTapped:
                 state.path.pop(from: id)

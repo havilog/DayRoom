@@ -37,6 +37,16 @@ public enum DiaryMood: Identifiable, Equatable, CaseIterable {
         }
     }
     
+    public var backgroundOpacity: CGFloat {
+        switch self {
+        case .lucky: return 0.2
+        case .happy: return 0.25
+        case .soso: return 0.4
+        case .angry: return 0.2
+        case .sad: return 0.35
+        }
+    }
+    
     public var foregroundColor: Color {
         switch self {
         case .lucky: return .mood_lucky

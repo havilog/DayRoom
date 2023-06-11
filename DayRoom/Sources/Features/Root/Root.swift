@@ -105,7 +105,7 @@ struct Root: Reducer {
                 preferences.onboardingFinished = true
                 state.destination = .welcome
                 return .task {
-                    try await clock.sleep(for: .seconds(2))
+                    try await clock.sleep(for: .seconds(2.5))
                     return .welcomeAnimationFinished
                 }
             }
@@ -155,7 +155,7 @@ struct RootView: View {
                 Image("app_logo")
                 
             case .welcome:
-                Image("app_logo") // FIXME: 로띠로 변경
+                WelcomeView()
                     .transition(.opacity.animation(.default))
                 
             case .nickname:
@@ -178,6 +178,12 @@ struct RootView: View {
                 
             }
         }
+    }
+}
+
+struct WelcomeView: View {
+    var body: some View {
+        LottieView(jsonName: "envelope motion", loopMode: .playOnce)
     }
 }
 

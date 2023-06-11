@@ -38,6 +38,11 @@
 		403903E82A0E131D00C7D077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 403903E72A0E131D00C7D077 /* Assets.xcassets */; };
 		403903EB2A11077A00C7D077 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903EA2A11077A00C7D077 /* Main.swift */; };
 		403903EF2A11085F00C7D077 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903EE2A11085F00C7D077 /* Setting.swift */; };
+		40A624032A35DFD700A00370 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 40A624022A35DFD700A00370 /* Lottie */; };
+		40A6240B2A35E03E00A00370 /* envelope motion.json in Resources */ = {isa = PBXBuildFile; fileRef = 40A624092A35E03D00A00370 /* envelope motion.json */; };
+		40A6240C2A35E03E00A00370 /* clover_motion.json in Resources */ = {isa = PBXBuildFile; fileRef = 40A6240A2A35E03E00A00370 /* clover_motion.json */; };
+		40A6240E2A35E09300A00370 /* SwiftUILottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A6240D2A35E09300A00370 /* SwiftUILottieView.swift */; };
+		40A624102A35E6EE00A00370 /* Bundle+version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A6240F2A35E6EE00A00370 /* Bundle+version.swift */; };
 		40A9CB602A28CE76003E8BCF /* DiaryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9CB5F2A28CE76003E8BCF /* DiaryCard.swift */; };
 		40A9CB622A28D2E8003E8BCF /* DiaryMood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9CB612A28D2E8003E8BCF /* DiaryMood.swift */; };
 		40A9CB662A28D4F1003E8BCF /* MoodPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9CB652A28D4F1003E8BCF /* MoodPicker.swift */; };
@@ -109,6 +114,10 @@
 		403903E72A0E131D00C7D077 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		403903EA2A11077A00C7D077 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		403903EE2A11085F00C7D077 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		40A624092A35E03D00A00370 /* envelope motion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "envelope motion.json"; sourceTree = "<group>"; };
+		40A6240A2A35E03E00A00370 /* clover_motion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = clover_motion.json; sourceTree = "<group>"; };
+		40A6240D2A35E09300A00370 /* SwiftUILottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUILottieView.swift; sourceTree = "<group>"; };
+		40A6240F2A35E6EE00A00370 /* Bundle+version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+version.swift"; sourceTree = "<group>"; };
 		40A9CB5F2A28CE76003E8BCF /* DiaryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCard.swift; sourceTree = "<group>"; };
 		40A9CB612A28D2E8003E8BCF /* DiaryMood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryMood.swift; sourceTree = "<group>"; };
 		40A9CB652A28D4F1003E8BCF /* MoodPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodPicker.swift; sourceTree = "<group>"; };
@@ -138,6 +147,7 @@
 			files = (
 				40EFCECB2A18C56B00B30839 /* Kingfisher in Frameworks */,
 				40D7ED752A09101200BFB428 /* ComposableArchitecture in Frameworks */,
+				40A624032A35DFD700A00370 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +217,7 @@
 				403903AB2A0D3C5500C7D077 /* Font+Custom.swift */,
 				403903AD2A0D3C6300C7D077 /* UIColor+hex.swift */,
 				403903AF2A0D3C6C00C7D077 /* UIColor+DayRoom.swift */,
+				40A6240D2A35E09300A00370 /* SwiftUILottieView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -260,6 +271,15 @@
 				403903EA2A11077A00C7D077 /* Main.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		40A624042A35E00C00A00370 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				40A6240A2A35E03E00A00370 /* clover_motion.json */,
+				40A624092A35E03D00A00370 /* envelope motion.json */,
+			);
+			path = Lottie;
 			sourceTree = "<group>";
 		};
 		40A9CB632A28D4AE003E8BCF /* DiaryCreate */ = {
@@ -350,6 +370,7 @@
 			children = (
 				40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */,
 				403903E72A0E131D00C7D077 /* Assets.xcassets */,
+				40A624042A35E00C00A00370 /* Lottie */,
 				403903942A0D3B1E00C7D077 /* Font */,
 				40D7ED3E2A090F5700BFB428 /* Preview Content */,
 			);
@@ -412,6 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				40EFCEC52A16800F00B30839 /* Date+Extension.swift */,
+				40A6240F2A35E6EE00A00370 /* Bundle+version.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -435,6 +457,7 @@
 			packageProductDependencies = (
 				40D7ED742A09101200BFB428 /* ComposableArchitecture */,
 				40EFCECA2A18C56B00B30839 /* Kingfisher */,
+				40A624022A35DFD700A00370 /* Lottie */,
 			);
 			productName = DayRoom;
 			productReference = 40D7ED352A090F5500BFB428 /* DayRoom.app */;
@@ -511,6 +534,7 @@
 			packageReferences = (
 				40D7ED732A09101200BFB428 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				40EFCEC92A18C56B00B30839 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				40A624012A35DFD700A00370 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 40D7ED362A090F5500BFB428 /* Products */;
 			projectDirPath = "";
@@ -532,6 +556,7 @@
 				403903D72A0D7FC500C7D077 /* Pretendard-Medium.ttf in Resources */,
 				40D7ED402A090F5700BFB428 /* Preview Assets.xcassets in Resources */,
 				403903D92A0D7FCC00C7D077 /* Pretendard-SemiBold.ttf in Resources */,
+				40A6240B2A35E03E00A00370 /* envelope motion.json in Resources */,
 				403903E82A0E131D00C7D077 /* Assets.xcassets in Resources */,
 				403903DF2A0D7FDE00C7D077 /* EBGaramond-Italic.ttf in Resources */,
 				403903D42A0D7FBB00C7D077 /* Pretendard-ExtraBold.ttf in Resources */,
@@ -545,6 +570,7 @@
 				403903DA2A0D7FCF00C7D077 /* Pretendard-Thin.ttf in Resources */,
 				403903E12A0D7FE600C7D077 /* EBGaramond-MediumItalic.ttf in Resources */,
 				403903DB2A0D7FD200C7D077 /* EBGaramond-Bold.ttf in Resources */,
+				40A6240C2A35E03E00A00370 /* clover_motion.json in Resources */,
 				403903E22A0D7FE900C7D077 /* EBGaramond-Regular.ttf in Resources */,
 				403903D22A0D7FB500C7D077 /* Pretendard-Black.ttf in Resources */,
 				403903D62A0D7FC200C7D077 /* Pretendard-Light.ttf in Resources */,
@@ -575,6 +601,7 @@
 			files = (
 				40D7ED392A090F5500BFB428 /* DayRoomApp.swift in Sources */,
 				403903AC2A0D3C5500C7D077 /* Font+Custom.swift in Sources */,
+				40A624102A35E6EE00A00370 /* Bundle+version.swift in Sources */,
 				40A9CB682A28DE3D003E8BCF /* CornerRadius+.swift in Sources */,
 				40A9CB602A28CE76003E8BCF /* DiaryCard.swift in Sources */,
 				403903CF2A0D74F300C7D077 /* View+DebugFrameInfo.swift in Sources */,
@@ -589,6 +616,7 @@
 				40A9CB662A28D4F1003E8BCF /* MoodPicker.swift in Sources */,
 				40EFCEC12A16799000B30839 /* DiaryDetail.swift in Sources */,
 				403903AE2A0D3C6400C7D077 /* UIColor+hex.swift in Sources */,
+				40A6240E2A35E09300A00370 /* SwiftUILottieView.swift in Sources */,
 				40EFCEC62A16800F00B30839 /* Date+Extension.swift in Sources */,
 				403903EB2A11077A00C7D077 /* Main.swift in Sources */,
 				403903B92A0D4BCF00C7D077 /* Nickname.swift in Sources */,
@@ -768,7 +796,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.havi.DayRoom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -798,7 +826,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.havi.DayRoom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -925,6 +953,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		40A624012A35DFD700A00370 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		40D7ED732A09101200BFB428 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
@@ -944,6 +980,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		40A624022A35DFD700A00370 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40A624012A35DFD700A00370 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		40D7ED742A09101200BFB428 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 40D7ED732A09101200BFB428 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
