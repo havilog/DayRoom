@@ -75,8 +75,8 @@ struct Password: Reducer {
     
     // MARK: Dependency
     
-    @Dependency(\.preferences) private var preferences
     @Dependency(\.dismiss) private var dismiss
+    @Dependency(\.preferences) private var preferences
     
     // MARK: Body
     
@@ -252,7 +252,6 @@ struct PasswordView: View {
                     Image("ic_delete_24").frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 .frame(width: 109, height: 88)
-                .debug()
             }
         }
     }
@@ -267,12 +266,9 @@ struct PasswordView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .frame(width: 109, height: 88)
-            .debug()
-                
         } else {
             Color.clear
                 .frame(width: 109, height: 88)
-                .debug()
         }
     }
 }

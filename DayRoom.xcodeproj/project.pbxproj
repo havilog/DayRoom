@@ -39,6 +39,7 @@
 		403903EB2A11077A00C7D077 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903EA2A11077A00C7D077 /* Main.swift */; };
 		403903EF2A11085F00C7D077 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903EE2A11085F00C7D077 /* Setting.swift */; };
 		405CC5BE2A360B0B00AFE2C0 /* Shake+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC5BD2A360B0B00AFE2C0 /* Shake+.swift */; };
+		405CC5C12A36163200AFE2C0 /* WhoMadeThis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC5C02A36163200AFE2C0 /* WhoMadeThis.swift */; };
 		40A624032A35DFD700A00370 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 40A624022A35DFD700A00370 /* Lottie */; };
 		40A6240B2A35E03E00A00370 /* envelope motion.json in Resources */ = {isa = PBXBuildFile; fileRef = 40A624092A35E03D00A00370 /* envelope motion.json */; };
 		40A6240C2A35E03E00A00370 /* clover_motion.json in Resources */ = {isa = PBXBuildFile; fileRef = 40A6240A2A35E03E00A00370 /* clover_motion.json */; };
@@ -116,6 +117,7 @@
 		403903EA2A11077A00C7D077 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		403903EE2A11085F00C7D077 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		405CC5BD2A360B0B00AFE2C0 /* Shake+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shake+.swift"; sourceTree = "<group>"; };
+		405CC5C02A36163200AFE2C0 /* WhoMadeThis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoMadeThis.swift; sourceTree = "<group>"; };
 		40A624092A35E03D00A00370 /* envelope motion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "envelope motion.json"; sourceTree = "<group>"; };
 		40A6240A2A35E03E00A00370 /* clover_motion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = clover_motion.json; sourceTree = "<group>"; };
 		40A6240D2A35E09300A00370 /* SwiftUILottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUILottieView.swift; sourceTree = "<group>"; };
@@ -276,6 +278,14 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		405CC5BF2A36161300AFE2C0 /* WhoMadeThis */ = {
+			isa = PBXGroup;
+			children = (
+				405CC5C02A36163200AFE2C0 /* WhoMadeThis.swift */,
+			);
+			path = WhoMadeThis;
+			sourceTree = "<group>";
+		};
 		40A624042A35E00C00A00370 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
@@ -417,6 +427,7 @@
 				40A9CB632A28D4AE003E8BCF /* DiaryCreate */,
 				403903B52A0D4BAC00C7D077 /* Password */,
 				40D7ED6B2A090F7F00BFB428 /* Setting */,
+				405CC5BF2A36161300AFE2C0 /* WhoMadeThis */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -615,6 +626,7 @@
 				403903BD2A0D4BE800C7D077 /* DiaryFeed.swift in Sources */,
 				40D7ED792A09103B00BFB428 /* Persistence.swift in Sources */,
 				40D7ED452A090F5700BFB428 /* DayRoom.xcdatamodeld in Sources */,
+				405CC5C12A36163200AFE2C0 /* WhoMadeThis.swift in Sources */,
 				40A9CB622A28D2E8003E8BCF /* DiaryMood.swift in Sources */,
 				403903B42A0D490100C7D077 /* Preferences.swift in Sources */,
 				40A9CB662A28D4F1003E8BCF /* MoodPicker.swift in Sources */,

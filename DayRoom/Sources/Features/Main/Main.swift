@@ -33,11 +33,13 @@ struct Main: Reducer {
     struct Path: Reducer {
         enum State: Equatable {
             case setting(Setting.State)
+            case whoMadeThis(WhoMadeThis.State)
             case passwordSetting(PasswordSetting.State)
         }
         
         enum Action: Equatable {
             case setting(Setting.Action)
+            case whoMadeThis(WhoMadeThis.Action)
             case passwordSetting(PasswordSetting.Action)
         }
         
@@ -47,6 +49,9 @@ struct Main: Reducer {
             }
             Scope(state: /State.passwordSetting, action: /Action.passwordSetting) { 
                 PasswordSetting()
+            }
+            Scope(state: /State.whoMadeThis, action: /Action.whoMadeThis) { 
+                WhoMadeThis()
             }
         }
     }
@@ -117,7 +122,7 @@ struct Main: Reducer {
                     return .none
                     
                 case .whoMadeThis:
-                    // 만든 사람들 페이지로 이동
+                    state.path.append(.whoMadeThis(.init()))
                     return .none
                     
                 case .version:
@@ -134,6 +139,13 @@ struct Main: Reducer {
             }
             
         case let .path(.element(id: id, action: .passwordSetting(.delegate(action)))):
+            switch action {
+            case .backButtonTapped:
+                state.path.pop(from: id)
+                return .none
+            }
+            
+        case let .path(.element(id: id, action: .whoMadeThis(.delegate(action)))):
             switch action {
             case .backButtonTapped:
                 state.path.pop(from: id)
@@ -178,6 +190,12 @@ struct MainView: View {
                     state: /Main.Path.State.passwordSetting,
                     action: Main.Path.Action.passwordSetting,
                     then: PasswordSettingView.init
+                )
+            case .whoMadeThis:
+                CaseLet(
+                    state: /Main.Path.State.whoMadeThis,
+                    action: Main.Path.Action.whoMadeThis,
+                    then: WhoMadeThisView.init
                 )
             }
         }

@@ -62,15 +62,19 @@ struct Shake<Content: View>: View {
 }
 
 extension View {
-    func shake(_ shake: Binding<Bool>,
-               repeatCount: Int = 2,
-               duration: CGFloat = 0.3,
-               offsetRange: CGFloat = 5,
-               onCompletion: (() -> Void)? = nil) -> some View {
-        Shake(shake: shake,
-              repeatCount: repeatCount,
-              duration: duration,
-              offsetRange: offsetRange) {
+    func shake(
+        _ shake: Binding<Bool>,
+        repeatCount: Int = 2,
+        duration: CGFloat = 0.3,
+        offsetRange: CGFloat = 7,
+        onCompletion: (() -> Void)? = nil
+    ) -> some View {
+        Shake(
+            shake: shake,
+            repeatCount: repeatCount,
+            duration: duration,
+            offsetRange: offsetRange
+        ) {
             self
         } onCompletion: {
             onCompletion?()

@@ -144,9 +144,6 @@ struct NicknameView: View {
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color.divider, lineWidth: 1)
             )
-        
-            
-
     }
     
     private var doneButton: some View {
