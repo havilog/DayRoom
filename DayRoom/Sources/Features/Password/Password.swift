@@ -16,8 +16,8 @@ struct Password: Reducer {
         var mode: Mode
         var status: Status = .initial
         var informationText: String
-        var isPasswordConformIncorrect: Bool = false
         var inputPassword: String = ""
+        @BindingState var isPasswordConformIncorrect: Bool = false
         
         init(mode: Mode) {
             self.mode = mode
@@ -61,12 +61,13 @@ struct Password: Reducer {
     
     // MARK: Action
     
-    enum Action: Equatable {
+    enum Action: Equatable, BindableAction {
         case closeButtonTapped
         case backButtonTapped
         case keypadTapped(number: String)
-        case delegate(Delegate)
         
+        case binding(BindingAction<State>)
+        case delegate(Delegate)
         enum Delegate: Equatable {
             case passwordConfirmed
         }
@@ -80,6 +81,7 @@ struct Password: Reducer {
     // MARK: Body
     
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce(core)
     }
     
@@ -134,6 +136,9 @@ struct Password: Reducer {
             
             return .none
             
+        case .binding:
+            return .none
+            
         case .delegate:
             return .none
         }
@@ -142,25 +147,11 @@ struct Password: Reducer {
 
 struct PasswordView: View {
     let store: StoreOf<Password>
-    @ObservedObject var viewStore: ViewStore<ViewState, Password.Action>
-    
-    struct ViewState: Equatable {
-        var mode: Password.Mode
-        var informationText: String
-        var isPasswordConformIncorrect: Bool
-        var inputPasswordCount: Int
-        
-        init(state: Password.State) {
-            self.mode = state.mode
-            self.informationText = state.informationText
-            self.isPasswordConformIncorrect = state.isPasswordConformIncorrect
-            self.inputPasswordCount = state.inputPassword.count
-        }
-    }
+    @ObservedObject var viewStore: ViewStoreOf<Password>
     
     init(store: StoreOf<Password>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: ViewState.init)
+        self.viewStore = ViewStore(store, observe: { $0 })
     }
     
     var body: some View {
@@ -174,19 +165,11 @@ struct PasswordView: View {
                 .opacity(viewStore.mode == .normal ? 0 : 1)
             
             VStack(spacing: .zero) {
-                VStack(spacing: .zero) { 
-                    title
-                    if viewStore.isPasswordConformIncorrect {
-                        passwordIncorrectDescription
-                            .padding(.top, 4)    
-                    }
-                }
-                .padding(.bottom, 40)
-                .debug()
-                
-                passwordClovers.debug()
+                title.padding(.bottom, 40)
+                passwordClovers
+                    .shake(viewStore.binding(\.$isPasswordConformIncorrect))
             }
-            .padding(.bottom, viewStore.isPasswordConformIncorrect ? 48 : 80)
+            .padding(.bottom, 80)
             
             keypad
             
@@ -214,7 +197,6 @@ struct PasswordView: View {
                 .padding(.trailing, 12)
         }
         .frame(height: 56)
-        .debug()
     }
     
     private var title: some View {
@@ -233,16 +215,16 @@ struct PasswordView: View {
         HStack(spacing: 20) {
             Image("logo_dayroom_symbol")
                 .renderingMode(.template)
-                .foregroundColor(viewStore.inputPasswordCount >= 1 ? .day_primary : .divider)
+                .foregroundColor(viewStore.inputPassword.count >= 1 ? .day_primary : .divider)
             Image("logo_dayroom_symbol")
                 .renderingMode(.template)
-                .foregroundColor(viewStore.inputPasswordCount >= 2 ? .day_primary : .divider)
+                .foregroundColor(viewStore.inputPassword.count >= 2 ? .day_primary : .divider)
             Image("logo_dayroom_symbol")
                 .renderingMode(.template)
-                .foregroundColor(viewStore.inputPasswordCount >= 3 ? .day_primary : .divider)
+                .foregroundColor(viewStore.inputPassword.count >= 3 ? .day_primary : .divider)
             Image("logo_dayroom_symbol")
                 .renderingMode(.template)
-                .foregroundColor(viewStore.inputPasswordCount == 4 ? .day_primary : .divider)
+                .foregroundColor(viewStore.inputPassword.count == 4 ? .day_primary : .divider)
         }
     }
     
@@ -319,4 +301,3 @@ struct PasswordView_Previews: PreviewProvider {
         )    
     }
 }
-

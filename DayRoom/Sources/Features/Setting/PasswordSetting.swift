@@ -51,14 +51,14 @@ struct PasswordSetting: Reducer {
     
     // MARK: Dependency
     
+    @Dependency(\.preferences) private var preferences
+    
     // MARK: Body
     
     var body: some ReducerOf<Self> {
         BindingReducer()
         Reduce(core)
-            .ifLet(\.$destination, action: /Action.destination) {
-                Destination()
-            }
+            .ifLet(\.$destination, action: /Action.destination) { Destination() }
     }
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -71,9 +71,20 @@ struct PasswordSetting: Reducer {
             return .none
             
         case .binding(\.$isUsingPassword):
+            if state.isUsingPassword {
+                state.destination = .passwordChange(.init(mode: .new))
+            } else {
+                preferences.password = nil
+            }
             return .none
             
         case .binding:
+            return .none
+            
+        case .destination(.dismiss):
+            if preferences.password.isNil { 
+                state.isUsingPassword = false 
+            }
             return .none
             
         case .destination:
@@ -99,7 +110,6 @@ struct PasswordSettingView: View {
     
     var body: some View {
         bodyView
-            .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) { backButton }
@@ -121,14 +131,12 @@ struct PasswordSettingView: View {
             Image("ic_chevron_left_ios_24")
         }
         .frame(width: 48, height: 48)
-        .debug()
     }
     
     private var navigationTitle: some View {
         Text("잠금")
             .font(pretendard: .heading3)
             .foregroundColor(.text_primary)
-            .debug()
     }
     
     private var bodyView: some View {
@@ -155,7 +163,6 @@ struct PasswordSettingView: View {
         .background(Color.elevated)
         .cornerRadius(6)
         .padding(.vertical, 16)
-        .debug()
     }
     
     private var passwordToggle: some View {
@@ -165,17 +172,16 @@ struct PasswordSettingView: View {
                 .foregroundColor(.text_primary)
                 .frame(maxWidth: .infinity, maxHeight: 54, alignment: .leading)
         }
-        .debug()
     }
     
     private var passwordChange: some View {
         Button { viewStore.send(.changePasswordButtonTapped) } label: { 
             Text("비밀번호 변경")
                 .font(pretendard: .heading4)
-                .foregroundColor(.text_primary)
+                .foregroundColor(viewStore.isUsingPassword ? .text_primary : .text_disabled)
                 .frame(maxWidth: .infinity, maxHeight: 54, alignment: .leading)
         }
-        .debug()
+        .disabled(!viewStore.isUsingPassword)
     }
 }
 

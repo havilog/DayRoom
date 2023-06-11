@@ -81,12 +81,8 @@ struct Main: Reducer {
         }
         
         Reduce(core)
-            .forEach(\.path, action: /Action.path) { 
-                Path()
-            }
-            .ifLet(\.$destination, action: /Action.destination) {
-                Destination()
-            }
+            .forEach(\.path, action: /Action.path) { Path() }
+            .ifLet(\.$destination, action: /Action.destination) { Destination() }
     }
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -94,7 +90,10 @@ struct Main: Reducer {
         case let .diaryFeed(.delegate(action)):
             switch action {
             case .settingButtonTapped:
-                state.path.append(.setting(.init(isUsingPassword: !preferences.password.isNil)))
+                state.path.append(.setting(.init(
+                    nickname: preferences.nickname ?? "", 
+                    isUsingPassword: !preferences.password.isNil
+                )))
                 return .none
                 
             case .createButtonTapped:
@@ -124,6 +123,10 @@ struct Main: Reducer {
                 case .version:
                     return .none
                 }
+                
+            case .myCloverButtonTapped:
+                // 클로버 페이지로 이동
+                return .none
                 
             case .backButtonTapped:
                 state.path.pop(from: id)

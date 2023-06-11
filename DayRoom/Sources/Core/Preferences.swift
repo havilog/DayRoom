@@ -48,8 +48,8 @@ public final class Preferences {
     
     private init() { }
     
-    @ValueProperty(uniqueKey: "Preferences::onboardingFinished", defaultValue: false)
-    public var onboardingFinished: Bool
+    @ValueProperty(uniqueKey: "Preferences::nickname", defaultValue: nil)
+    public var nickname: String?
     
     @ValueProperty(uniqueKey: "Preferences::password", defaultValue: nil)
     public var password: String?
@@ -61,6 +61,7 @@ private protocol AnyOptional {
 
 extension Optional: AnyOptional {
     var isNil: Bool { self == nil }
+    var isNotNil: Bool { self != nil }
 }
 
 import XCTestDynamicOverlay

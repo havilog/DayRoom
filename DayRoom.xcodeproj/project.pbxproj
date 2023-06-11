@@ -38,6 +38,7 @@
 		403903E82A0E131D00C7D077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 403903E72A0E131D00C7D077 /* Assets.xcassets */; };
 		403903EB2A11077A00C7D077 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903EA2A11077A00C7D077 /* Main.swift */; };
 		403903EF2A11085F00C7D077 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903EE2A11085F00C7D077 /* Setting.swift */; };
+		405CC5BE2A360B0B00AFE2C0 /* Shake+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC5BD2A360B0B00AFE2C0 /* Shake+.swift */; };
 		40A624032A35DFD700A00370 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 40A624022A35DFD700A00370 /* Lottie */; };
 		40A6240B2A35E03E00A00370 /* envelope motion.json in Resources */ = {isa = PBXBuildFile; fileRef = 40A624092A35E03D00A00370 /* envelope motion.json */; };
 		40A6240C2A35E03E00A00370 /* clover_motion.json in Resources */ = {isa = PBXBuildFile; fileRef = 40A6240A2A35E03E00A00370 /* clover_motion.json */; };
@@ -114,6 +115,7 @@
 		403903E72A0E131D00C7D077 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		403903EA2A11077A00C7D077 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		403903EE2A11085F00C7D077 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		405CC5BD2A360B0B00AFE2C0 /* Shake+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shake+.swift"; sourceTree = "<group>"; };
 		40A624092A35E03D00A00370 /* envelope motion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "envelope motion.json"; sourceTree = "<group>"; };
 		40A6240A2A35E03E00A00370 /* clover_motion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = clover_motion.json; sourceTree = "<group>"; };
 		40A6240D2A35E09300A00370 /* SwiftUILottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUILottieView.swift; sourceTree = "<group>"; };
@@ -217,7 +219,6 @@
 				403903AB2A0D3C5500C7D077 /* Font+Custom.swift */,
 				403903AD2A0D3C6300C7D077 /* UIColor+hex.swift */,
 				403903AF2A0D3C6C00C7D077 /* UIColor+DayRoom.swift */,
-				40A6240D2A35E09300A00370 /* SwiftUILottieView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -258,9 +259,11 @@
 		403903CD2A0D74E500C7D077 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				40A6240D2A35E09300A00370 /* SwiftUILottieView.swift */,
 				40A9CB672A28DE3D003E8BCF /* CornerRadius+.swift */,
 				403903CE2A0D74F300C7D077 /* View+DebugFrameInfo.swift */,
 				403903E52A0E017100C7D077 /* onFirstAppear.swift */,
+				405CC5BD2A360B0B00AFE2C0 /* Shake+.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -600,6 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40D7ED392A090F5500BFB428 /* DayRoomApp.swift in Sources */,
+				405CC5BE2A360B0B00AFE2C0 /* Shake+.swift in Sources */,
 				403903AC2A0D3C5500C7D077 /* Font+Custom.swift in Sources */,
 				40A624102A35E6EE00A00370 /* Bundle+version.swift in Sources */,
 				40A9CB682A28DE3D003E8BCF /* CornerRadius+.swift in Sources */,
@@ -792,6 +796,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -822,6 +827,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

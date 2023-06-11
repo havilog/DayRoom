@@ -78,31 +78,30 @@ struct Root: Reducer {
             .animation()
             
         case .splashCompleted:
-            guard preferences.onboardingFinished else { 
+            guard preferences.nickname.isNotNil else { 
                 state.destination = .nickname(.init()) 
                 return .none
             }
             
-            if let _ = preferences.password {
-                state.destination = .password(.init(mode: .normal))
-            } else {
+            if preferences.password.isNil {
                 state.destination = .main(.init())
+            } else {
+                state.destination = .password(.init(mode: .normal))
             }
             
             return .none
             
         case .welcomeAnimationFinished:
-            if let _ = preferences.password {
-                state.destination = .password(.init(mode: .normal))
-            } else {
+            if preferences.password.isNil {
                 state.destination = .main(.init())
+            } else {
+                state.destination = .password(.init(mode: .normal))
             }
             return .none
             
         case let .destination(.nickname(.delegate(action))):
             switch action {
             case .nicknameDetermined:
-                preferences.onboardingFinished = true
                 state.destination = .welcome
                 return .task {
                     try await clock.sleep(for: .seconds(2.5))

@@ -29,6 +29,7 @@ struct Nickname: Reducer {
     
     enum Action: Equatable, BindableAction {
         case onAppear
+        case keyboardWillBecomeFirstResponder
         case doneButtonTapped
         
         case binding(BindingAction<State>)
@@ -37,6 +38,11 @@ struct Nickname: Reducer {
             case nicknameDetermined
         }
     }
+    
+    // MARK: Dependency
+    
+    @Dependency(\.continuousClock) private var clock
+    @Dependency(\.preferences) private var preferences
     
     // MARK: Body
     
@@ -48,10 +54,18 @@ struct Nickname: Reducer {
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .onAppear:
+            return .task { 
+                try await self.clock.sleep(for: .seconds(0.1))
+                return .keyboardWillBecomeFirstResponder
+            }
+            
+        case .keyboardWillBecomeFirstResponder:
             state.focus = .nickname
             return .none
             
         case .doneButtonTapped:
+            guard state.isNicknameValid else { return .none }
+            preferences.nickname = state.nickname
             return .send(.delegate(.nicknameDetermined))
             
         case .binding(\.$nickname):
@@ -108,10 +122,9 @@ struct NicknameView: View {
     }
     
     private var title: some View {
-        Text("기록가님 반가워요!")
+        Text("위대한 기록이 시작될거에요!")
             .font(pretendard: .heading2)
             .foregroundColor(.text_primary)
-            .debug()
             .padding(.bottom, 16)
     }
     
@@ -147,7 +160,6 @@ struct NicknameView: View {
         .frame(maxWidth: .infinity)
         .background(viewStore.isDoneButtonDisabled ? Color.grey20 : Color.day_green)
         .disabled(viewStore.isDoneButtonDisabled)
-        .debug()
     }
 }
 

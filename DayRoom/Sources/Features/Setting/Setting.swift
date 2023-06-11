@@ -12,9 +12,11 @@ struct Setting: Reducer {
     
     // MARK: State
     
-    struct State: Hashable {
+    struct State: Equatable {
         var appVersion: String = Bundle.main.releaseVersionNumber ?? "1.0.0"
+        var nickname: String
         var isUsingPassword: Bool
+        @PresentationState var destination: Destination.State? = nil
     }
     
     enum Row: Equatable {
@@ -30,7 +32,7 @@ struct Setting: Reducer {
             }
         }
         
-        var description: String {
+        var title: String {
             switch self {
             case .lock: return "잠금"
             case .whoMadeThis: return "만든 사람들"
@@ -43,18 +45,45 @@ struct Setting: Reducer {
     
     enum Action: Equatable {
         case backButtonTapped
+        case changeNicknameButtonTapped
+        case myCloverButtonTapped
         case settingRowTapped(Row)
         case delegate(Delegate)
+        case destination(PresentationAction<Destination.Action>)
         enum Delegate: Equatable {
-            case settingRowTapped(Row) 
             case backButtonTapped
+            case settingRowTapped(Row)
+            case myCloverButtonTapped
         }
     }
+    
+    // MARK: Destination
+    
+    struct Destination: Reducer {
+        enum State: Equatable {
+            case nickname(Nickname.State)
+        }
+        
+        enum Action: Equatable {
+            case nickname(Nickname.Action)
+        }
+        
+        var body: some ReducerOf<Self> {
+            Scope(state: /State.nickname, action: /Action.nickname) { 
+                Nickname()
+            }
+        }
+    }
+    
+    // MARK: Dependency
+    
+    @Dependency(\.preferences) private var preferences 
     
     // MARK: Body
     
     var body: some ReducerOf<Self> {
         Reduce(core)
+            .ifLet(\.$destination, action: /Action.destination) { Destination() }
     }
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -62,10 +91,25 @@ struct Setting: Reducer {
         case .backButtonTapped:
             return .send(.delegate(.backButtonTapped))
             
+        case .changeNicknameButtonTapped:
+            state.destination = .nickname(.init())
+            return .none
+            
+        case .myCloverButtonTapped:
+            return .none
+            
         case let .settingRowTapped(row):
             return .send(.delegate(.settingRowTapped(row)))
             
         case .delegate:
+            return .none
+            
+        case .destination(.presented(.nickname(.delegate(.nicknameDetermined)))):
+            state.nickname = preferences.nickname ?? ""
+            state.destination = nil
+            return .none
+            
+        case .destination:
             return .none
         }
     }
@@ -82,8 +126,13 @@ struct SettingView: View {
     
     var body: some View {
         bodyView
-            .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
+            .sheet(
+                store: store.scope(state: \.$destination, action: Setting.Action.destination),
+                state: /Setting.Destination.State.nickname,
+                action: Setting.Destination.Action.nickname,
+                content: NicknameView.init
+            )
             .toolbar { 
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button { viewStore.send(.backButtonTapped) } label: { 
@@ -114,9 +163,9 @@ struct SettingView: View {
     private var myInfoView: some View {
         VStack(alignment: .leading, spacing: .zero) {
             HStack(spacing: .zero) {
-                Text("하진") // 내 닉네임
+                Text(viewStore.nickname)
                     .padding(.trailing, 8)
-                Button { } label: { 
+                Button { viewStore.send(.changeNicknameButtonTapped) } label: { 
                     Image("ic_edit_fill_24")
                 }
 
@@ -164,7 +213,7 @@ struct SettingView: View {
     private var appInfoSection: some View {
         Section {
             settingRow(.whoMadeThis)
-            settingRow(.version) {
+            settingRow(.version, disableInteraction: true) {
                 Text("v \(viewStore.appVersion)")
                     .font(pretendard: .body2)
                     .foregroundColor(.text_primary)
@@ -177,6 +226,7 @@ struct SettingView: View {
     private func settingRow(
         _ settingRow: Setting.Row,
         hasTrailingArrow: Bool = false,
+        disableInteraction: Bool = false,
         trailingView: () -> some View = { EmptyView() }
     ) -> some View {
         Button { viewStore.send(.settingRowTapped(settingRow)) } label: { 
@@ -185,7 +235,7 @@ struct SettingView: View {
                     .frame(width: 24, height: 24)
                     .padding(.trailing, 8)
                 
-                Text("\(settingRow.description)")
+                Text("\(settingRow.title)")
                     .font(pretendard: .heading4)
                     .foregroundColor(.text_primary)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
@@ -199,6 +249,7 @@ struct SettingView: View {
                 }
             }
         }
+        .disabled(disableInteraction)
         .frame(height: 54)
     }
     
@@ -223,7 +274,7 @@ struct SettingView_Previews: PreviewProvider {
         NavigationStack {
             SettingView(
                 store: .init(
-                    initialState: .init(isUsingPassword: false), 
+                    initialState: .init(nickname: "havi", isUsingPassword: false), 
                     reducer: Setting()
                 )
             )
