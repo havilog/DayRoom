@@ -13,9 +13,9 @@ struct DiaryFeed: Reducer {
     
     // MARK: State
     
-    struct State: Hashable {
+    struct State: Equatable {
         var date: Date = .now
-        var diaries: IdentifiedArrayOf<Diary> = .init()
+        var diaries: IdentifiedArrayOf<DiaryCard.State> = .init()
     }
     
     // MARK: Action
@@ -25,7 +25,7 @@ struct DiaryFeed: Reducer {
         case settingButtonTapped
         case createButtonTapped
         case todayCardTapped
-        case diaryCardTapped(Diary.ID)
+        case diaryCard(id: DiaryCard.State.ID, action: DiaryCard.Action)
         case diaryLoadResponse(TaskResult<[Diary]>)
         case delegate(Delegate)
         
@@ -44,6 +44,9 @@ struct DiaryFeed: Reducer {
     
     var body: some ReducerOf<Self> {
         Reduce(core)
+            .forEach(\.diaries, action: /Action.diaryCard) { 
+                DiaryCard()
+            }
     }
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -62,11 +65,23 @@ struct DiaryFeed: Reducer {
         case .todayCardTapped:
             return .send(.delegate(.todayCardTapped))
             
-        case let .diaryCardTapped(id):
+        case .diaryCard:
             return .none
             
         case let .diaryLoadResponse(.success(diaries)):
-            state.diaries = .init(uniqueElements: diaries)
+            let diaryState: [DiaryCard.State] = diaries
+                .map { diary in
+                    return DiaryCard.State.init(
+                        date: diary.date ?? .now, 
+                        mood: DiaryMood(rawValue: diary.mood ?? "lucky") ?? .lucky, 
+                        selectedImage: UIImage(data: diary.image ?? .init()), 
+                        cardMode: .feed,
+                        page: .photo,
+                        content: diary.content ?? ""
+                    )
+                }
+                .sorted { $0.date > $1.date }
+            state.diaries = .init(uniqueElements: diaryState)
             return .none
             
         case .diaryLoadResponse(.failure):
@@ -78,18 +93,28 @@ struct DiaryFeed: Reducer {
     }
 }
 
+extension DiaryFeed.State {
+    mutating func insert(diary: DiaryCard.State) -> Effect<DiaryFeed.Action> {
+        var feedDiary = diary
+        feedDiary.cardMode = .feed
+        feedDiary.page = .photo
+        self.diaries.insert(feedDiary, at: .zero)
+        return .none
+    }
+}
+
 struct DiaryFeedView: View {
     let store: StoreOf<DiaryFeed>
     @ObservedObject var viewStore: ViewStore<ViewState, DiaryFeed.Action>
     
     struct ViewState: Equatable {
         let date: Date
-        let diaries: IdentifiedArrayOf<Diary>
+        let diaries: IdentifiedArrayOf<DiaryCard.State>
         let isWrittenToday: Bool
         init(state: DiaryFeed.State) {
             self.date = state.date
             self.diaries = state.diaries
-            self.isWrittenToday = state.diaries.isEmpty ? false : state.diaries.compactMap(\.date).allSatisfy(\.isToday)
+            self.isWrittenToday = state.diaries.isEmpty ? false : state.diaries.map(\.date).allSatisfy(\.isToday)
         }
     }
     
@@ -111,22 +136,46 @@ struct DiaryFeedView: View {
                 Spacer().frame(height: 12)
                 
                 if viewStore.isWrittenToday == false {
-                    Text("card")
-                    .padding(.horizontal, 20)
+                    emptyCardView
+                        .padding(.horizontal, 20)
+                        .onTapGesture {
+                            viewStore.send(.createButtonTapped)
+                        }
                 }
                 
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: 16, alignment: .top)]) {
-                    ForEach(viewStore.diaries) { diary in
-                        Text("card")
+                    ForEachStore(
+                        store.scope(state: \.diaries, action: DiaryFeed.Action.diaryCard)
+                    ) { store in
+                        DiaryCardView(store: store)
                     }
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 30)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .debug(.red)
         }
         .ignoresSafeArea(edges: .bottom)
+    }
+    
+    private var emptyCardView: some View {
+        VStack(spacing: .zero) { 
+            Spacer()
+            Text(String(viewStore.date.day))
+                .font(garamond: .hero)
+                .foregroundColor(.text_disabled)
+            
+            Text(viewStore.date.weekday.english)
+                .font(garamond: .body2)
+                .foregroundColor(.text_disabled)
+        }
+        .padding(24)
+        .frame(
+            width: UIScreen.main.bounds.size.width - 40,
+            height: (UIScreen.main.bounds.size.width - 40) / 3 * 4
+        )
+        .background(Color.elevated)
+        .cornerRadius(24)
     }
     
     private var navigationTitle: some View {
@@ -146,7 +195,6 @@ struct DiaryFeedView: View {
         .frame(height: 56)
         .padding(.leading, 20)
         .padding(.trailing, 12)
-        .debug()
     }
 }
 

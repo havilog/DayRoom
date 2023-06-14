@@ -8,7 +8,7 @@
 import SwiftUI
 import Foundation
 
-public enum DiaryMood: Identifiable, Equatable, CaseIterable {
+public enum DiaryMood: String, Identifiable, Equatable, CaseIterable {
     case lucky
     case happy
     case soso

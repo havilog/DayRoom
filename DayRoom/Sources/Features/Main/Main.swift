@@ -110,7 +110,7 @@ struct Main: Reducer {
                 return .none
             }
             
-        case let .diaryFeed(action):
+        case .diaryFeed:
             return .none
             
         case let .path(.element(id: id, action: .setting(.delegate(action)))):
@@ -154,6 +154,12 @@ struct Main: Reducer {
             
         case .path:
             return .none
+            
+        case let .destination(.presented(.diaryCreate(.delegate(action)))):
+            switch action {
+            case let .diaryCreated(diaryCard):
+                return state.diaryFeed.insert(diary: diaryCard).map(Action.diaryFeed)
+            }
             
         case .destination:
             return .none

@@ -39,6 +39,10 @@ struct DiaryCreate: Reducer {
         
         case destination(PresentationAction<Destination.Action>)
         case binding(BindingAction<State>)
+        case delegate(Delegate)
+        enum Delegate: Equatable {
+            case diaryCreated(DiaryCard.State)
+        }
     }
     
     // MARK: Destination
@@ -109,11 +113,12 @@ struct DiaryCreate: Reducer {
             return .task { [
                 imageData = state.card?.selectedImage?.jpegData(compressionQuality: 1.0), 
                 date = state.date,
-                content = state.card?.content
+                content = state.card?.content,
+                mood = state.card?.mood.rawValue
             ] in
                 await .saveResponse(
                     TaskResult { 
-                        try persistence.save(imageData, date, content ?? "")
+                        try persistence.save(imageData, date, content ?? "", mood ?? "lucky")
                         return true
                     }
                 )
@@ -142,11 +147,15 @@ struct DiaryCreate: Reducer {
             return .none
             
         case .saveResponse(.success):
+            guard let diaryCard = state.card else { return .none }
             state.isCreateFinished = true
-            return .fireAndForget {
-                try await self.clock.sleep(for: .seconds(2))
-                await dismiss() 
-            }
+            return .merge(
+                .fireAndForget {
+                    try await self.clock.sleep(for: .seconds(1.7))
+                    await dismiss() 
+                },
+                .send(.delegate(.diaryCreated(diaryCard)))
+            )
             
         case .saveResponse(.failure):
             // TODO: 실패한거 알리기
@@ -155,7 +164,11 @@ struct DiaryCreate: Reducer {
         case let .destination(.presented(.moodPicker(.delegate(action)))):
             switch action {
             case let .moodSelected(mood):
-                state.card = .init(canFlipByTouch: false, date: state.date, mood: mood)
+                state.card = .init(
+                    date: state.date, 
+                    mood: mood,
+                    cardMode: .create
+                )
                 return .none
             }
             
@@ -163,6 +176,9 @@ struct DiaryCreate: Reducer {
             return .none
             
         case .binding:
+            return .none
+            
+        case .delegate:
             return .none
         }
     }
@@ -177,26 +193,31 @@ struct DiaryCreateView: View {
         self.viewStore = ViewStore(store, observe: { $0 })
     }
     
+    @ViewBuilder
     var body: some View {
-        bodyView
-            .onFirstAppear { viewStore.send(.onFirstAppear) }
-            .sheet(
-                store: store.scope(state: \.$destination, action: DiaryCreate.Action.destination),
-                state: /DiaryCreate.Destination.State.moodPicker,
-                action: DiaryCreate.Destination.Action.moodPicker,
-                content: MoodPickerView.init
-            )
-            .sheet(
-                isPresented: .init(
-                    get: { viewStore.state.destination == .imagePicker }, 
-                    set: { if !$0 { viewStore.send(.imagePickerDismissed) } }
-                ),
-                onDismiss: { viewStore.send(.imagePickerDismissed) }
-            ) {
-                ImagePicker { selectedImage in
-                    viewStore.send(.imageSelected(selectedImage))
+        if viewStore.isCreateFinished {
+            CreateFinishView()
+        } else {
+            bodyView
+                .onFirstAppear { viewStore.send(.onFirstAppear) }
+                .sheet(
+                    store: store.scope(state: \.$destination, action: DiaryCreate.Action.destination),
+                    state: /DiaryCreate.Destination.State.moodPicker,
+                    action: DiaryCreate.Destination.Action.moodPicker,
+                    content: MoodPickerView.init
+                )
+                .sheet(
+                    isPresented: .init(
+                        get: { viewStore.state.destination == .imagePicker }, 
+                        set: { if !$0 { viewStore.send(.imagePickerDismissed) } }
+                    ),
+                    onDismiss: { viewStore.send(.imagePickerDismissed) }
+                ) {
+                    ImagePicker { selectedImage in
+                        viewStore.send(.imageSelected(selectedImage))
+                    }
                 }
-            }
+        }
     }
     
     private var bodyView: some View {
@@ -312,6 +333,7 @@ struct DiaryCreateView: View {
 struct CreateFinishView: View {
     var body: some View {
         LottieView(jsonName: "clover_motion", loopMode: .playOnce)
+            .padding(24)
     }
 }
 

@@ -11,6 +11,11 @@ import ComposableArchitecture
 
 struct DiaryCard: Reducer {
     
+    enum CardMode: Equatable {
+        case feed
+        case create
+    }
+    
     enum CardPage: Equatable {
         case photo
         case content
@@ -18,14 +23,14 @@ struct DiaryCard: Reducer {
     
     // MARK: State
     
-    struct State: Equatable {
-        var canFlipByTouch: Bool = true
-        
-        var date: Date = .today
+    struct State: Equatable, Identifiable {
+        let id: UUID = .init()
+        var date: Date
         var mood: DiaryMood
         var selectedImage: UIImage? = nil
-        @BindingState var content: String = ""
+        var cardMode: CardMode
         var page: CardPage = .photo
+        @BindingState var content: String = ""
     }
     
     // MARK: Action
@@ -51,11 +56,11 @@ struct DiaryCard: Reducer {
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .viewTapped:
-            if state.selectedImage == nil, state.page == .photo {
+            print(state.id)
+            if state.page == .photo, state.cardMode == .create {
                 return .send(.delegate(.needPhotoPicker))
-            }
-            
-            guard state.canFlipByTouch else { return .none }
+            } 
+            guard state.cardMode == .feed else { return .none }
             return flip(&state)
             
         case .binding:
@@ -99,6 +104,9 @@ struct DiaryCardView: View {
                     axis: (x: .zero, y: -1, z: .zero),
                     perspective: 0.3
                 )
+                .onTapGesture {
+                    viewStore.send(.viewTapped) 
+                }
             
             contentView
                 .flip(opacity: viewStore.page == .photo ? 0 : 1)
@@ -107,18 +115,21 @@ struct DiaryCardView: View {
                     axis: (x: .zero, y: -1, z: .zero),
                     perspective: 0.3
                 )
+                .onTapGesture {
+                    hideKeyboard()
+                    viewStore.send(.viewTapped) 
+                }
         }
         .animation(.easeInOut(duration: 0.75), value: viewStore.page)
-        .onTapGesture { viewStore.send(.viewTapped) }
     }
     
     private var photoView: some View {
         ZStack(alignment: .bottom) {
             photoContent(viewStore.selectedImage)
-                .frame(maxWidth: .infinity)
-                .cornerRadius(24)
+                .frame(maxWidth: UIScreen.main.bounds.size.width - 40)
                 .frame(height: (UIScreen.main.bounds.size.width - 40) / 3 * 4)
-                .contentShape(Rectangle())
+                .cornerRadius(24)
+                .clipped()
             
             VStack(spacing: .zero) { 
                 Text(String(viewStore.date.day))
@@ -145,9 +156,11 @@ struct DiaryCardView: View {
         if let image {
             Image(uiImage: image)
                 .resizable()
+                .aspectRatio(contentMode: .fill)
         } else {
             Image(viewStore.mood.imageName)
                 .resizable()
+                .clipped()
                 .opacity(viewStore.mood.backgroundOpacity)
         }
     }
@@ -159,19 +172,28 @@ struct DiaryCardView: View {
                 .foregroundColor(viewStore.mood.foregroundColor)
                 .padding(.bottom, 16)
             
-            TextEditor(text: viewStore.binding(\.$content))
-                .font(Font(UIFont(name: "Pretendard-Regular", size: 16)!))
-                .foregroundColor(.grey80)
-                .autocorrectionDisabled(true)
-                .frame(
-                    maxWidth: .infinity,
-                    maxHeight: .infinity,
-                    alignment: .topLeading
-                )
-                .cornerRadius(8)
-                .scrollContentBackground(.hidden)
-                .background(Color.clear)
-            
+            if viewStore.cardMode == .create {
+                TextEditor(text: viewStore.binding(\.$content))
+                    .font(Font(UIFont(name: "Pretendard-Regular", size: 16)!))
+                    .foregroundColor(.grey80)
+                    .autocorrectionDisabled(true)
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: .infinity,
+                        alignment: .topLeading
+                    )
+                    .cornerRadius(8)
+                    .scrollContentBackground(.hidden)
+                    .background(Color.clear)
+            } else {
+                ScrollView(.vertical, showsIndicators: false) { 
+                    Text(viewStore.content)
+                        .font(pretendard: .body2)
+                        .foregroundColor(.text_primary)
+                        .lineLimit(nil)
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                }
+            }
 //                if viewStore.content.isEmpty {
 //                    Text("오늘 하루는 어땠어요?")
 //                        .font(pretendard: .body2)
@@ -186,14 +208,14 @@ struct DiaryCardView: View {
         }
         .padding(24)
         .frame(height: (UIScreen.main.bounds.size.width - 40) / 3 * 4)
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: UIScreen.main.bounds.size.width - 40)
         .background(
             Image(viewStore.mood.imageName)
                 .resizable()
+                .clipped()
                 .opacity(viewStore.mood.backgroundOpacity)
         )
         .cornerRadius(24)
-        .onTapGesture { hideKeyboard() }
     }
 }
 
@@ -204,6 +226,7 @@ struct DiaryCardView_Previews: PreviewProvider {
                 initialState: .init(
                     date: .today, 
                     mood: .lucky, 
+                    cardMode: .create, 
                     page: .photo
                 ), 
                 reducer: DiaryCard()
@@ -214,10 +237,10 @@ struct DiaryCardView_Previews: PreviewProvider {
         DiaryCardView(
             store: .init(
                 initialState: .init(
-                    canFlipByTouch: false,
                     date: .today, 
                     mood: .lucky, 
-                    page: .content
+                    cardMode: .create,
+                    page: .content 
                 ), 
                 reducer: DiaryCard()
             )

@@ -62,7 +62,6 @@
 		40D7ED792A09103B00BFB428 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED782A09103B00BFB428 /* Persistence.swift */; };
 		40EFCEBD2A16237E00B30839 /* PasswordSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EFCEBC2A16237E00B30839 /* PasswordSetting.swift */; };
 		40EFCEBF2A16798A00B30839 /* DiaryCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EFCEBE2A16798A00B30839 /* DiaryCreate.swift */; };
-		40EFCEC12A16799000B30839 /* DiaryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EFCEC02A16799000B30839 /* DiaryDetail.swift */; };
 		40EFCEC32A167E8300B30839 /* DiaryImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EFCEC22A167E8300B30839 /* DiaryImagePicker.swift */; };
 		40EFCEC62A16800F00B30839 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EFCEC52A16800F00B30839 /* Date+Extension.swift */; };
 		40EFCECB2A18C56B00B30839 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 40EFCECA2A18C56B00B30839 /* Kingfisher */; };
@@ -143,7 +142,6 @@
 		40D7ED782A09103B00BFB428 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		40EFCEBC2A16237E00B30839 /* PasswordSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordSetting.swift; sourceTree = "<group>"; };
 		40EFCEBE2A16798A00B30839 /* DiaryCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCreate.swift; sourceTree = "<group>"; };
-		40EFCEC02A16799000B30839 /* DiaryDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetail.swift; sourceTree = "<group>"; };
 		40EFCEC22A167E8300B30839 /* DiaryImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryImagePicker.swift; sourceTree = "<group>"; };
 		40EFCEC52A16800F00B30839 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -242,7 +240,6 @@
 			isa = PBXGroup;
 			children = (
 				403903BC2A0D4BE800C7D077 /* DiaryFeed.swift */,
-				40EFCEC02A16799000B30839 /* DiaryDetail.swift */,
 			);
 			path = DiaryFeed;
 			sourceTree = "<group>";
@@ -637,7 +634,6 @@
 				40A9CB622A28D2E8003E8BCF /* DiaryMood.swift in Sources */,
 				403903B42A0D490100C7D077 /* Preferences.swift in Sources */,
 				40A9CB662A28D4F1003E8BCF /* MoodPicker.swift in Sources */,
-				40EFCEC12A16799000B30839 /* DiaryDetail.swift in Sources */,
 				403903AE2A0D3C6400C7D077 /* UIColor+hex.swift in Sources */,
 				40A6240E2A35E09300A00370 /* SwiftUILottieView.swift in Sources */,
 				40EFCEC62A16800F00B30839 /* Date+Extension.swift in Sources */,

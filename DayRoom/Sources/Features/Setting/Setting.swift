@@ -198,11 +198,12 @@ struct SettingView: View {
     
     private var settingSection: some View {
         Section { 
-            settingRow(.lock, hasTrailingArrow: true) {
-                Text("\(viewStore.isUsingPassword ? "ON" : "OFF")")
-                    .font(pretendard: .body2)
-                    .foregroundColor(.text_primary)
-            }
+            settingRow(.lock, hasTrailingArrow: true)
+//            {
+//                Text("\(viewStore.isUsingPassword ? "ON" : "OFF")")
+//                    .font(pretendard: .body2)
+//                    .foregroundColor(.text_primary)
+//            }
         } header: { 
             sectionHeader("설정")
         } footer: { 
