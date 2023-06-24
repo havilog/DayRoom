@@ -92,7 +92,7 @@ struct Setting: Reducer {
             return .send(.delegate(.backButtonTapped))
             
         case .changeNicknameButtonTapped:
-            state.destination = .nickname(.init())
+            state.destination = .nickname(.init(mode: .edit))
             return .none
             
         case .myCloverButtonTapped:
@@ -140,41 +140,42 @@ struct SettingView: View {
                     }
                     .frame(width: 48, height: 48)
                 }
-                ToolbarItem(placement: .principal) {
-                    Text("마이페이지")
-                        .font(pretendard: .heading3)
-                        .foregroundColor(.text_primary)
-                }
             }
     }
     
     private var bodyView: some View {
         ScrollView {
             VStack(spacing: .zero) { 
+                largeTitle
                 myInfoView
                 settingSection
                 appInfoSection
             }
-            .padding(.top, 16)
+            .padding(.top, 8)
         }
         .padding(.horizontal, 20)
     } 
+    
+    private var largeTitle: some View {
+        Text("마이페이지")
+            .font(pretendard: .display1)
+            .foregroundColor(.grey80)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
     
     private var myInfoView: some View {
         VStack(alignment: .leading, spacing: .zero) {
             HStack(spacing: .zero) {
                 Text(viewStore.nickname)
+                    .font(pretendard: .heading1)
+                    .foregroundColor(.text_primary)
                     .padding(.trailing, 8)
                 Button { viewStore.send(.changeNicknameButtonTapped) } label: { 
                     Image("ic_edit_fill_24")
                 }
-
             }
-            .padding([.top, .horizontal], 16)
-            
-            Divider()
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
+            .padding(.top, 24)
+            .padding(.bottom, 12)
             
             Button { } label: { 
                 HStack(spacing: .zero) { 
@@ -189,10 +190,11 @@ struct SettingView: View {
                     Image("ic_chevron_right_24").frame(width: 24, height: 24)
                 }
             }
-            .padding([.bottom, .horizontal], 16)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 16)
+            .background(Color.elevated)
+            .cornerRadius(12)
         }
-        .background(Color.elevated)
-        .cornerRadius(12)
         .padding(.bottom, 12)
     }
     
@@ -215,7 +217,7 @@ struct SettingView: View {
         Section {
             settingRow(.whoMadeThis)
             settingRow(.version, disableInteraction: true) {
-                Text("v \(viewStore.appVersion)")
+                Text("v\(viewStore.appVersion)")
                     .font(pretendard: .body2)
                     .foregroundColor(.text_primary)
             }

@@ -215,16 +215,24 @@ struct PasswordView: View {
         HStack(spacing: 20) {
             Image("logo_dayroom_symbol")
                 .renderingMode(.template)
-                .foregroundColor(viewStore.inputPassword.count >= 1 ? .day_primary : .divider)
+                .resizable()
+                .frame(width: 32, height: 32)
+                .foregroundColor(viewStore.inputPassword.count >= 1 ? .day_green : .divider)
             Image("logo_dayroom_symbol")
                 .renderingMode(.template)
-                .foregroundColor(viewStore.inputPassword.count >= 2 ? .day_primary : .divider)
+                .resizable()
+                .frame(width: 32, height: 32)
+                .foregroundColor(viewStore.inputPassword.count >= 2 ? .day_green : .divider)
             Image("logo_dayroom_symbol")
                 .renderingMode(.template)
-                .foregroundColor(viewStore.inputPassword.count >= 3 ? .day_primary : .divider)
+                .resizable()
+                .frame(width: 32, height: 32)
+                .foregroundColor(viewStore.inputPassword.count >= 3 ? .day_green : .divider)
             Image("logo_dayroom_symbol")
                 .renderingMode(.template)
-                .foregroundColor(viewStore.inputPassword.count == 4 ? .day_primary : .divider)
+                .resizable()
+                .frame(width: 32, height: 32)
+                .foregroundColor(viewStore.inputPassword.count == 4 ? .day_green : .divider)
         }
     }
     

@@ -28,8 +28,8 @@ public extension Color {
 // MARK: Brand Color
 
 public extension Color {
-    static let day_green: Color = .init(uiColor: .init(hex: "40805F"))
-    static let day_green_dark: Color = .init(uiColor: .init(hex: "285B3C"))
+    static let day_green: Color = .init(uiColor: .init(hex: "83B065"))
+    static let day_green_dark: Color = .init(uiColor: .init(hex: "5C7C45"))
     static let day_green_light: Color = .init(uiColor: .init(hex: "A7DB95"))
     static let day_green_background: Color = .init(uiColor: .init(hex: "E6F0E7"))
     static let day_brown: Color = .init(uiColor: .init(hex: "A37F5F"))

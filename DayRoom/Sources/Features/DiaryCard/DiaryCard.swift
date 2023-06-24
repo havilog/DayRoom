@@ -37,10 +37,12 @@ struct DiaryCard: Reducer {
     
     enum Action: Equatable, BindableAction {
         case viewTapped
+        case onLongPressGesture
         case binding(BindingAction<State>)
         case delegate(Delegate)
         enum Delegate: Equatable {
             case needPhotoPicker
+            case onLongPressGesture
         }
     }
     
@@ -56,12 +58,14 @@ struct DiaryCard: Reducer {
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .viewTapped:
-            print(state.id)
             if state.page == .photo, state.cardMode == .create {
                 return .send(.delegate(.needPhotoPicker))
             } 
             guard state.cardMode == .feed else { return .none }
             return flip(&state)
+            
+        case .onLongPressGesture:
+            return .send(.delegate(.onLongPressGesture))
             
         case .binding:
             return .none
@@ -102,25 +106,23 @@ struct DiaryCardView: View {
                 .rotation3DEffect(
                     .degrees(viewStore.page == .photo ? 0 : 180), 
                     axis: (x: .zero, y: -1, z: .zero),
-                    perspective: 0.3
+                    perspective: 0.2
                 )
-                .onTapGesture {
-                    viewStore.send(.viewTapped) 
-                }
             
             contentView
                 .flip(opacity: viewStore.page == .photo ? 0 : 1)
                 .rotation3DEffect(
                     .degrees(viewStore.page == .photo ? -180 : 0), 
                     axis: (x: .zero, y: -1, z: .zero),
-                    perspective: 0.3
+                    perspective: 0.2
                 )
-                .onTapGesture {
-                    hideKeyboard()
-                    viewStore.send(.viewTapped) 
-                }
         }
-        .animation(.easeInOut(duration: 0.75), value: viewStore.page)
+        .animation(.easeInOut(duration: 0.7), value: viewStore.page)
+        .onTapGesture {
+            hideKeyboard()
+            viewStore.send(.viewTapped) 
+        }
+        .onLongPressGesture { viewStore.send(.onLongPressGesture) }
     }
     
     private var photoView: some View {

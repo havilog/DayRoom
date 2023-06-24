@@ -13,7 +13,14 @@ struct Nickname: Reducer {
     
     // MARK: State
     
+    enum NickNameMode {
+        case onboarding
+        case edit
+    }
+    
     struct State: Equatable {
+        let mode: NickNameMode
+        
         var isNicknameValid: Bool = true
         var isDoneButtonDisabled: Bool { !isNicknameValid || nickname.isEmpty }
         
@@ -99,10 +106,20 @@ struct NicknameView: View {
     
     var body: some View {
         bodyView
+            .toolbar { 
+                if viewStore.mode == .edit {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {  } label: { 
+                            Image("ic_cancel_24")
+                        }
+                    }
+                }
+            }
     }
     
     private var bodyView: some View {
         VStack(spacing: .zero) { 
+            largeTitle.padding(.horizontal, 20)
             cloverWithMailImage
             VStack(alignment: .leading, spacing: .zero) {
                 title
@@ -115,17 +132,24 @@ struct NicknameView: View {
         .onAppear { viewStore.send(.onAppear) }
     }
     
+    private var largeTitle: some View {
+        Text("역사적인 기록이\n시작 될 거에요!")
+            .font(pretendard: .heading1)
+            .foregroundColor(.grey80)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
     private var cloverWithMailImage: some View {
         Image("name_illust")
-            .padding(.top, 48)
-            .padding(.bottom, 44)
+            .padding(.vertical, 20)
     }
     
     private var title: some View {
-        Text("위대한 기록이 시작될거에요!")
-            .font(pretendard: .heading2)
-            .foregroundColor(.text_primary)
-            .padding(.bottom, 16)
+        Text("글쓴이")
+            .font(pretendard: .body2)
+            .foregroundColor(.text_secondary)
+            .padding(.bottom, 8)
+            .padding(.leading, 8)
     }
     
     private var nicknameTextField: some View {
@@ -162,11 +186,13 @@ struct NicknameView: View {
 
 struct NicknameView_Previews: PreviewProvider {
     static var previews: some View {
-        NicknameView(
-            store: .init(
-                initialState: .init(), 
-                reducer: Nickname()
+        NavigationStack {
+            NicknameView(
+                store: .init(
+                    initialState: .init(mode: .edit), 
+                    reducer: Nickname()
+                )
             )
-        )
+        }
     }
 }

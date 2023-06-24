@@ -141,6 +141,8 @@ struct DiaryCreate: Reducer {
             case .needPhotoPicker:
                 state.destination = .imagePicker
                 return .none
+            case .onLongPressGesture:
+                return .none
             }
             
         case .card:
@@ -282,12 +284,17 @@ struct DiaryCreateView: View {
     
     private var bottomButtons: some View {
         HStack(spacing: .zero) { 
-            if viewStore.card?.page == .photo {
-                noteButton
-            } else {
-                imageButton
-            }
+            leftButton().padding(.trailing, 20)
             calendarButton
+        }
+    }
+    
+    @ViewBuilder
+    private func leftButton() -> some View {
+        if viewStore.card?.page == .photo {
+            noteButton
+        } else {
+            imageButton
         }
     }
     
@@ -303,7 +310,6 @@ struct DiaryCreateView: View {
         .shadow(color: .day_black.opacity(0.03), radius: 2, y: 1)
         .shadow(color: .day_black.opacity(0.03), radius: 6, y: 4)
         .disabled(viewStore.card?.selectedImage == nil ? true : false)
-        .padding(.trailing, 16)
     }
     
     private var imageButton: some View {
@@ -315,7 +321,6 @@ struct DiaryCreateView: View {
         .cornerRadius(26)
         .shadow(color: .day_black.opacity(0.03), radius: 2, y: 1)
         .shadow(color: .day_black.opacity(0.03), radius: 6, y: 4)
-        .padding(.trailing, 16)
     }
     
     private var calendarButton: some View {

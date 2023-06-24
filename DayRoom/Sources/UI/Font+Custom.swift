@@ -13,6 +13,7 @@ public protocol FontLineHeightConfigurable {
 }
 
 public enum Pretendard: FontLineHeightConfigurable {
+    case display1
     case heading1
     case heading2
     case heading3
@@ -28,8 +29,9 @@ public enum Pretendard: FontLineHeightConfigurable {
 public extension Pretendard {
     var font: UIFont {
         switch self {
-        case .heading1: return .init(name: "Pretendard-SemiBold", size: 24)!
-        case .heading2: return .init(name: "Pretendard-SemiBold", size: 20)!
+        case .display1: return .init(name: "Pretendard-Medium", size: 30)!
+        case .heading1: return .init(name: "Pretendard-Medium", size: 24)!
+        case .heading2: return .init(name: "Pretendard-Medium", size: 20)!
         case .heading3: return .init(name: "Pretendard-SemiBold", size: 18)!
         case .heading4: return .init(name: "Pretendard-Regular", size: 18)!
         case .body1: return .init(name: "Pretendard-SemiBold", size: 16)!
@@ -42,7 +44,8 @@ public extension Pretendard {
     }
     var lineHeight: CGFloat {
         switch self {
-        case .heading1: return 38
+        case .display1: return 42
+        case .heading1: return 36
         case .heading2: return 32
         case .heading3: return 30
         case .heading4: return 30
@@ -72,7 +75,7 @@ public extension Garamond {
         case .hero: return .init(name: "EBGaramond-Regular", size: 64)!
         case .heading1: return .init(name: "EBGaramond-Regular", size: 32)!
         case .heading2: return .init(name: "EBGaramond-Medium", size: 24)!
-        case .heading3: return .init(name: "EBGaramond-Medium", size: 22)!
+        case .heading3: return .init(name: "EBGaramond-SemiBold", size: 22)!
         case .heading4: return .init(name: "EBGaramond-Regular", size: 20)!
         case .body1: return .init(name: "EBGaramond-Regular", size: 18)!
         case .body2: return .init(name: "EBGaramond-Regular", size: 16)!

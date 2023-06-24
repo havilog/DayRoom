@@ -33,6 +33,7 @@ struct DiaryFeed: Reducer {
             case settingButtonTapped
             case createButtonTapped
             case todayCardTapped
+            case diaryLongPressed(id: DiaryCard.State.ID)
         }
     }
     
@@ -65,6 +66,9 @@ struct DiaryFeed: Reducer {
         case .todayCardTapped:
             return .send(.delegate(.todayCardTapped))
             
+        case let .diaryCard(id, .delegate(.onLongPressGesture)):
+            return .send(.delegate(.diaryLongPressed(id: id)))
+            
         case .diaryCard:
             return .none
             
@@ -94,6 +98,11 @@ struct DiaryFeed: Reducer {
 }
 
 extension DiaryFeed.State {
+    mutating func deleteDiary(id: DiaryCard.State.ID) -> Effect<DiaryFeed.Action> {
+        self.diaries.remove(id: id)
+        return .none
+    }
+    
     mutating func insert(diary: DiaryCard.State) -> Effect<DiaryFeed.Action> {
         var feedDiary = diary
         feedDiary.cardMode = .feed
@@ -114,7 +123,9 @@ struct DiaryFeedView: View {
         init(state: DiaryFeed.State) {
             self.date = state.date
             self.diaries = state.diaries
-            self.isWrittenToday = state.diaries.isEmpty ? false : state.diaries.map(\.date).allSatisfy(\.isToday)
+            self.isWrittenToday = state.diaries.isEmpty ? 
+            false : 
+            state.diaries.map(\.date).contains(where: \.isToday)
         }
     }
     
@@ -128,6 +139,12 @@ struct DiaryFeedView: View {
             .onFirstAppear { viewStore.send(.onFirstAppear) }
     }
     
+    private let oneSizeItem: GridItem = GridItem(
+        .flexible(), 
+        spacing: 16, 
+        alignment: .top
+    )
+    
     private var bodyView: some View {
         VStack(spacing: .zero) {
             navigationTitle
@@ -135,17 +152,14 @@ struct DiaryFeedView: View {
             ScrollView {
                 Spacer().frame(height: 12)
                 
-                if viewStore.isWrittenToday == false {
-                    emptyCardView
-                        .padding(.horizontal, 20)
-                        .onTapGesture {
-                            viewStore.send(.createButtonTapped)
-                        }
-                }
+                if viewStore.isWrittenToday == false { emptyCardView }
                 
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: 16, alignment: .top)]) {
+                LazyVGrid(columns: [oneSizeItem]) {
                     ForEachStore(
-                        store.scope(state: \.diaries, action: DiaryFeed.Action.diaryCard)
+                        store.scope(
+                            state: \.diaries, 
+                            action: DiaryFeed.Action.diaryCard
+                        )
                     ) { store in
                         DiaryCardView(store: store)
                     }
@@ -176,6 +190,8 @@ struct DiaryFeedView: View {
         )
         .background(Color.elevated)
         .cornerRadius(24)
+        .padding(.horizontal, 20)
+        .onTapGesture { viewStore.send(.createButtonTapped) }
     }
     
     private var navigationTitle: some View {
