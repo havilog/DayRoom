@@ -151,7 +151,7 @@ struct RootView: View {
         ) { state in
             switch state {
             case .splash:
-                Image("app_logo")
+                Image("launch_screen")
                 
             case .welcome:
                 WelcomeView()
