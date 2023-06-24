@@ -44,6 +44,7 @@
 		405CC5C52A363EFC00AFE2C0 /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC5C42A363EFC00AFE2C0 /* HideKeyboard.swift */; };
 		405CC5C82A46F64200AFE2C0 /* MyClovers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC5C72A46F64200AFE2C0 /* MyClovers.swift */; };
 		405CC5CA2A46FD1C00AFE2C0 /* Navigation+backSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC5C92A46FD1C00AFE2C0 /* Navigation+backSwipe.swift */; };
+		405CC5CC2A47042C00AFE2C0 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC5CB2A47042C00AFE2C0 /* FeedbackGenerator.swift */; };
 		40A624032A35DFD700A00370 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 40A624022A35DFD700A00370 /* Lottie */; };
 		40A6240B2A35E03E00A00370 /* envelope motion.json in Resources */ = {isa = PBXBuildFile; fileRef = 40A624092A35E03D00A00370 /* envelope motion.json */; };
 		40A6240C2A35E03E00A00370 /* clover_motion.json in Resources */ = {isa = PBXBuildFile; fileRef = 40A6240A2A35E03E00A00370 /* clover_motion.json */; };
@@ -125,6 +126,7 @@
 		405CC5C42A363EFC00AFE2C0 /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
 		405CC5C72A46F64200AFE2C0 /* MyClovers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClovers.swift; sourceTree = "<group>"; };
 		405CC5C92A46FD1C00AFE2C0 /* Navigation+backSwipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Navigation+backSwipe.swift"; sourceTree = "<group>"; };
+		405CC5CB2A47042C00AFE2C0 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		40A624092A35E03D00A00370 /* envelope motion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "envelope motion.json"; sourceTree = "<group>"; };
 		40A6240A2A35E03E00A00370 /* clover_motion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = clover_motion.json; sourceTree = "<group>"; };
 		40A6240D2A35E09300A00370 /* SwiftUILottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUILottieView.swift; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 				403903B32A0D490100C7D077 /* Preferences.swift */,
 				40D7ED782A09103B00BFB428 /* Persistence.swift */,
 				40A9CB612A28D2E8003E8BCF /* DiaryMood.swift */,
+				405CC5CB2A47042C00AFE2C0 /* FeedbackGenerator.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -660,6 +663,7 @@
 				40EFCEC32A167E8300B30839 /* DiaryImagePicker.swift in Sources */,
 				40EFCEBD2A16237E00B30839 /* PasswordSetting.swift in Sources */,
 				40EFCEBF2A16798A00B30839 /* DiaryCreate.swift in Sources */,
+				405CC5CC2A47042C00AFE2C0 /* FeedbackGenerator.swift in Sources */,
 				403903C12A0D4C0300C7D077 /* Password.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

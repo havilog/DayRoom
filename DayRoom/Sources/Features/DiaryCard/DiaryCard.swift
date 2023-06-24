@@ -48,6 +48,8 @@ struct DiaryCard: Reducer {
     
     // MARK: Dependency
     
+    @Dependency(\.feedbackGenerator) private var feedbackGenerator 
+    
     // MARK: Body
     
     var body: some ReducerOf<Self> {
@@ -62,10 +64,16 @@ struct DiaryCard: Reducer {
                 return .send(.delegate(.needPhotoPicker))
             } 
             guard state.cardMode == .feed else { return .none }
-            return flip(&state)
+            return .merge(
+                .run { _ in await feedbackGenerator.impact(.soft)},
+                flip(&state)  
+            ) 
             
         case .onLongPressGesture:
-            return .send(.delegate(.onLongPressGesture))
+            return .merge(
+                .run { _ in await feedbackGenerator.impact(.medium)},
+                .send(.delegate(.onLongPressGesture))
+            ) 
             
         case .binding:
             return .none
@@ -130,8 +138,18 @@ struct DiaryCardView: View {
             photoContent(viewStore.selectedImage)
                 .frame(maxWidth: UIScreen.main.bounds.size.width - 40)
                 .frame(height: (UIScreen.main.bounds.size.width - 40) / 3 * 4)
+                .fixedSize()
                 .cornerRadius(24)
-                .clipped()
+            
+            if viewStore.selectedImage != nil {
+                LinearGradient(
+                    gradient: Gradient(colors: [.clear, .day_black.opacity(0.05)]), 
+                    startPoint: .top, 
+                    endPoint: .bottom
+                )
+                .cornerRadius(24)
+            }
+                
             
             VStack(spacing: .zero) { 
                 Text(String(viewStore.date.day))
@@ -150,7 +168,6 @@ struct DiaryCardView: View {
             }
             .padding(24)
         }
-        //        .frame(height: (UIScreen.main.bounds.size.width - 40) / 3 * 4)
     }
     
     @ViewBuilder

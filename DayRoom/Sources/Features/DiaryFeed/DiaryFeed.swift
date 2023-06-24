@@ -167,6 +167,7 @@ struct DiaryFeedView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 30)
             }
+            .animation(.easeInOut, value: viewStore.diaries)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         .ignoresSafeArea(edges: .bottom)

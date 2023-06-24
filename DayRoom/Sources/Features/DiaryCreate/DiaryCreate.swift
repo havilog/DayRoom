@@ -70,6 +70,7 @@ struct DiaryCreate: Reducer {
     @Dependency(\.dismiss) private var dismiss
     @Dependency(\.continuousClock) private var clock
     @Dependency(\.persistence) private var persistence
+    @Dependency(\.feedbackGenerator) private var feedbackGenerator 
     
     // MARK: Body
     
@@ -88,7 +89,7 @@ struct DiaryCreate: Reducer {
         switch action {
         case .onFirstAppear:
             state.destination = .moodPicker(.init())
-            return .none
+            return .run { _ in await feedbackGenerator.impact(.rigid) }
             
         case let .imageSelected(image):
             state.card?.selectedImage = image
@@ -284,7 +285,8 @@ struct DiaryCreateView: View {
     
     private var bottomButtons: some View {
         HStack(spacing: .zero) { 
-            leftButton().padding(.trailing, 20)
+            leftButton()
+                .padding(.trailing, 20)
             calendarButton
         }
     }

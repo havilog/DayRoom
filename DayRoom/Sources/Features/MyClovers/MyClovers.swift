@@ -53,9 +53,46 @@ struct MyCloversView: View {
     }
     
     var body: some View {
+        bodyView
+            .navigationBarBackButtonHidden(true)
+            .toolbar { 
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button { viewStore.send(.backButtonTapped) } label: { 
+                        Image("ic_chevron_left_ios_24")
+                    }
+                    .frame(width: 48, height: 48)
+                }
+            }
+    }
+    
+    private var bodyView: some View {
         TabView {
-            Color.red
+            cloverCardView
+            cloverCardView
+            cloverCardView
         }
+        .tabViewStyle(.page(indexDisplayMode: .automatic))
+        .background(Color.black)
+    }
+    
+    private var cloverCardView: some View {
+        VStack(spacing: .zero) { 
+            HStack(spacing: .zero) { 
+                Text("April, 2023")
+                Spacer()
+                Text("30")
+            }
+            .padding(.top, 32)
+            .padding(.horizontal, 40)
+            
+            Spacer()
+            
+            Color.red
+                .padding([.horizontal, .bottom], 40)    
+        }
+        .frame(width: 311, height: 432)
+        .background(Color.day_white)
+        .cornerRadius(24)
     }
 }
 
