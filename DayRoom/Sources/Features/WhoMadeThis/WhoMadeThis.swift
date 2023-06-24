@@ -20,13 +20,11 @@ struct WhoMadeThis: Reducer {
     
     enum Action: Equatable {
         case backButtonTapped
-        case delegate(Delegate)
-        enum Delegate {
-            case backButtonTapped 
-        }
     }
     
     // MARK: Dependency
+    
+    @Dependency(\.dismiss) private var dismiss
     
     // MARK: Body
     
@@ -37,10 +35,7 @@ struct WhoMadeThis: Reducer {
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .backButtonTapped:
-            return .send(.delegate(.backButtonTapped))
-            
-        case .delegate:
-            return .none
+            return .run { _ in await dismiss() }
         }
     }
 }

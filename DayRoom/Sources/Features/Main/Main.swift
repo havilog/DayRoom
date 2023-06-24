@@ -35,12 +35,14 @@ struct Main: Reducer {
             case setting(Setting.State)
             case whoMadeThis(WhoMadeThis.State)
             case passwordSetting(PasswordSetting.State)
+            case myClovers(MyClovers.State)
         }
         
         enum Action: Equatable {
             case setting(Setting.Action)
             case whoMadeThis(WhoMadeThis.Action)
             case passwordSetting(PasswordSetting.Action)
+            case myClovers(MyClovers.Action)
         }
         
         var body: some ReducerOf<Self> {
@@ -52,6 +54,9 @@ struct Main: Reducer {
             }
             Scope(state: /State.whoMadeThis, action: /Action.whoMadeThis) { 
                 WhoMadeThis()
+            }
+            Scope(state: /State.myClovers, action: /Action.myClovers) { 
+                MyClovers()
             }
         }
     }
@@ -162,25 +167,7 @@ struct Main: Reducer {
                 }
                 
             case .myCloverButtonTapped:
-                // 클로버 페이지로 이동
-                return .none
-                
-            case .backButtonTapped:
-                state.path.pop(from: id)
-                return .none
-            }
-            
-        case let .path(.element(id: id, action: .passwordSetting(.delegate(action)))):
-            switch action {
-            case .backButtonTapped:
-                state.path.pop(from: id)
-                return .none
-            }
-            
-        case let .path(.element(id: id, action: .whoMadeThis(.delegate(action)))):
-            switch action {
-            case .backButtonTapped:
-                state.path.pop(from: id)
+                state.path.append(.myClovers(.init(diaryDates: [])))
                 return .none
             }
             
@@ -254,6 +241,13 @@ struct MainView: View {
                     state: /Main.Path.State.whoMadeThis,
                     action: Main.Path.Action.whoMadeThis,
                     then: WhoMadeThisView.init
+                )
+                
+            case .myClovers:
+                CaseLet(
+                    state: /Main.Path.State.myClovers,
+                    action: Main.Path.Action.myClovers,
+                    then: MyCloversView.init
                 )
             }
         }

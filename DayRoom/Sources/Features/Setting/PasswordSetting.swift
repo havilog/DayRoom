@@ -24,11 +24,6 @@ struct PasswordSetting: Reducer {
         
         case binding(BindingAction<State>)
         case destination(PresentationAction<Destination.Action>)
-        case delegate(Delegate)
-        
-        enum Delegate {
-            case backButtonTapped
-        }
     }
     
     // MARK: Destination
@@ -51,6 +46,7 @@ struct PasswordSetting: Reducer {
     
     // MARK: Dependency
     
+    @Dependency(\.dismiss) private var dismiss
     @Dependency(\.preferences) private var preferences
     
     // MARK: Body
@@ -64,7 +60,7 @@ struct PasswordSetting: Reducer {
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .backButtonTapped:
-            return .send(.delegate(.backButtonTapped))
+            return .run { _ in await dismiss() }
             
         case .changePasswordButtonTapped:
             state.destination = .passwordChange(.init(mode: .change))
@@ -88,9 +84,6 @@ struct PasswordSetting: Reducer {
             return .none
             
         case .destination:
-            return .none
-            
-        case .delegate:
             return .none
         }
     }

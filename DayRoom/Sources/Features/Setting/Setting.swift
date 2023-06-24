@@ -51,7 +51,6 @@ struct Setting: Reducer {
         case delegate(Delegate)
         case destination(PresentationAction<Destination.Action>)
         enum Delegate: Equatable {
-            case backButtonTapped
             case settingRowTapped(Row)
             case myCloverButtonTapped
         }
@@ -76,7 +75,8 @@ struct Setting: Reducer {
     }
     
     // MARK: Dependency
-    
+
+    @Dependency(\.dismiss) private var dismiss
     @Dependency(\.preferences) private var preferences 
     
     // MARK: Body
@@ -89,14 +89,14 @@ struct Setting: Reducer {
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .backButtonTapped:
-            return .send(.delegate(.backButtonTapped))
+            return .run { _ in await dismiss() }
             
         case .changeNicknameButtonTapped:
             state.destination = .nickname(.init(mode: .edit))
             return .none
             
         case .myCloverButtonTapped:
-            return .none
+            return .send(.delegate(.myCloverButtonTapped))
             
         case let .settingRowTapped(row):
             return .send(.delegate(.settingRowTapped(row)))
@@ -177,7 +177,7 @@ struct SettingView: View {
             .padding(.top, 24)
             .padding(.bottom, 12)
             
-            Button { } label: { 
+            Button { viewStore.send(.myCloverButtonTapped) } label: { 
                 HStack(spacing: .zero) { 
                     Text("내 클로버")
                         .font(pretendard: .body2)

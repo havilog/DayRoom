@@ -42,6 +42,8 @@
 		405CC5C12A36163200AFE2C0 /* WhoMadeThis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC5C02A36163200AFE2C0 /* WhoMadeThis.swift */; };
 		405CC5C32A36354C00AFE2C0 /* Flip+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC5C22A36354C00AFE2C0 /* Flip+.swift */; };
 		405CC5C52A363EFC00AFE2C0 /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC5C42A363EFC00AFE2C0 /* HideKeyboard.swift */; };
+		405CC5C82A46F64200AFE2C0 /* MyClovers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC5C72A46F64200AFE2C0 /* MyClovers.swift */; };
+		405CC5CA2A46FD1C00AFE2C0 /* Navigation+backSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC5C92A46FD1C00AFE2C0 /* Navigation+backSwipe.swift */; };
 		40A624032A35DFD700A00370 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 40A624022A35DFD700A00370 /* Lottie */; };
 		40A6240B2A35E03E00A00370 /* envelope motion.json in Resources */ = {isa = PBXBuildFile; fileRef = 40A624092A35E03D00A00370 /* envelope motion.json */; };
 		40A6240C2A35E03E00A00370 /* clover_motion.json in Resources */ = {isa = PBXBuildFile; fileRef = 40A6240A2A35E03E00A00370 /* clover_motion.json */; };
@@ -121,6 +123,8 @@
 		405CC5C02A36163200AFE2C0 /* WhoMadeThis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoMadeThis.swift; sourceTree = "<group>"; };
 		405CC5C22A36354C00AFE2C0 /* Flip+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Flip+.swift"; sourceTree = "<group>"; };
 		405CC5C42A363EFC00AFE2C0 /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
+		405CC5C72A46F64200AFE2C0 /* MyClovers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClovers.swift; sourceTree = "<group>"; };
+		405CC5C92A46FD1C00AFE2C0 /* Navigation+backSwipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Navigation+backSwipe.swift"; sourceTree = "<group>"; };
 		40A624092A35E03D00A00370 /* envelope motion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "envelope motion.json"; sourceTree = "<group>"; };
 		40A6240A2A35E03E00A00370 /* clover_motion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = clover_motion.json; sourceTree = "<group>"; };
 		40A6240D2A35E09300A00370 /* SwiftUILottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUILottieView.swift; sourceTree = "<group>"; };
@@ -269,6 +273,7 @@
 				403903E52A0E017100C7D077 /* onFirstAppear.swift */,
 				405CC5BD2A360B0B00AFE2C0 /* Shake+.swift */,
 				405CC5C22A36354C00AFE2C0 /* Flip+.swift */,
+				405CC5C92A46FD1C00AFE2C0 /* Navigation+backSwipe.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -287,6 +292,14 @@
 				405CC5C02A36163200AFE2C0 /* WhoMadeThis.swift */,
 			);
 			path = WhoMadeThis;
+			sourceTree = "<group>";
+		};
+		405CC5C62A46F62F00AFE2C0 /* MyClovers */ = {
+			isa = PBXGroup;
+			children = (
+				405CC5C72A46F64200AFE2C0 /* MyClovers.swift */,
+			);
+			path = MyClovers;
 			sourceTree = "<group>";
 		};
 		40A624042A35E00C00A00370 /* Lottie */ = {
@@ -431,6 +444,7 @@
 				403903B52A0D4BAC00C7D077 /* Password */,
 				40D7ED6B2A090F7F00BFB428 /* Setting */,
 				405CC5BF2A36161300AFE2C0 /* WhoMadeThis */,
+				405CC5C62A46F62F00AFE2C0 /* MyClovers */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -622,6 +636,7 @@
 				40A624102A35E6EE00A00370 /* Bundle+version.swift in Sources */,
 				40A9CB682A28DE3D003E8BCF /* CornerRadius+.swift in Sources */,
 				40A9CB602A28CE76003E8BCF /* DiaryCard.swift in Sources */,
+				405CC5C82A46F64200AFE2C0 /* MyClovers.swift in Sources */,
 				403903CF2A0D74F300C7D077 /* View+DebugFrameInfo.swift in Sources */,
 				403903E62A0E017100C7D077 /* onFirstAppear.swift in Sources */,
 				403903EF2A11085F00C7D077 /* Setting.swift in Sources */,
@@ -633,6 +648,7 @@
 				405CC5C12A36163200AFE2C0 /* WhoMadeThis.swift in Sources */,
 				40A9CB622A28D2E8003E8BCF /* DiaryMood.swift in Sources */,
 				403903B42A0D490100C7D077 /* Preferences.swift in Sources */,
+				405CC5CA2A46FD1C00AFE2C0 /* Navigation+backSwipe.swift in Sources */,
 				40A9CB662A28D4F1003E8BCF /* MoodPicker.swift in Sources */,
 				403903AE2A0D3C6400C7D077 /* UIColor+hex.swift in Sources */,
 				40A6240E2A35E09300A00370 /* SwiftUILottieView.swift in Sources */,

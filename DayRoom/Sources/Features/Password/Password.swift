@@ -63,7 +63,7 @@ struct Password: Reducer {
     
     enum Action: Equatable, BindableAction {
         case closeButtonTapped
-        case backButtonTapped
+        case deleteButtonTapped
         case keypadTapped(number: String)
         
         case binding(BindingAction<State>)
@@ -88,9 +88,9 @@ struct Password: Reducer {
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .closeButtonTapped:
-            return .fireAndForget { await dismiss() }
+            return .run { _ in await dismiss() }
             
-        case .backButtonTapped:
+        case .deleteButtonTapped:
             guard !state.inputPassword.isEmpty else { return .none }
             state.inputPassword.removeLast()
             return .none
@@ -129,7 +129,7 @@ struct Password: Reducer {
                     
                     return .merge(
                         .send(.delegate(.passwordConfirmed), animation: .default),
-                        .fireAndForget { await dismiss() }
+                        .run { _ in await dismiss() }
                     )
                 }
             }
@@ -256,7 +256,7 @@ struct PasswordView: View {
             GridRow { 
                 numberPad(nil)
                 numberPad(0)
-                Button { viewStore.send(.backButtonTapped) } label: { 
+                Button { viewStore.send(.deleteButtonTapped) } label: { 
                     Image("ic_delete_24").frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 .frame(width: 109, height: 88)

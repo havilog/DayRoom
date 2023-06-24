@@ -39,7 +39,7 @@ struct MoodPicker: Reducer {
         case let .moodSelected(mood):
             return .concatenate(
                 .send(.delegate(.moodSelected(mood))),
-                .fireAndForget { await dismiss() }
+                .run { _ in await dismiss() }
             )
             
         case .delegate:

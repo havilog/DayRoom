@@ -107,7 +107,7 @@ struct DiaryCreate: Reducer {
             return .none
             
         case .closeButtonTapped:
-            return .fireAndForget { await dismiss() }
+            return .run { _ in await dismiss() }
             
         case .saveButtonTapped:
             return .task { [
@@ -152,7 +152,7 @@ struct DiaryCreate: Reducer {
             guard let diaryCard = state.card else { return .none }
             state.isCreateFinished = true
             return .merge(
-                .fireAndForget {
+                .run { _ in 
                     try await self.clock.sleep(for: .seconds(1.7))
                     await dismiss() 
                 },
