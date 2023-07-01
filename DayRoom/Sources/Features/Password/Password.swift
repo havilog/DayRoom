@@ -76,7 +76,8 @@ struct Password: Reducer {
     // MARK: Dependency
     
     @Dependency(\.dismiss) private var dismiss
-    @Dependency(\.preferences) private var preferences
+    @Dependency(\.keychain) private var keychain
+    @Dependency(\.feedbackGenerator) private var feedbackGenerator
     
     // MARK: Body
     
@@ -103,10 +104,10 @@ struct Password: Reducer {
             if state.inputPassword.count == 4 {
                 switch state.mode {
                 case .normal:
-                    guard state.inputPassword == preferences.password else {
+                    guard state.inputPassword == keychain.getString(.password) else {
                         state.isPasswordConformIncorrect = true
                         state.inputPassword.removeAll()
-                        return .none
+                        return .run { _ in await feedbackGenerator.impact(.heavy) }
                     }
                     
                     return .send(.delegate(.passwordConfirmed), animation: .default)
@@ -122,10 +123,11 @@ struct Password: Reducer {
                     guard state.inputPassword == enteredPassword else {
                         state.isPasswordConformIncorrect = true
                         state.inputPassword.removeAll()
-                        return .none
+                        return .run { _ in await feedbackGenerator.impact(.heavy) }
                     }
                     
-                    preferences.password = enteredPassword
+                    keychain.delete(.password)
+                    keychain.set(enteredPassword, forKey: .password) 
                     
                     return .merge(
                         .send(.delegate(.passwordConfirmed), animation: .default),
@@ -169,11 +171,12 @@ struct PasswordView: View {
                 passwordClovers
                     .shake(viewStore.binding(\.$isPasswordConformIncorrect))
             }
-            .padding(.bottom, 80)
+            
+            Spacer()
             
             keypad
             
-            Spacer()
+            Spacer().frame(height: 60)
         }
     }
     

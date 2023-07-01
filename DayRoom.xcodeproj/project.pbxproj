@@ -54,6 +54,8 @@
 		40A9CB622A28D2E8003E8BCF /* DiaryMood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9CB612A28D2E8003E8BCF /* DiaryMood.swift */; };
 		40A9CB662A28D4F1003E8BCF /* MoodPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9CB652A28D4F1003E8BCF /* MoodPicker.swift */; };
 		40A9CB682A28DE3D003E8BCF /* CornerRadius+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9CB672A28DE3D003E8BCF /* CornerRadius+.swift */; };
+		40AEB0A22A4FF4A500B1801A /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AEB0A12A4FF4A500B1801A /* KeyChainManager.swift */; };
+		40AEB0A42A4FFAF700B1801A /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AEB0A32A4FFAF700B1801A /* Notification.swift */; };
 		40D7ED392A090F5500BFB428 /* DayRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED382A090F5500BFB428 /* DayRoomApp.swift */; };
 		40D7ED402A090F5700BFB428 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */; };
 		40D7ED452A090F5700BFB428 /* DayRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */; };
@@ -135,6 +137,8 @@
 		40A9CB612A28D2E8003E8BCF /* DiaryMood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryMood.swift; sourceTree = "<group>"; };
 		40A9CB652A28D4F1003E8BCF /* MoodPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodPicker.swift; sourceTree = "<group>"; };
 		40A9CB672A28DE3D003E8BCF /* CornerRadius+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CornerRadius+.swift"; sourceTree = "<group>"; };
+		40AEB0A12A4FF4A500B1801A /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
+		40AEB0A32A4FFAF700B1801A /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		40D7ED352A090F5500BFB428 /* DayRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40D7ED382A090F5500BFB428 /* DayRoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomApp.swift; sourceTree = "<group>"; };
 		40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -459,6 +463,8 @@
 				40D7ED782A09103B00BFB428 /* Persistence.swift */,
 				40A9CB612A28D2E8003E8BCF /* DiaryMood.swift */,
 				405CC5CB2A47042C00AFE2C0 /* FeedbackGenerator.swift */,
+				40AEB0A12A4FF4A500B1801A /* KeyChainManager.swift */,
+				40AEB0A32A4FFAF700B1801A /* Notification.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -637,6 +643,7 @@
 				405CC5BE2A360B0B00AFE2C0 /* Shake+.swift in Sources */,
 				403903AC2A0D3C5500C7D077 /* Font+Custom.swift in Sources */,
 				40A624102A35E6EE00A00370 /* Bundle+version.swift in Sources */,
+				40AEB0A22A4FF4A500B1801A /* KeyChainManager.swift in Sources */,
 				40A9CB682A28DE3D003E8BCF /* CornerRadius+.swift in Sources */,
 				40A9CB602A28CE76003E8BCF /* DiaryCard.swift in Sources */,
 				405CC5C82A46F64200AFE2C0 /* MyClovers.swift in Sources */,
@@ -648,6 +655,7 @@
 				403903BD2A0D4BE800C7D077 /* DiaryFeed.swift in Sources */,
 				40D7ED792A09103B00BFB428 /* Persistence.swift in Sources */,
 				40D7ED452A090F5700BFB428 /* DayRoom.xcdatamodeld in Sources */,
+				40AEB0A42A4FFAF700B1801A /* Notification.swift in Sources */,
 				405CC5C12A36163200AFE2C0 /* WhoMadeThis.swift in Sources */,
 				40A9CB622A28D2E8003E8BCF /* DiaryMood.swift in Sources */,
 				403903B42A0D490100C7D077 /* Preferences.swift in Sources */,

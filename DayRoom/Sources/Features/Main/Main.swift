@@ -89,7 +89,8 @@ struct Main: Reducer {
     
     // MARK: Dependency
     
-    @Dependency(\.preferences) private var preferences 
+    @Dependency(\.keychain) private var keychain
+    @Dependency(\.preferences) private var preferences
     
     // MARK: Body
     
@@ -110,7 +111,7 @@ struct Main: Reducer {
             case .settingButtonTapped:
                 state.path.append(.setting(.init(
                     nickname: preferences.nickname ?? "", 
-                    isUsingPassword: !preferences.password.isNil
+                    isUsingPassword: !keychain.getString(.password).isNil
                 )))
                 return .none
                 
@@ -155,7 +156,7 @@ struct Main: Reducer {
             case let .settingRowTapped(row):
                 switch row {
                 case .lock:
-                    state.path.append(.passwordSetting(.init(isUsingPassword: preferences.password.isNil ? false : true)))
+                    state.path.append(.passwordSetting(.init(isUsingPassword: keychain.getString(.password).isNil ? false : true)))
                     return .none
                     
                 case .whoMadeThis:

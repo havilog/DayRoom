@@ -215,11 +215,7 @@ struct DiaryCreateView: View {
                         set: { if !$0 { viewStore.send(.imagePickerDismissed) } }
                     ),
                     onDismiss: { viewStore.send(.imagePickerDismissed) }
-                ) {
-                    ImagePicker { selectedImage in
-                        viewStore.send(.imageSelected(selectedImage))
-                    }
-                }
+                ) { imagePicker }
         }
     }
     
@@ -242,6 +238,12 @@ struct DiaryCreateView: View {
                 }
             }
             .padding(.horizontal, 20)
+        }
+    }
+    
+    private var imagePicker: some View {
+        ImagePicker { selectedImage in
+            viewStore.send(.imageSelected(selectedImage))
         }
     }
     

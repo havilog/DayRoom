@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import PhotosUI
 import ComposableArchitecture
 
 struct DiaryCard: Reducer {
@@ -27,10 +27,11 @@ struct DiaryCard: Reducer {
         let id: UUID = .init()
         var date: Date
         var mood: DiaryMood
-        var selectedImage: UIImage? = nil
+        var selectedImage: UIImage?
         var cardMode: CardMode
         var page: CardPage = .photo
         @BindingState var content: String = ""
+        @BindingState var selectedImageData: PhotosPickerItem? = nil
     }
     
     // MARK: Action
@@ -61,19 +62,26 @@ struct DiaryCard: Reducer {
         switch action {
         case .viewTapped:
             if state.page == .photo, state.cardMode == .create {
-                return .send(.delegate(.needPhotoPicker))
+                return .merge(
+                    .run { _ in await feedbackGenerator.impact(.soft) },
+                    .send(.delegate(.needPhotoPicker))  
+                ) 
             } 
             guard state.cardMode == .feed else { return .none }
             return .merge(
-                .run { _ in await feedbackGenerator.impact(.soft)},
+                .run { _ in await feedbackGenerator.impact(.soft) },
                 flip(&state)  
             ) 
             
         case .onLongPressGesture:
             return .merge(
-                .run { _ in await feedbackGenerator.impact(.medium)},
+                .run { _ in await feedbackGenerator.impact(.medium) },
                 .send(.delegate(.onLongPressGesture))
-            ) 
+            )
+            
+        case .binding(\.$selectedImageData):
+            // state.selectedImage 바꿔주기
+            return .none
             
         case .binding:
             return .none
@@ -170,6 +178,8 @@ struct DiaryCardView: View {
         }
     }
     
+    @State var test: PhotosPickerItem?
+    
     @ViewBuilder
     private func photoContent(_ image: UIImage?) -> some View {
         if let image {
@@ -177,10 +187,12 @@ struct DiaryCardView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
         } else {
-            Image(viewStore.mood.imageName)
-                .resizable()
-                .clipped()
-                .opacity(viewStore.mood.backgroundOpacity)
+            PhotosPicker(selection: $test) { 
+                Image(viewStore.mood.imageName)
+                    .resizable()
+                    .clipped()
+                    .opacity(viewStore.mood.backgroundOpacity)
+            }
         }
     }
     

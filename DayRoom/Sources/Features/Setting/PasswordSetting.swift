@@ -47,7 +47,7 @@ struct PasswordSetting: Reducer {
     // MARK: Dependency
     
     @Dependency(\.dismiss) private var dismiss
-    @Dependency(\.preferences) private var preferences
+    @Dependency(\.keychain) private var keychain
     
     // MARK: Body
     
@@ -70,7 +70,7 @@ struct PasswordSetting: Reducer {
             if state.isUsingPassword {
                 state.destination = .passwordChange(.init(mode: .new))
             } else {
-                preferences.password = nil
+                keychain.delete(.password)
             }
             return .none
             
@@ -78,7 +78,7 @@ struct PasswordSetting: Reducer {
             return .none
             
         case .destination(.dismiss):
-            if preferences.password.isNil { 
+            if keychain.getString(.password).isNil { 
                 state.isUsingPassword = false 
             }
             return .none

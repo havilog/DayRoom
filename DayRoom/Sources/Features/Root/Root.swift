@@ -46,17 +46,30 @@ struct Root: Reducer {
     // MARK: Action
     
     enum Action: Equatable {
+        case onFirstTask
         case onFirstAppear
         case splashCompleted
         case welcomeAnimationFinished
+        
+        case willResignActiveNotification
+        case didEnterBackgroundNotification
+        case didBecomeActiveNotification
+        case willEnterForegroundNotification
         
         case destination(Destination.Action)
     }
     
     // MARK: Dependency
     
+    @Dependency(\.keychain) private var keychain
     @Dependency(\.continuousClock) private var clock
     @Dependency(\.preferences) private var preferences
+    
+    @Dependency(\.willResignActiveNotification) private var willResignActiveNotification
+    @Dependency(\.didEnterBackgroundNotification) private var didEnterBackgroundNotification
+    
+    @Dependency(\.didBecomeActiveNotification) private var didBecomeActiveNotification
+    @Dependency(\.willEnterForegroundNotification) private var willEnterForegroundNotification
     
     // MARK: Body
     
@@ -70,20 +83,37 @@ struct Root: Reducer {
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
+        case .onFirstTask:
+            return .merge(
+                .run { send in
+                    for await _ in await self.willResignActiveNotification() {
+                        await send(.willResignActiveNotification)
+                    }
+                },
+                .run { send in
+                    for await _ in await self.didEnterBackgroundNotification() {
+                        await send(.didEnterBackgroundNotification)
+                    }
+                }
+            )
+            
         case .onFirstAppear:
             return .task { 
                 try await self.clock.sleep(for: .seconds(1))
                 return .splashCompleted
             }
-            .animation()
             
-        case .splashCompleted:
+        case .splashCompleted, 
+                .willResignActiveNotification, 
+                .didEnterBackgroundNotification, 
+                .didBecomeActiveNotification, 
+                .willEnterForegroundNotification:
             guard preferences.nickname.isNotNil else { 
                 state.destination = .nickname(.init(mode: .onboarding)) 
                 return .none
             }
             
-            if preferences.password.isNil {
+            if keychain.getString(.password).isNil {
                 state.destination = .main(.init())
             } else {
                 state.destination = .password(.init(mode: .normal))
@@ -92,7 +122,7 @@ struct Root: Reducer {
             return .none
             
         case .welcomeAnimationFinished:
-            if preferences.password.isNil {
+            if keychain.getString(.password).isNil {
                 state.destination = .main(.init())
             } else {
                 state.destination = .password(.init(mode: .normal))
@@ -140,6 +170,7 @@ struct RootView: View {
     var body: some View {
         bodyView
             .onFirstAppear { viewStore.send(.onFirstAppear) }
+            .onFirstTask { await viewStore.send(.onFirstTask).finish() }
     }
     
     private var bodyView: some View {
