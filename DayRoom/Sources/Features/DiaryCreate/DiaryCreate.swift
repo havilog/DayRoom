@@ -13,10 +13,10 @@ struct DiaryCreate: Reducer {
     // MARK: State
     
     struct State: Equatable {
-        var date: Date
         var card: DiaryCard.State? = nil
         var isCreateFinished: Bool = false
         
+        @BindingState var date: Date
         @PresentationState var destination: Destination.State? = nil
     }
     
@@ -26,6 +26,7 @@ struct DiaryCreate: Reducer {
         case onFirstAppear
         case imageSelected(UIImage)
         case imagePickerDismissed
+        case datePickerDismissed
         case closeButtonTapped
         case saveButtonTapped
         case noteButtonTapped
@@ -50,11 +51,13 @@ struct DiaryCreate: Reducer {
     struct Destination: Reducer {
         enum State: Equatable {
             case imagePicker
+            case datePicker
             case moodPicker(MoodPicker.State)
         }
         
         enum Action: Equatable {
             case imagePicker
+            case datePicker
             case moodPicker(MoodPicker.Action)
         }
         
@@ -103,7 +106,7 @@ struct DiaryCreate: Reducer {
             state.card?.page = .content
             return .none
             
-        case .imagePickerDismissed:
+        case .imagePickerDismissed, .datePickerDismissed:
             state.destination = nil
             return .none
             
@@ -134,7 +137,7 @@ struct DiaryCreate: Reducer {
             return .none
             
         case .calendarButtonTapped:
-            // calendar 띄우기
+            state.destination = .datePicker
             return .none
             
         case let .card(.delegate(action)):
@@ -178,6 +181,10 @@ struct DiaryCreate: Reducer {
         case .destination:
             return .none
             
+        case .binding(\.$date):
+            state.destination = nil
+            return .none
+            
         case .binding:
             return .none
             
@@ -209,6 +216,13 @@ struct DiaryCreateView: View {
                     action: DiaryCreate.Destination.Action.moodPicker,
                     content: MoodPickerView.init
                 )
+                .sheet(
+                    isPresented: .init(
+                        get: { viewStore.state.destination == .datePicker }, 
+                        set: { if !$0 { viewStore.send(.datePickerDismissed) } }
+                    ),
+                    onDismiss: { viewStore.send(.datePickerDismissed) }
+                ) { DatePickerView(date: viewStore.binding(\.$date)) }
                 .sheet(
                     isPresented: .init(
                         get: { viewStore.state.destination == .imagePicker }, 

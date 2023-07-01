@@ -14,26 +14,51 @@ struct DiaryFeed: Reducer {
     // MARK: State
     
     struct State: Equatable {
-        var date: Date = .now
         var diaries: IdentifiedArrayOf<DiaryCard.State> = .init()
+        var isWrittenToday: Bool {
+            diaries.isEmpty ? false : diaries.map(\.date).contains(where: \.isToday)
+        }
+        
+        @BindingState var date: Date = .now
+        @PresentationState var destination: Destination.State? = nil
     }
     
     // MARK: Action
     
-    enum Action: Equatable {
+    enum Action: Equatable, BindableAction {
         case onFirstAppear
+        case navigationTitleTapped
         case settingButtonTapped
         case createButtonTapped
         case todayCardTapped
         case diaryCard(id: DiaryCard.State.ID, action: DiaryCard.Action)
         case diaryLoadResponse(TaskResult<[Diary]>)
+        case datePickerDismissed
         case delegate(Delegate)
+        case destination(PresentationAction<Destination.Action>)
+        case binding(BindingAction<State>)
         
         enum Delegate: Equatable {
             case settingButtonTapped
             case createButtonTapped
             case todayCardTapped
             case diaryLongPressed(id: DiaryCard.State.ID)
+        }
+    }
+    
+    // MARK: Destination
+    
+    struct Destination: Reducer {
+        enum State: Equatable {
+            case datePicker
+        }
+        
+        enum Action: Equatable {
+            case datePicker
+        }
+        
+        var body: some ReducerOf<Self> {
+            EmptyReducer()
         }
     }
     
@@ -44,9 +69,13 @@ struct DiaryFeed: Reducer {
     // MARK: Body
     
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce(core)
             .forEach(\.diaries, action: /Action.diaryCard) { 
                 DiaryCard()
+            }
+            .ifLet(\.$destination, action: /Action.destination) {
+                Destination()
             }
     }
     
@@ -56,6 +85,10 @@ struct DiaryFeed: Reducer {
             return .task { 
                 await .diaryLoadResponse(TaskResult { return try persistence.load() })
             }
+            
+        case .navigationTitleTapped:
+            state.destination = .datePicker
+            return .none
             
         case .settingButtonTapped:
             return .send(.delegate(.settingButtonTapped))
@@ -91,6 +124,20 @@ struct DiaryFeed: Reducer {
         case .diaryLoadResponse(.failure):
             return .none
             
+        case .datePickerDismissed:
+            state.destination = .none
+            return .none
+            
+        case .destination:
+            return .none
+            
+        case .binding(\.$date):
+            state.destination = .none
+            return .none
+            
+        case .binding:
+            return .none
+            
         case .delegate:
             return .none
         }
@@ -114,29 +161,23 @@ extension DiaryFeed.State {
 
 struct DiaryFeedView: View {
     let store: StoreOf<DiaryFeed>
-    @ObservedObject var viewStore: ViewStore<ViewState, DiaryFeed.Action>
-    
-    struct ViewState: Equatable {
-        let date: Date
-        let diaries: IdentifiedArrayOf<DiaryCard.State>
-        let isWrittenToday: Bool
-        init(state: DiaryFeed.State) {
-            self.date = state.date
-            self.diaries = state.diaries
-            self.isWrittenToday = state.diaries.isEmpty ? 
-            false : 
-            state.diaries.map(\.date).contains(where: \.isToday)
-        }
-    }
+    @ObservedObject var viewStore: ViewStoreOf<DiaryFeed>
     
     init(store: StoreOf<DiaryFeed>) {
         self.store = store
-        self.viewStore = ViewStore(store, observe: ViewState.init)
+        self.viewStore = ViewStore(store, observe: { $0 })
     }
     
     var body: some View {
         bodyView
             .onFirstAppear { viewStore.send(.onFirstAppear) }
+            .sheet(
+                isPresented: .init(
+                    get: { viewStore.state.destination == .datePicker }, 
+                    set: { if !$0 { viewStore.send(.datePickerDismissed) } }
+                ),
+                onDismiss: { viewStore.send(.datePickerDismissed) }
+            ) { DatePickerView(date: viewStore.binding(\.$date)) }
     }
     
     private let oneSizeItem: GridItem = GridItem(
@@ -200,6 +241,7 @@ struct DiaryFeedView: View {
             Text(viewStore.date.dayroomMonth)
                 .font(garamond: .heading2)
                 .foregroundColor(.text_primary)
+                .onTapGesture { viewStore.send(.navigationTitleTapped) }
             
             Spacer()
             

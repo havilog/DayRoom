@@ -13,8 +13,6 @@ struct Main: Reducer {
     // MARK: State
     
     struct State: Equatable {
-        var date: Date = .now
-        
         var diaryFeed: DiaryFeed.State = .init()
         var path: StackState<Path.State> = .init()
         @PresentationState var destination: Destination.State? = nil
@@ -116,11 +114,11 @@ struct Main: Reducer {
                 return .none
                 
             case .createButtonTapped:
-                state.destination = .diaryCreate(.init(date: state.date))
+                state.destination = .diaryCreate(.init(date: state.diaryFeed.date))
                 return .none
                 
             case .todayCardTapped:
-                state.destination = .diaryCreate(.init(date: .now))
+                state.destination = .diaryCreate(.init(date: state.diaryFeed.date))
                 return .none
                 
             case let .diaryLongPressed(id: id):
@@ -168,7 +166,7 @@ struct Main: Reducer {
                 }
                 
             case .myCloverButtonTapped:
-                state.path.append(.myClovers(.init(diaryDates: [])))
+                state.path.append(.myClovers(.init(diaries: [])))
                 return .none
             }
             

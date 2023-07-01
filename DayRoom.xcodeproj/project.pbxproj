@@ -56,6 +56,7 @@
 		40A9CB682A28DE3D003E8BCF /* CornerRadius+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A9CB672A28DE3D003E8BCF /* CornerRadius+.swift */; };
 		40AEB0A22A4FF4A500B1801A /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AEB0A12A4FF4A500B1801A /* KeyChainManager.swift */; };
 		40AEB0A42A4FFAF700B1801A /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AEB0A32A4FFAF700B1801A /* Notification.swift */; };
+		40AEB0A62A5057D200B1801A /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AEB0A52A5057D200B1801A /* DatePickerView.swift */; };
 		40D7ED392A090F5500BFB428 /* DayRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED382A090F5500BFB428 /* DayRoomApp.swift */; };
 		40D7ED402A090F5700BFB428 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */; };
 		40D7ED452A090F5700BFB428 /* DayRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */; };
@@ -139,6 +140,7 @@
 		40A9CB672A28DE3D003E8BCF /* CornerRadius+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CornerRadius+.swift"; sourceTree = "<group>"; };
 		40AEB0A12A4FF4A500B1801A /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		40AEB0A32A4FFAF700B1801A /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		40AEB0A52A5057D200B1801A /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		40D7ED352A090F5500BFB428 /* DayRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40D7ED382A090F5500BFB428 /* DayRoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomApp.swift; sourceTree = "<group>"; };
 		40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				40A9CB652A28D4F1003E8BCF /* MoodPicker.swift */,
 				40EFCEBE2A16798A00B30839 /* DiaryCreate.swift */,
 				40EFCEC22A167E8300B30839 /* DiaryImagePicker.swift */,
+				40AEB0A52A5057D200B1801A /* DatePickerView.swift */,
 			);
 			path = DiaryCreate;
 			sourceTree = "<group>";
@@ -650,6 +653,7 @@
 				403903CF2A0D74F300C7D077 /* View+DebugFrameInfo.swift in Sources */,
 				403903E62A0E017100C7D077 /* onFirstAppear.swift in Sources */,
 				403903EF2A11085F00C7D077 /* Setting.swift in Sources */,
+				40AEB0A62A5057D200B1801A /* DatePickerView.swift in Sources */,
 				403903B02A0D3C6C00C7D077 /* UIColor+DayRoom.swift in Sources */,
 				405CC5C52A363EFC00AFE2C0 /* HideKeyboard.swift in Sources */,
 				403903BD2A0D4BE800C7D077 /* DiaryFeed.swift in Sources */,

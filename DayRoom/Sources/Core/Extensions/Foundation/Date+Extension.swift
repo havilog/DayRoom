@@ -81,8 +81,10 @@ public extension Date {
         return Weekday(rawValue: weekday()) ?? .sunday
     }
     
-    enum Weekday: Int {
+    enum Weekday: Int, Identifiable {
         case sunday = 1, monday, tuesday, wednesday, thursday, friday, saturday
+        
+        public var id: Self { self }
         
         public var korean: String {
             switch self {
