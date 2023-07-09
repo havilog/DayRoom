@@ -15,7 +15,29 @@ struct MyClovers: Reducer {
     // MARK: State
     
     struct State: Equatable {
-        let diaries: IdentifiedArrayOf<DiaryCard.State>
+        let id: UUID = .init()
+        let groupedDiaries: [(key: Date, value: Int)]
+        
+        init(diaries: IdentifiedArrayOf<DiaryCard.State>) {
+            self.groupedDiaries = Dictionary(
+                grouping: diaries, 
+                by: Self.yearMonth
+            )
+            .mapValues(\.count)
+            .sorted(by: { $0.key > $1.key })
+        }
+        
+        private static func yearMonth(_ diary: DiaryCard.State) -> Date {
+            let dateComponent = Calendar.current.dateComponents(
+                [.year, .month], 
+                from: diary.date
+            )
+            return Calendar.current.date(from: dateComponent)!
+        }
+        
+        static func == (lhs: MyClovers.State, rhs: MyClovers.State) -> Bool {
+            return lhs.id == rhs.id
+        }
     }
     
     // MARK: Action
@@ -66,23 +88,47 @@ struct MyCloversView: View {
     }
     
     private var bodyView: some View {
-        TabView {
-            cloverCardView
-            cloverCardView
-            cloverCardView
+        VStack(spacing: .zero) { 
+            navigationTitle
+                .padding(.top, 8)
+                .padding(.horizontal, 20)
+            
+            cloverTabView(viewStore.groupedDiaries)
+            
+            Spacer()
         }
-        .tabViewStyle(.page(indexDisplayMode: .automatic))
-        .background(Color.black)
+        .background(Color.elevated)
     }
     
-    private var cloverCardView: some View {
+    private var navigationTitle: some View {
+        Text("내 클로버")
+            .font(pretendard: .display1)
+            .foregroundColor(.grey80)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private func cloverTabView(_ groupedDiaries: [(key: Date, value: Int)]) -> some View {
+        TabView {
+            ForEach(groupedDiaries, id: \.key) { key, value in
+                cloverCardView(
+                    date: key, 
+                    count: value
+                )
+            }
+        }
+        .tabViewStyle(.page(indexDisplayMode: .automatic))
+        .flipsForRightToLeftLayoutDirection(true)
+        .environment(\.layoutDirection, .rightToLeft)
+    }
+    
+    private func cloverCardView(date: Date, count: Int) -> some View {
         VStack(spacing: .zero) { 
             HStack(spacing: .zero) { 
-                Text("April, 2023")
+                Text("\(date.dayroomMonth)")
                     .font(garamond: .heading4)
                     .foregroundColor(.text_secondary)
                 Spacer()
-                Text("30")
+                Text("\(count)")
                     .font(garamond: .heading4)
                     .foregroundColor(.text_secondary)
             }
@@ -90,17 +136,18 @@ struct MyCloversView: View {
             .padding(.horizontal, 40)
             .padding(.bottom, 56)
             
-            cloverGrids
+            cloverGrids(count: count)
                 .padding(.horizontal, 40)
             
             Spacer()
         }
-        .frame(width: 311, height: 432)
+        .frame(width: 311, height: 468)
         .background(Color.day_white)
         .cornerRadius(24)
+        .rotation3DEffect(.degrees(180), axis: (x: 0.0, y: 1.0, z: 0.0))
     }
     
-    private var cloverGrids: some View {
+    private func cloverGrids(count: Int) -> some View {
         let gridItems: [GridItem] = [
             GridItem(.fixed(36)),
             GridItem(.fixed(36)),
@@ -110,29 +157,68 @@ struct MyCloversView: View {
         ]
         
         return LazyVGrid(columns: gridItems) {
-            ForEach(viewStore.diaries) { _ in
+            ForEach(0..<count, id: \.self) { index in
                 Image("logo_dayroom_symbol")
                     .resizable()
                     .frame(width: 36, height: 36)
                     .padding(.horizontal, 5)
+                    .opacity(Int(index).opacity)
             }
         }
     }
 }
 
+private extension Int {
+    var opacity: CGFloat {
+        if self < 0 {
+            return 0.0
+        } else if self >= 0, self < 5 {
+            return 0.5
+        } else if self >= 5, self < 10 {
+            return 0.6
+        } else if self >= 10, self < 15 {
+            return 0.7
+        } else if self >= 15, self < 20 {
+            return 0.8
+        } else if self >= 20, self < 25 {
+            return 0.9
+        } else {
+            return 1.0
+        } 
+    }
+}
+
+//private protocol _Int {}
+//extension Int: _Int {}
+//
+//private extension CountableClosedRange where Bound: _Int {
+//    static var opacity: CGFloat {
+//        if self ~= 0...4 {
+//            return 0.5
+//        } else {
+//            return 1.0
+//        }
+//    }
+//}
+
 struct MyCloversView_Previews: PreviewProvider {
     static var previews: some View {
-        MyCloversView(
-            store: .init(
-                initialState: .init(diaries: [
-                    .init(date: .today, mood: .sad, cardMode: .create),
-                    .init(date: .today, mood: .sad, cardMode: .create),
-                    .init(date: .today, mood: .sad, cardMode: .create),
-                    .init(date: .today, mood: .sad, cardMode: .create),
-                    .init(date: .today, mood: .sad, cardMode: .create),
-                ]), 
-                reducer: MyClovers()
+        NavigationStack {
+            MyCloversView(
+                store: .init(
+                    initialState: .init(diaries: [
+                        .init(date: .today, mood: .sad, cardMode: .create),
+                        .init(date: .today.tomorrow, mood: .sad, cardMode: .create),
+                        .init(date: .today.tomorrow.tomorrow, mood: .sad, cardMode: .create),
+                        .init(date: .today.tomorrow.tomorrow.tomorrow, mood: .sad, cardMode: .create),
+                        .init(date: .today.nextMonth, mood: .sad, cardMode: .create),
+                        .init(date: .today.nextMonth.tomorrow, mood: .sad, cardMode: .create),
+                        .init(date: .today.nextMonth.tomorrow.tomorrow, mood: .sad, cardMode: .create),
+                        .init(date: .today.nextMonth.tomorrow.tomorrow.tomorrow, mood: .sad, cardMode: .create),
+                    ]), 
+                    reducer: MyClovers()
+                )
             )
-        )
+        }
     }
 }

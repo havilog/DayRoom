@@ -122,27 +122,7 @@ struct Main: Reducer {
                 return .none
                 
             case let .diaryLongPressed(id: id):
-                state.destination = .dialog(
-                    ConfirmationDialogState(
-                        title: { 
-                            TextState("title")
-                        }, 
-                        actions: {
-                            ButtonState(action: .edit(id: id)) { 
-                                TextState("수정") 
-                            }
-                            ButtonState(
-                                role: .destructive, 
-                                action: .delete(id: id)
-                            ) {
-                                TextState("삭제") 
-                            }
-                            ButtonState(role: .cancel, action: .cancel) {
-                                TextState("취소") 
-                            }
-                        } 
-                    )
-                )
+                state.destination = .dialog(.longPress(id: id))
                 return .none
             }
             
@@ -166,7 +146,7 @@ struct Main: Reducer {
                 }
                 
             case .myCloverButtonTapped:
-                state.path.append(.myClovers(.init(diaries: [])))
+                state.path.append(.myClovers(.init(diaries: state.diaryFeed.diaries)))
                 return .none
             }
             
@@ -194,6 +174,30 @@ struct Main: Reducer {
         case .destination:
             return .none
         }
+    }
+}
+
+extension ConfirmationDialogState where Action == Main.Destination.DialogAction {
+    static func longPress(id: DiaryCard.State.ID) -> ConfirmationDialogState {
+        return ConfirmationDialogState(
+            title: { 
+                TextState("title")
+            }, 
+            actions: {
+                ButtonState(action: .edit(id: id)) { 
+                    TextState("수정") 
+                }
+                ButtonState(
+                    role: .destructive, 
+                    action: .delete(id: id)
+                ) {
+                    TextState("삭제") 
+                }
+                ButtonState(role: .cancel, action: .cancel) {
+                    TextState("취소") 
+                }
+            } 
+        )   
     }
 }
 

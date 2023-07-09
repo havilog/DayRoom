@@ -19,6 +19,7 @@ public extension Date {
     var dayroomMonth: String {
         let formatter: DateFormatter = .init()
         formatter.dateStyle = .medium
+        formatter.locale = .init(identifier: "en_US")
         return self.toString(format: "MMMM, yyyy", formatter: formatter)
     }
     
@@ -45,6 +46,10 @@ public extension Date {
     
     var tomorrow: Date {
         Calendar.current.date(byAdding: .day, value: 1, to: self)!
+    }
+    
+    var nextMonth: Date {
+        Calendar.current.date(byAdding: .month, value: 1, to: self)!
     }
     
     func isSameDay(_ date: Date) -> Bool {
