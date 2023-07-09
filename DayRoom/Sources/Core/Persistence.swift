@@ -23,19 +23,28 @@ struct PersistenceManager {
         return container
     }()
     
-    var save: @Sendable (Data?, Date, String, String) throws -> Void
+    var save: @Sendable (UUID?, Data?, Date, String?, String?) throws -> Void
     var load: @Sendable () throws -> [Diary]
+    var remove: @Sendable (UUID) -> Void
 }
 
 extension PersistenceManager: DependencyKey {
     static var liveValue: PersistenceManager = .init(
-        save: { imageData, date, content, mood in
-            let newDiary: Diary = .init(context: Self.container.viewContext)
-            newDiary.id = .init()
-            newDiary.image = imageData
-            newDiary.date = date
-            newDiary.content = content
-            newDiary.mood = mood
+        save: { id, imageData, date, content, mood in
+            if let diary = Self.diaries.first(where: { $0.id == id }) {
+                diary.image = imageData
+                diary.date = date
+                diary.content = content
+                diary.mood = mood
+            } else {
+                let newDiary: Diary = .init(context: Self.container.viewContext)
+                newDiary.id = id
+                newDiary.image = imageData
+                newDiary.date = date
+                newDiary.content = content
+                newDiary.mood = mood
+            }
+            
             try Self.container.viewContext.save()
         },
         load: {
@@ -43,8 +52,12 @@ extension PersistenceManager: DependencyKey {
             let fetchRequest: NSFetchRequest<Diary> = Diary.fetchRequest()
             let sortByDate: NSSortDescriptor = .init(key: #keyPath(Diary.date), ascending: false)
             fetchRequest.sortDescriptors = [sortByDate]
-            let results = try container.viewContext.fetch(fetchRequest)
-            return results
+            let diaries = try container.viewContext.fetch(fetchRequest)
+            return diaries
+        },
+        remove: { id in
+//            container.viewContext.delete(diary)
+//            try? container.viewContext.save()
         }
     )
     static var testValue: PersistenceManager = unimplemented()

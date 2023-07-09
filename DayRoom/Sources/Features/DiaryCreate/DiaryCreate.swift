@@ -43,6 +43,7 @@ struct DiaryCreate: Reducer {
         case binding(BindingAction<State>)
         case delegate(Delegate)
         enum Delegate: Equatable {
+//            case diarySaveButtonTapped
             case diaryCreated(DiaryCard.State)
         }
     }
@@ -98,8 +99,12 @@ struct DiaryCreate: Reducer {
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .onFirstAppear:
-            state.destination = .moodPicker(.init())
-            return .run { _ in await feedbackGenerator.impact(.rigid) }
+            if state.card == nil {
+                state.destination = .moodPicker(.init())
+                return .run { _ in await feedbackGenerator.impact(.rigid) }    
+            } else {
+                return .none
+            }
             
         case .imageSelectedAnimation:
             state.card?.page = .content
@@ -113,7 +118,9 @@ struct DiaryCreate: Reducer {
             return .run { _ in await dismiss() }
             
         case .saveButtonTapped:
+//            return .send(.delegate(.diarySaveButtonTapped))
             return .task { [
+                id = state.card?.id,
                 imageItem = state.card?.selectedImageItem, 
                 date = state.date,
                 content = state.card?.content,
@@ -122,7 +129,7 @@ struct DiaryCreate: Reducer {
                 await .saveResponse(
                     TaskResult {
                         let imageData = try await imageItem?.loadTransferable(type: Data.self) 
-                        try persistence.save(imageData, date, content ?? "", mood ?? "lucky")
+                        try persistence.save(id, imageData, date, content, mood)
                         return true
                     }
                 )
@@ -188,6 +195,7 @@ struct DiaryCreate: Reducer {
             switch action {
             case let .moodSelected(mood):
                 state.card = .init(
+                    id: .init(), 
                     date: state.date, 
                     mood: mood,
                     cardMode: .create

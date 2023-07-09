@@ -14,6 +14,7 @@ struct DiaryFeed: Reducer {
     // MARK: State
     
     struct State: Equatable {
+        let diaryObjects: [Diary] = []
         var diaries: IdentifiedArrayOf<DiaryCard.State> = .init()
         var isWrittenToday: Bool {
             diaries.isEmpty ? false : diaries.map(\.date).contains(where: \.isToday)
@@ -36,6 +37,7 @@ struct DiaryFeed: Reducer {
         case diaryCard(id: DiaryCard.State.ID, action: DiaryCard.Action)
         case diaryLoadResponse(TaskResult<[Diary]>)
         case datePickerDismissed
+        case removeDiary(id: UUID)
         case delegate(Delegate)
         case destination(PresentationAction<Destination.Action>)
         case binding(BindingAction<State>)
@@ -123,9 +125,11 @@ struct DiaryFeed: Reducer {
             return .none
             
         case let .diaryLoadResponse(.success(diaries)):
+            state.diaryObjects = diaries
             let diaryState: [DiaryCard.State] = diaries
                 .map { diary in
                     return DiaryCard.State.init(
+                        id: diary.id ?? .init(),
                         date: diary.date ?? .now, 
                         mood: DiaryMood(rawValue: diary.mood ?? "lucky") ?? .lucky, 
                         cardMode: .feed, 
@@ -144,6 +148,10 @@ struct DiaryFeed: Reducer {
             
         case .datePickerDismissed:
             state.destination = .none
+            return .none
+            
+        case let .removeDiary(id):
+            persistence.remove(id)
             return .none
             
         case .destination:
@@ -196,7 +204,9 @@ extension AlertState where Action == DiaryFeed.Destination.Action.Alert {
 extension DiaryFeed.State {
     mutating func deleteDiary(id: DiaryCard.State.ID) -> Effect<DiaryFeed.Action> {
         self.diaries.remove(id: id)
-        return .none
+        return .run { send in
+            await send(.removeDiary(id: id))
+        }
     }
     
     mutating func insert(newDiary: DiaryCard.State) -> Effect<DiaryFeed.Action> {

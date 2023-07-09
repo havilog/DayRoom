@@ -190,33 +190,12 @@ private extension Int {
     }
 }
 
-//private protocol _Int {}
-//extension Int: _Int {}
-//
-//private extension CountableClosedRange where Bound: _Int {
-//    static var opacity: CGFloat {
-//        if self ~= 0...4 {
-//            return 0.5
-//        } else {
-//            return 1.0
-//        }
-//    }
-//}
-
 struct MyCloversView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             MyCloversView(
                 store: .init(
                     initialState: .init(diaries: [
-                        .init(date: .today, mood: .sad, cardMode: .create),
-                        .init(date: .today.tomorrow, mood: .sad, cardMode: .create),
-                        .init(date: .today.tomorrow.tomorrow, mood: .sad, cardMode: .create),
-                        .init(date: .today.tomorrow.tomorrow.tomorrow, mood: .sad, cardMode: .create),
-                        .init(date: .today.nextMonth, mood: .sad, cardMode: .create),
-                        .init(date: .today.nextMonth.tomorrow, mood: .sad, cardMode: .create),
-                        .init(date: .today.nextMonth.tomorrow.tomorrow, mood: .sad, cardMode: .create),
-                        .init(date: .today.nextMonth.tomorrow.tomorrow.tomorrow, mood: .sad, cardMode: .create),
                     ]), 
                     reducer: MyClovers()
                 )

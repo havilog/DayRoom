@@ -24,7 +24,7 @@ struct DiaryCard: Reducer {
     // MARK: State
     
     struct State: Equatable, Identifiable {
-        let id: UUID = .init()
+        let id: UUID
         var date: Date
         var mood: DiaryMood
         var cardMode: CardMode
@@ -262,6 +262,7 @@ struct DiaryCardView_Previews: PreviewProvider {
         DiaryCardView(
             store: .init(
                 initialState: .init(
+                    id: .init(), 
                     date: .today, 
                     mood: .lucky, 
                     cardMode: .create, 
@@ -275,6 +276,7 @@ struct DiaryCardView_Previews: PreviewProvider {
         DiaryCardView(
             store: .init(
                 initialState: .init(
+                    id: .init(),
                     date: .today, 
                     mood: .lucky, 
                     cardMode: .create,

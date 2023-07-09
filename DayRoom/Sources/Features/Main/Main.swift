@@ -157,6 +157,10 @@ struct Main: Reducer {
         case let .destination(.presented(.dialog(dialogAction))):
             switch dialogAction {
             case let .edit(id):
+                if var diary = state.diaryFeed.diaries[id: id] {
+                    diary.cardMode = .create
+                    state.destination = .diaryCreate(.init(card: diary, date: diary.date))
+                }
                 return .none
                 
             case let .delete(id):
@@ -168,6 +172,12 @@ struct Main: Reducer {
             
         case let .destination(.presented(.diaryCreate(.delegate(action)))):
             switch action {
+//            case .diarySaveButtonTapped:
+//                // 이미지 아이템 -> 데이터
+//                // 코어 데이터에 저장
+//                // 애니메이션 보여주고
+//                // 닫기
+//                return .none
             case let .diaryCreated(diaryCard):
                 return state.diaryFeed.insert(newDiary: diaryCard).map(Action.diaryFeed)
             }
