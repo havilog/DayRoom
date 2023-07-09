@@ -37,14 +37,12 @@ struct DiaryCreate: Reducer {
         case imageSelectedAnimation
         case invalidDateSelected
         case dateSelectComplete
-        case saveResponse(TaskResult<Bool>)
         
         case destination(PresentationAction<Destination.Action>)
         case binding(BindingAction<State>)
         case delegate(Delegate)
         enum Delegate: Equatable {
-//            case diarySaveButtonTapped
-            case diaryCreated(DiaryCard.State)
+            case diarySaveButtonTapped
         }
     }
     
@@ -118,22 +116,14 @@ struct DiaryCreate: Reducer {
             return .run { _ in await dismiss() }
             
         case .saveButtonTapped:
-//            return .send(.delegate(.diarySaveButtonTapped))
-            return .task { [
-                id = state.card?.id,
-                imageItem = state.card?.selectedImageItem, 
-                date = state.date,
-                content = state.card?.content,
-                mood = state.card?.mood.rawValue
-            ] in
-                await .saveResponse(
-                    TaskResult {
-                        let imageData = try await imageItem?.loadTransferable(type: Data.self) 
-                        try persistence.save(id, imageData, date, content, mood)
-                        return true
-                    }
-                )
-            }
+            state.isCreateFinished = true
+            return .merge(
+                .send(.delegate(.diarySaveButtonTapped)),
+                .run { _ in 
+                    try await self.clock.sleep(for: .seconds(1.7))
+                    await dismiss() 
+                }
+            )
             
         case .noteButtonTapped:
             state.card?.page = .content
@@ -165,21 +155,6 @@ struct DiaryCreate: Reducer {
             }
             
         case .card:
-            return .none
-            
-        case .saveResponse(.success):
-            guard let diaryCard = state.card else { return .none }
-            state.isCreateFinished = true
-            return .merge(
-                .run { _ in 
-                    try await self.clock.sleep(for: .seconds(1.7))
-                    await dismiss() 
-                },
-                .send(.delegate(.diaryCreated(diaryCard)))
-            )
-            
-        case .saveResponse(.failure):
-            // TODO: 실패한거 알리기
             return .none
             
         case .invalidDateSelected:
@@ -256,6 +231,11 @@ extension AlertState where Action == DiaryCreate.Destination.Action.Alert {
 extension DiaryCreate.State {
     mutating func mutate(date: Date) -> Effect<DiaryCreate.Action> {
         self.card?.date = date
+        return .none
+    }
+    
+    mutating func mutate(createState: Bool) -> Effect<DiaryCreate.Action> {
+        self.isCreateFinished = createState
         return .none
     }
 }
@@ -418,7 +398,7 @@ struct DiaryCreateView: View {
 struct CreateFinishView: View {
     var body: some View {
         LottieView(jsonName: "clover_motion", loopMode: .playOnce)
-            .padding(24)
+            .padding(40)
     }
 }
 

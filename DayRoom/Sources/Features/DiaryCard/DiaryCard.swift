@@ -30,6 +30,7 @@ struct DiaryCard: Reducer {
         var cardMode: CardMode
         var page: CardPage = .photo
         var selectedImage: Image?
+        var isPressing: Bool = false
         @BindingState var content: String = ""
         @BindingState var selectedImageItem: PhotosPickerItem? = nil
     }
@@ -40,6 +41,7 @@ struct DiaryCard: Reducer {
         case viewTapped
         case imageItemSelected(image: Image?)
         case onLongPressGesture
+        case onPressing(Bool)
         case binding(BindingAction<State>)
         case delegate(Delegate)
         enum Delegate: Equatable {
@@ -51,6 +53,7 @@ struct DiaryCard: Reducer {
     
     // MARK: Dependency
     
+    @Dependency(\.continuousClock) private var clock
     @Dependency(\.feedbackGenerator) private var feedbackGenerator 
     
     // MARK: Body
@@ -76,10 +79,15 @@ struct DiaryCard: Reducer {
             ) 
             
         case .onLongPressGesture:
-            return .merge(
-                .run { _ in await feedbackGenerator.impact(.medium) },
-                .send(.delegate(.onLongPressGesture))
-            )
+            return .run { send in
+                await feedbackGenerator.impact(.medium)
+                await send(.delegate(.onLongPressGesture))
+            }
+            
+        case let .onPressing(isPressing):
+            guard state.cardMode == .feed else { return .none }
+            state.isPressing = isPressing
+            return .none
             
         case let .imageItemSelected(image):
             state.selectedImage = image
@@ -115,6 +123,11 @@ struct DiaryCardView: View {
     let store: StoreOf<DiaryCard>
     @ObservedObject var viewStore: ViewStoreOf<DiaryCard>
     
+    private enum Constant {
+        static let maxWidth: CGFloat = UIScreen.main.bounds.size.width - 40
+        static let height: CGFloat = (UIScreen.main.bounds.size.width - 40) / 3 * 4
+    }
+    
     init(store: StoreOf<DiaryCard>) {
         self.store = store
         self.viewStore = ViewStore(store, observe: { $0 })
@@ -142,12 +155,17 @@ struct DiaryCardView: View {
                     perspective: 0.2
                 )
         }
-        .animation(.easeInOut(duration: 0.7), value: viewStore.page)
+        .animation(.spring(duration: 0.7), value: viewStore.page)
+        .animation(.spring(duration: 0.5), value: viewStore.isPressing)
         .onTapGesture {
             hideKeyboard()
             viewStore.send(.viewTapped) 
         }
-        .onLongPressGesture { viewStore.send(.onLongPressGesture) }
+        .onLongPressGesture(
+            minimumDuration: 0.3,
+            perform: { viewStore.send(.onLongPressGesture) },
+            onPressingChanged: { viewStore.send(.onPressing($0)) }
+        )
     }
     
     @ViewBuilder
@@ -165,8 +183,8 @@ struct DiaryCardView: View {
     private var photoViewWithMask: some View {
         ZStack(alignment: .bottom) {
             photoContent(viewStore.selectedImage)
-                .frame(maxWidth: UIScreen.main.bounds.size.width - 40)
-                .frame(height: (UIScreen.main.bounds.size.width - 40) / 3 * 4)
+                .frame(maxWidth: viewStore.isPressing ? Constant.maxWidth * 1.03 : Constant.maxWidth)
+                .frame(height: viewStore.isPressing ? Constant.height * 1.03 : Constant.height)
                 .fixedSize()
                 .cornerRadius(24)
                 .animation(.spring(), value: viewStore.selectedImage)
@@ -245,8 +263,8 @@ struct DiaryCardView: View {
             }
         }
         .padding(24)
-        .frame(height: (UIScreen.main.bounds.size.width - 40) / 3 * 4)
-        .frame(maxWidth: UIScreen.main.bounds.size.width - 40)
+        .frame(maxWidth: viewStore.isPressing ? Constant.maxWidth * 1.03 : Constant.maxWidth)
+        .frame(height: viewStore.isPressing ? Constant.height * 1.03 : Constant.height)
         .background(
             Image(viewStore.mood.imageName)
                 .resizable()

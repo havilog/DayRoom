@@ -14,7 +14,6 @@ struct DiaryFeed: Reducer {
     // MARK: State
     
     struct State: Equatable {
-        let diaryObjects: [Diary] = []
         var diaries: IdentifiedArrayOf<DiaryCard.State> = .init()
         var isWrittenToday: Bool {
             diaries.isEmpty ? false : diaries.map(\.date).contains(where: \.isToday)
@@ -37,7 +36,7 @@ struct DiaryFeed: Reducer {
         case diaryCard(id: DiaryCard.State.ID, action: DiaryCard.Action)
         case diaryLoadResponse(TaskResult<[Diary]>)
         case datePickerDismissed
-        case removeDiary(id: UUID)
+        case remove(diary: Diary)
         case delegate(Delegate)
         case destination(PresentationAction<Destination.Action>)
         case binding(BindingAction<State>)
@@ -125,7 +124,6 @@ struct DiaryFeed: Reducer {
             return .none
             
         case let .diaryLoadResponse(.success(diaries)):
-            state.diaryObjects = diaries
             let diaryState: [DiaryCard.State] = diaries
                 .map { diary in
                     return DiaryCard.State.init(
@@ -150,8 +148,8 @@ struct DiaryFeed: Reducer {
             state.destination = .none
             return .none
             
-        case let .removeDiary(id):
-            persistence.remove(id)
+        case let .remove(diary):
+            persistence.remove(diary)
             return .none
             
         case .destination:
@@ -202,10 +200,11 @@ extension AlertState where Action == DiaryFeed.Destination.Action.Alert {
 }
 
 extension DiaryFeed.State {
-    mutating func deleteDiary(id: DiaryCard.State.ID) -> Effect<DiaryFeed.Action> {
-        self.diaries.remove(id: id)
+    mutating func delete(diary: Diary) -> Effect<DiaryFeed.Action> {
+        if let id = diary.id { self.diaries.remove(id: id) }
+        
         return .run { send in
-            await send(.removeDiary(id: id))
+            await send(.remove(diary: diary))
         }
     }
     
@@ -213,8 +212,20 @@ extension DiaryFeed.State {
         var feedDiary = newDiary
         feedDiary.cardMode = .feed
         feedDiary.page = .photo
-        let index = self.diaries.firstIndex { exsistingDiary in exsistingDiary.date < newDiary.date } ?? .zero
+        let index = self.diaries.firstIndex { exsistingDiary in exsistingDiary.date > newDiary.date } ?? .zero
+        print(index)
         self.diaries.insert(feedDiary, at: index)
+        return .none
+    }
+    
+    mutating func update(id: UUID, diary: DiaryCard.State) -> Effect<DiaryFeed.Action> {
+        var feedDiary = diary
+        feedDiary.cardMode = .feed
+        feedDiary.page = .photo
+        if let existingDiaryIndex = self.diaries.index(id: id) {
+            self.diaries.remove(at: existingDiaryIndex)
+            self.diaries.insert(feedDiary, at: existingDiaryIndex)    
+        }
         return .none
     }
 }

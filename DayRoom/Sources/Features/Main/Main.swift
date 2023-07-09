@@ -24,6 +24,10 @@ struct Main: Reducer {
         case diaryFeed(DiaryFeed.Action)
         case path(StackAction<Path.State, Path.Action>)
         case destination(PresentationAction<Destination.Action>)
+        
+        case diarySaveResponse
+        case diaryUpdateResponse(UUID)
+        case diaryDeleteResponse(Diary)
     }
     
     // MARK: Path
@@ -89,6 +93,7 @@ struct Main: Reducer {
     
     @Dependency(\.keychain) private var keychain
     @Dependency(\.preferences) private var preferences
+    @Dependency(\.persistence) private var persistence
     
     // MARK: Body
     
@@ -164,7 +169,12 @@ struct Main: Reducer {
                 return .none
                 
             case let .delete(id):
-                return state.diaryFeed.deleteDiary(id: id).map(Action.diaryFeed)
+                return .run { send in
+                    let existingDiaries = try persistence.load()
+                    if let existingDiary = existingDiaries.first(where: { $0.id == id }) {
+                        await send(.diaryDeleteResponse(existingDiary))
+                    }
+                }
                 
             case .cancel:
                 return .none
@@ -172,18 +182,52 @@ struct Main: Reducer {
             
         case let .destination(.presented(.diaryCreate(.delegate(action)))):
             switch action {
-//            case .diarySaveButtonTapped:
-//                // 이미지 아이템 -> 데이터
-//                // 코어 데이터에 저장
-//                // 애니메이션 보여주고
-//                // 닫기
-//                return .none
-            case let .diaryCreated(diaryCard):
-                return state.diaryFeed.insert(newDiary: diaryCard).map(Action.diaryFeed)
+            case .diarySaveButtonTapped:
+                return .run { [state] send in
+                    guard case let .diaryCreate(createState) = state.destination else { return }
+                    let imageData = try await createState.card?.selectedImageItem?.loadTransferable(type: Data.self)
+                    let existingDiaries = try persistence.load()
+                    if let existingDiary = existingDiaries.first(where: { $0.id == createState.card?.id }) {
+                        try persistence.edit(
+                            existingDiary,
+                            imageData, 
+                            createState.card?.date ?? createState.date,
+                            createState.card?.content,
+                            createState.card?.mood.rawValue
+                        )
+                        await send(.diaryUpdateResponse(existingDiary.id!))
+                    } else {
+                        try persistence.save(
+                            createState.card?.id,
+                            imageData, 
+                            createState.card?.date ?? createState.date,
+                            createState.card?.content,
+                            createState.card?.mood.rawValue
+                        )
+                        await send(.diarySaveResponse)
+                    }
+                }
             }
             
         case .destination:
             return .none
+            
+        case .diarySaveResponse:
+            guard 
+                case let .diaryCreate(createState) = state.destination, 
+                let newDiary = createState.card
+            else { return .none }
+            return state.diaryFeed.insert(newDiary: newDiary).map(Action.diaryFeed)
+            
+        case let .diaryUpdateResponse(id):
+            guard 
+                case let .diaryCreate(createState) = state.destination, 
+                let updatedDiary = createState.card
+            else { return .none }
+            return state.diaryFeed.update(id: id, diary: updatedDiary).map(Action.diaryFeed)
+            
+        case let .diaryDeleteResponse(diary):
+            return state.diaryFeed.delete(diary: diary).map(Action.diaryFeed)
         }
     }
 }
