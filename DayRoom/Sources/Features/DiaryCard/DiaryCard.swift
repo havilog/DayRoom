@@ -27,21 +27,23 @@ struct DiaryCard: Reducer {
         let id: UUID = .init()
         var date: Date
         var mood: DiaryMood
-        var selectedImage: UIImage?
         var cardMode: CardMode
         var page: CardPage = .photo
+        var selectedImage: Image?
         @BindingState var content: String = ""
-        @BindingState var selectedImageData: PhotosPickerItem? = nil
+        @BindingState var selectedImageItem: PhotosPickerItem? = nil
     }
     
     // MARK: Action
     
     enum Action: Equatable, BindableAction {
         case viewTapped
+        case imageItemSelected(image: Image?)
         case onLongPressGesture
         case binding(BindingAction<State>)
         case delegate(Delegate)
         enum Delegate: Equatable {
+            case imageSelected
             case needPhotoPicker
             case onLongPressGesture
         }
@@ -79,9 +81,16 @@ struct DiaryCard: Reducer {
                 .send(.delegate(.onLongPressGesture))
             )
             
-        case .binding(\.$selectedImageData):
-            // state.selectedImage 바꿔주기
+        case let .imageItemSelected(image):
+            state.selectedImage = image
             return .none
+            
+        case .binding(\.$selectedImageItem):
+            return .run { [imageItem = state.selectedImageItem] send in
+                let image = try await imageItem?.loadTransferable(type: Image.self) 
+                await send(.imageItemSelected(image: image))
+                await send(.delegate(.imageSelected))
+            }
             
         case .binding:
             return .none
@@ -141,13 +150,25 @@ struct DiaryCardView: View {
         .onLongPressGesture { viewStore.send(.onLongPressGesture) }
     }
     
+    @ViewBuilder
     private var photoView: some View {
+        if viewStore.cardMode == .create {
+            PhotosPicker(selection: viewStore.binding(\.$selectedImageItem)) {
+                photoViewWithMask
+            }
+        } else {
+            photoViewWithMask
+        }
+    }
+    
+    private var photoViewWithMask: some View {
         ZStack(alignment: .bottom) {
             photoContent(viewStore.selectedImage)
                 .frame(maxWidth: UIScreen.main.bounds.size.width - 40)
                 .frame(height: (UIScreen.main.bounds.size.width - 40) / 3 * 4)
                 .fixedSize()
                 .cornerRadius(24)
+                .animation(.spring(), value: viewStore.selectedImage)
             
             if viewStore.selectedImage != nil {
                 LinearGradient(
@@ -157,7 +178,6 @@ struct DiaryCardView: View {
                 )
                 .cornerRadius(24)
             }
-                
             
             VStack(spacing: .zero) { 
                 Text(String(viewStore.date.day))
@@ -178,21 +198,17 @@ struct DiaryCardView: View {
         }
     }
     
-    @State var test: PhotosPickerItem?
-    
     @ViewBuilder
-    private func photoContent(_ image: UIImage?) -> some View {
+    private func photoContent(_ image: Image?) -> some View {
         if let image {
-            Image(uiImage: image)
+            image
                 .resizable()
                 .aspectRatio(contentMode: .fill)
         } else {
-            PhotosPicker(selection: $test) { 
-                Image(viewStore.mood.imageName)
-                    .resizable()
-                    .clipped()
-                    .opacity(viewStore.mood.backgroundOpacity)
-            }
+            Image(viewStore.mood.imageName)
+                .resizable()
+                .clipped()
+                .opacity(viewStore.mood.backgroundOpacity)
         }
     }
     
@@ -225,17 +241,6 @@ struct DiaryCardView: View {
                         .frame(maxWidth: .infinity, alignment: .topLeading)
                 }
             }
-//                if viewStore.content.isEmpty {
-//                    Text("오늘 하루는 어땠어요?")
-//                        .font(pretendard: .body2)
-//                        .foregroundColor(.text_disabled)
-//                        .frame(
-//                            maxWidth: .infinity, 
-//                            maxHeight: .infinity, 
-//                            alignment: .topLeading
-//                        )
-//                        .cornerRadius(8)
-//                }
         }
         .padding(24)
         .frame(height: (UIScreen.main.bounds.size.width - 40) / 3 * 4)

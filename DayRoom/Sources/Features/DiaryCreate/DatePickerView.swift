@@ -14,6 +14,6 @@ struct DatePickerView: View {
     var body: some View {
         DatePicker("", selection: $date, displayedComponents: [.date])
             .datePickerStyle(.graphical)
-            .presentationDetents([.height(380)])
+            .presentationDetents([.height(400)])
     }
 }

@@ -24,7 +24,6 @@ struct DiaryCreate: Reducer {
     
     enum Action: Equatable, BindableAction {
         case onFirstAppear
-        case imageSelected(UIImage)
         case imagePickerDismissed
         case datePickerDismissed
         case closeButtonTapped
@@ -36,6 +35,8 @@ struct DiaryCreate: Reducer {
         case card(DiaryCard.Action)
         
         case imageSelectedAnimation
+        case invalidDateSelected
+        case dateSelectComplete
         case saveResponse(TaskResult<Bool>)
         
         case destination(PresentationAction<Destination.Action>)
@@ -53,12 +54,18 @@ struct DiaryCreate: Reducer {
             case imagePicker
             case datePicker
             case moodPicker(MoodPicker.State)
+            case alert(AlertState<Action.Alert>)
         }
         
         enum Action: Equatable {
             case imagePicker
             case datePicker
             case moodPicker(MoodPicker.Action)
+            case alert(Alert)
+            enum Alert {
+                case confirmInvalidDate
+                case confirmDateSelectComplete
+            }
         }
         
         var body: some ReducerOf<Self> {
@@ -94,14 +101,6 @@ struct DiaryCreate: Reducer {
             state.destination = .moodPicker(.init())
             return .run { _ in await feedbackGenerator.impact(.rigid) }
             
-        case let .imageSelected(image):
-            state.card?.selectedImage = image
-            state.destination = nil
-            return .task { 
-                try await clock.sleep(for: .seconds(1))
-                return .imageSelectedAnimation
-            }
-            
         case .imageSelectedAnimation:
             state.card?.page = .content
             return .none
@@ -115,13 +114,14 @@ struct DiaryCreate: Reducer {
             
         case .saveButtonTapped:
             return .task { [
-                imageData = state.card?.selectedImage?.jpegData(compressionQuality: 1.0), 
+                imageItem = state.card?.selectedImageItem, 
                 date = state.date,
                 content = state.card?.content,
                 mood = state.card?.mood.rawValue
             ] in
                 await .saveResponse(
-                    TaskResult { 
+                    TaskResult {
+                        let imageData = try await imageItem?.loadTransferable(type: Data.self) 
                         try persistence.save(imageData, date, content ?? "", mood ?? "lucky")
                         return true
                     }
@@ -142,9 +142,17 @@ struct DiaryCreate: Reducer {
             
         case let .card(.delegate(action)):
             switch action {
+            case .imageSelected:
+                state.destination = nil
+                return .task { 
+                    try await clock.sleep(for: .seconds(0.65))
+                    return .imageSelectedAnimation
+                }
+                
             case .needPhotoPicker:
                 state.destination = .imagePicker
                 return .none
+                
             case .onLongPressGesture:
                 return .none
             }
@@ -167,6 +175,15 @@ struct DiaryCreate: Reducer {
             // TODO: 실패한거 알리기
             return .none
             
+        case .invalidDateSelected:
+            state.destination = .alert(.invalidDate)
+            state.date = .today
+            return state.mutate(date: .today)
+            
+        case .dateSelectComplete:
+            state.destination = .alert(.selectComplete)
+            return .none
+            
         case let .destination(.presented(.moodPicker(.delegate(action)))):
             switch action {
             case let .moodSelected(mood):
@@ -182,8 +199,20 @@ struct DiaryCreate: Reducer {
             return .none
             
         case .binding(\.$date):
-            state.destination = nil
-            return .none
+            state.destination = .none
+            guard state.date.isFutureDay == false else {
+                return .run { send in
+                    try await Task.sleep(for: .seconds(0.7))
+                    await send(.invalidDateSelected)
+                }
+            }
+            return .merge(
+                state.mutate(date: state.date),
+                .run { send in
+                    try await Task.sleep(for: .seconds(0.7))
+                    await send(.dateSelectComplete)
+                }
+            )
             
         case .binding:
             return .none
@@ -191,6 +220,35 @@ struct DiaryCreate: Reducer {
         case .delegate:
             return .none
         }
+    }
+}
+
+extension AlertState where Action == DiaryCreate.Destination.Action.Alert {
+    static let invalidDate = Self {
+        TextState("날짜 변경 불가")
+    } actions: {
+        ButtonState(action: .send(.confirmInvalidDate, animation: .default)) {
+            TextState("확인")
+        }
+    } message: {
+        TextState("오늘 이후의 날짜를 선택 할 수 없어요 :(\n일기가 오늘 날짜로 변경돼요.")
+    }
+    
+    static let selectComplete = Self {
+        TextState("날짜 변경 완료")
+    } actions: {
+        ButtonState(action: .send(.confirmDateSelectComplete, animation: .default)) {
+            TextState("확인")
+        }
+    } message: {
+        TextState("선택한 날짜로 변경이 완료되었어요!")
+    }
+}
+
+extension DiaryCreate.State {
+    mutating func mutate(date: Date) -> Effect<DiaryCreate.Action> {
+        self.card?.date = date
+        return .none
     }
 }
 
@@ -216,6 +274,11 @@ struct DiaryCreateView: View {
                     action: DiaryCreate.Destination.Action.moodPicker,
                     content: MoodPickerView.init
                 )
+                .alert(
+                    store: self.store.scope(state: \.$destination, action: { .destination($0) }),
+                    state: /DiaryCreate.Destination.State.alert,
+                    action: DiaryCreate.Destination.Action.alert
+                )
                 .sheet(
                     isPresented: .init(
                         get: { viewStore.state.destination == .datePicker }, 
@@ -223,13 +286,6 @@ struct DiaryCreateView: View {
                     ),
                     onDismiss: { viewStore.send(.datePickerDismissed) }
                 ) { DatePickerView(date: viewStore.binding(\.$date)) }
-                .sheet(
-                    isPresented: .init(
-                        get: { viewStore.state.destination == .imagePicker }, 
-                        set: { if !$0 { viewStore.send(.imagePickerDismissed) } }
-                    ),
-                    onDismiss: { viewStore.send(.imagePickerDismissed) }
-                ) { imagePicker }
         }
     }
     
@@ -244,20 +300,15 @@ struct DiaryCreateView: View {
                         store.scope(state: \.card, action: DiaryCreate.Action.card), 
                         then: DiaryCardView.init
                     )
-                    .transition(.opacity.animation(.easeInOut))
+                    .transition(.opacity.animation(.spring()))
                     .padding(.bottom, 32)
                     
-                    bottomButtons
-                        .opacity(viewStore.card?.mood == nil ? 0 : 1)
+                    if viewStore.card?.mood != nil {
+                        bottomButtons
+                    }
                 }
             }
             .padding(.horizontal, 20)
-        }
-    }
-    
-    private var imagePicker: some View {
-        ImagePicker { selectedImage in
-            viewStore.send(.imageSelected(selectedImage))
         }
     }
     
@@ -302,6 +353,7 @@ struct DiaryCreateView: View {
     private var bottomButtons: some View {
         HStack(spacing: .zero) { 
             leftButton()
+                .transition(.opacity.animation(.spring()))
                 .padding(.trailing, 20)
             calendarButton
         }

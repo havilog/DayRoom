@@ -31,6 +31,8 @@ struct DiaryFeed: Reducer {
         case settingButtonTapped
         case createButtonTapped
         case todayCardTapped
+        case invalidDateSelected
+        case dateSelectComplete
         case diaryCard(id: DiaryCard.State.ID, action: DiaryCard.Action)
         case diaryLoadResponse(TaskResult<[Diary]>)
         case datePickerDismissed
@@ -51,10 +53,16 @@ struct DiaryFeed: Reducer {
     struct Destination: Reducer {
         enum State: Equatable {
             case datePicker
+            case alert(AlertState<Action.Alert>)
         }
         
         enum Action: Equatable {
             case datePicker
+            case alert(Alert)
+            enum Alert {
+                case confirmInvalidDate
+                case confirmDateSelectComplete
+            }
         }
         
         var body: some ReducerOf<Self> {
@@ -99,6 +107,15 @@ struct DiaryFeed: Reducer {
         case .todayCardTapped:
             return .send(.delegate(.todayCardTapped))
             
+        case .dateSelectComplete:
+            state.destination = .alert(.selectComplete)
+            return .none
+            
+        case .invalidDateSelected:
+            state.destination = .alert(.invalidDate)
+            state.date = .today
+            return .none
+            
         case let .diaryCard(id, .delegate(.onLongPressGesture)):
             return .send(.delegate(.diaryLongPressed(id: id)))
             
@@ -111,10 +128,11 @@ struct DiaryFeed: Reducer {
                     return DiaryCard.State.init(
                         date: diary.date ?? .now, 
                         mood: DiaryMood(rawValue: diary.mood ?? "lucky") ?? .lucky, 
-                        selectedImage: UIImage(data: diary.image ?? .init()), 
-                        cardMode: .feed,
+                        cardMode: .feed, 
                         page: .photo,
-                        content: diary.content ?? ""
+                        selectedImage: .init(uiImage: .init(data: diary.image ?? .init()) ?? .init()),
+                        content: diary.content ?? "",
+                        selectedImageItem: nil
                     )
                 }
                 .sorted { $0.date > $1.date }
@@ -133,7 +151,16 @@ struct DiaryFeed: Reducer {
             
         case .binding(\.$date):
             state.destination = .none
-            return .none
+            guard state.date.isFutureDay == false else {
+                return .run { send in
+                    try await Task.sleep(for: .seconds(0.7))
+                    await send(.invalidDateSelected)
+                }
+            }
+            return .run { send in
+                try await Task.sleep(for: .seconds(0.7))
+                await send(.dateSelectComplete)
+            }
             
         case .binding:
             return .none
@@ -141,6 +168,28 @@ struct DiaryFeed: Reducer {
         case .delegate:
             return .none
         }
+    }
+}
+
+extension AlertState where Action == DiaryFeed.Destination.Action.Alert {
+    static let invalidDate = Self {
+        TextState("날짜 변경 불가")
+    } actions: {
+        ButtonState(action: .send(.confirmInvalidDate, animation: .default)) {
+            TextState("확인")
+        }
+    } message: {
+        TextState("오늘 이후의 날짜를 선택 할 수 없어요 :(\n일기가 오늘 날짜로 변경돼요.")
+    }
+    
+    static let selectComplete = Self {
+        TextState("날짜 변경 완료")
+    } actions: {
+        ButtonState(action: .send(.confirmDateSelectComplete, animation: .default)) {
+            TextState("확인")
+        }
+    } message: {
+        TextState("선택한 날짜로 변경이 완료되었어요!")
     }
 }
 
@@ -171,6 +220,11 @@ struct DiaryFeedView: View {
     var body: some View {
         bodyView
             .onFirstAppear { viewStore.send(.onFirstAppear) }
+            .alert(
+                store: self.store.scope(state: \.$destination, action: { .destination($0) }),
+                state: /DiaryFeed.Destination.State.alert,
+                action: DiaryFeed.Destination.Action.alert
+            )
             .sheet(
                 isPresented: .init(
                     get: { viewStore.state.destination == .datePicker }, 
@@ -208,7 +262,7 @@ struct DiaryFeedView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 30)
             }
-            .animation(.easeInOut, value: viewStore.diaries)
+            .animation(.spring(), value: viewStore.diaries)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         .ignoresSafeArea(edges: .bottom)
