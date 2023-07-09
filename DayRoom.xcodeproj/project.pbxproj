@@ -70,7 +70,6 @@
 		40EFCEBF2A16798A00B30839 /* DiaryCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EFCEBE2A16798A00B30839 /* DiaryCreate.swift */; };
 		40EFCEC32A167E8300B30839 /* DiaryImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EFCEC22A167E8300B30839 /* DiaryImagePicker.swift */; };
 		40EFCEC62A16800F00B30839 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EFCEC52A16800F00B30839 /* Date+Extension.swift */; };
-		40EFCECB2A18C56B00B30839 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 40EFCECA2A18C56B00B30839 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,7 +162,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40EFCECB2A18C56B00B30839 /* Kingfisher in Frameworks */,
 				40D7ED752A09101200BFB428 /* ComposableArchitecture in Frameworks */,
 				40A624032A35DFD700A00370 /* Lottie in Frameworks */,
 			);
@@ -499,7 +497,6 @@
 			name = DayRoom;
 			packageProductDependencies = (
 				40D7ED742A09101200BFB428 /* ComposableArchitecture */,
-				40EFCECA2A18C56B00B30839 /* Kingfisher */,
 				40A624022A35DFD700A00370 /* Lottie */,
 			);
 			productName = DayRoom;
@@ -839,11 +836,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DayRoom/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DayRoom;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -870,11 +870,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DayRoom/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DayRoom;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1043,11 +1046,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 40D7ED732A09101200BFB428 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
-		};
-		40EFCECA2A18C56B00B30839 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 40EFCEC92A18C56B00B30839 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 
