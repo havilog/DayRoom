@@ -153,9 +153,10 @@ struct DiaryCardView: View {
     @ViewBuilder
     private var photoView: some View {
         if viewStore.cardMode == .create {
-            PhotosPicker(selection: viewStore.binding(\.$selectedImageItem)) {
+            PhotosPicker(selection: viewStore.binding(\.$selectedImageItem), matching: .images) {
                 photoViewWithMask
             }
+            .buttonStyle(.plain)
         } else {
             photoViewWithMask
         }
@@ -204,6 +205,7 @@ struct DiaryCardView: View {
             image
                 .resizable()
                 .aspectRatio(contentMode: .fill)
+                .transition(.opacity.animation(.spring))
         } else {
             Image(viewStore.mood.imageName)
                 .resizable()

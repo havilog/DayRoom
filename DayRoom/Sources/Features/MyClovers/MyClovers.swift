@@ -141,9 +141,11 @@ struct MyCloversView: View {
             
             Spacer()
         }
-        .frame(width: 311, height: 468)
+        .frame(maxWidth: .infinity)
         .background(Color.day_white)
         .cornerRadius(24)
+        .padding(.horizontal, 32)
+        .frame(height: (UIScreen.main.bounds.size.width - 64) * 1.389)
         .rotation3DEffect(.degrees(180), axis: (x: 0.0, y: 1.0, z: 0.0))
     }
     

@@ -153,12 +153,12 @@ struct DiaryFeed: Reducer {
             state.destination = .none
             guard state.date.isFutureDay == false else {
                 return .run { send in
-                    try await Task.sleep(for: .seconds(0.7))
+                    try await Task.sleep(for: .seconds(0.6))
                     await send(.invalidDateSelected)
                 }
             }
             return .run { send in
-                try await Task.sleep(for: .seconds(0.7))
+                try await Task.sleep(for: .seconds(0.6))
                 await send(.dateSelectComplete)
             }
             
@@ -199,11 +199,12 @@ extension DiaryFeed.State {
         return .none
     }
     
-    mutating func insert(diary: DiaryCard.State) -> Effect<DiaryFeed.Action> {
-        var feedDiary = diary
+    mutating func insert(newDiary: DiaryCard.State) -> Effect<DiaryFeed.Action> {
+        var feedDiary = newDiary
         feedDiary.cardMode = .feed
         feedDiary.page = .photo
-        self.diaries.insert(feedDiary, at: .zero)
+        let index = self.diaries.firstIndex { exsistingDiary in exsistingDiary.date < newDiary.date } ?? .zero
+        self.diaries.insert(feedDiary, at: index)
         return .none
     }
 }

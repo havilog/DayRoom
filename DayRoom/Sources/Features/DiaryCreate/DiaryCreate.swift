@@ -130,15 +130,15 @@ struct DiaryCreate: Reducer {
             
         case .noteButtonTapped:
             state.card?.page = .content
-            return .none
+            return .run { _ in await feedbackGenerator.impact(.soft) }
             
         case .imageButtonTapped:
             state.card?.page = .photo
-            return .none
+            return .run { _ in await feedbackGenerator.impact(.soft) }
             
         case .calendarButtonTapped:
             state.destination = .datePicker
-            return .none
+            return .run { _ in await feedbackGenerator.impact(.soft) }
             
         case let .card(.delegate(action)):
             switch action {
@@ -202,14 +202,14 @@ struct DiaryCreate: Reducer {
             state.destination = .none
             guard state.date.isFutureDay == false else {
                 return .run { send in
-                    try await Task.sleep(for: .seconds(0.7))
+                    try await Task.sleep(for: .seconds(0.6))
                     await send(.invalidDateSelected)
                 }
             }
             return .merge(
                 state.mutate(date: state.date),
                 .run { send in
-                    try await Task.sleep(for: .seconds(0.7))
+                    try await Task.sleep(for: .seconds(0.6))
                     await send(.dateSelectComplete)
                 }
             )
@@ -285,7 +285,9 @@ struct DiaryCreateView: View {
                         set: { if !$0 { viewStore.send(.datePickerDismissed) } }
                     ),
                     onDismiss: { viewStore.send(.datePickerDismissed) }
-                ) { DatePickerView(date: viewStore.binding(\.$date)) }
+                ) { 
+                    DatePickerView(date: viewStore.binding(\.$date)) 
+                }
         }
     }
     

@@ -114,6 +114,7 @@ struct Root: Reducer {
             }
             
             if keychain.getString(.password).isNil {
+                if case .main = state.destination { return .none }
                 state.destination = .main(.init())
             } else {
                 state.destination = .password(.init(mode: .normal))

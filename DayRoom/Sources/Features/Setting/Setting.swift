@@ -16,6 +16,7 @@ struct Setting: Reducer {
         var appVersion: String = Bundle.main.releaseVersionNumber ?? "1.0.0"
         var nickname: String
         var isUsingPassword: Bool
+        var cloversCount: Int
         @PresentationState var destination: Destination.State? = nil
     }
     
@@ -183,7 +184,7 @@ struct SettingView: View {
                         .font(pretendard: .body2)
                         .foregroundColor(.text_primary)
                         .padding(.trailing, 8)
-                    Text("22개") // 내 클로버 갯수
+                    Text("\(viewStore.cloversCount)") // 내 클로버 갯수
                         .font(pretendard: .body1)
                         .foregroundColor(.text_primary)
                     Spacer()
@@ -277,7 +278,7 @@ struct SettingView_Previews: PreviewProvider {
         NavigationStack {
             SettingView(
                 store: .init(
-                    initialState: .init(nickname: "havi", isUsingPassword: false), 
+                    initialState: .init(nickname: "havi", isUsingPassword: false, cloversCount: 22), 
                     reducer: Setting()
                 )
             )

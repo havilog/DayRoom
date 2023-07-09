@@ -38,6 +38,7 @@ struct Nickname: Reducer {
         case onAppear
         case keyboardWillBecomeFirstResponder
         case doneButtonTapped
+        case cancelButtonTapped
         
         case binding(BindingAction<State>)
         case delegate(Delegate)
@@ -48,6 +49,7 @@ struct Nickname: Reducer {
     
     // MARK: Dependency
     
+    @Dependency(\.dismiss) private var dismiss
     @Dependency(\.continuousClock) private var clock
     @Dependency(\.preferences) private var preferences
     
@@ -74,6 +76,9 @@ struct Nickname: Reducer {
             guard state.isNicknameValid else { return .none }
             preferences.nickname = state.nickname
             return .send(.delegate(.nicknameDetermined))
+            
+        case .cancelButtonTapped:
+            return .run { _ in await self.dismiss() }
             
         case .binding(\.$nickname):
             state.isNicknameValid = validate(nickname: state.nickname)
@@ -106,23 +111,28 @@ struct NicknameView: View {
     
     var body: some View {
         bodyView
-            .toolbar { 
-                if viewStore.mode == .edit {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {  } label: { 
-                            Image("ic_cancel_24")
-                        }
-                    }
-                }
-            }
     }
     
     private var bodyView: some View {
         VStack(spacing: .zero) { 
-            largeTitle.padding(.horizontal, 20)
-            cloverWithMailImage
+            if viewStore.mode == .edit {
+                Button { viewStore.send(.cancelButtonTapped) } label: { 
+                    Image("ic_cancel_24")
+                }
+                .frame(height: 44)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 22)
+            } else {
+                Color.clear.frame(height: 44)
+            }
+            
+            Image("name_illust")
+                .renderingMode(.original)
+                .padding(.bottom, 40)
+            
             VStack(alignment: .leading, spacing: .zero) {
-                title
+                enterNicknameTitle
+                    .padding(.bottom, 16)
                 nicknameTextField
             }
             .padding(.horizontal, 20)
@@ -132,16 +142,11 @@ struct NicknameView: View {
         .onAppear { viewStore.send(.onAppear) }
     }
     
-    private var largeTitle: some View {
-        Text("역사적인 기록이\n시작 될 거에요!")
+    private var enterNicknameTitle: some View {
+        Text("새로운 이름을 알려주세요.")
             .font(pretendard: .heading1)
             .foregroundColor(.grey80)
             .frame(maxWidth: .infinity, alignment: .leading)
-    }
-    
-    private var cloverWithMailImage: some View {
-        Image("name_illust")
-            .padding(.vertical, 20)
     }
     
     private var title: some View {
@@ -172,7 +177,7 @@ struct NicknameView: View {
     
     private var doneButton: some View {
         Button { viewStore.send(.doneButtonTapped) } label: { 
-            Text("시작하기")
+            Text(viewStore.mode == .onboarding ? "시작하기" : "저장")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .font(pretendard: .body1)
         }

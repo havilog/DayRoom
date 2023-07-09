@@ -109,7 +109,8 @@ struct Main: Reducer {
             case .settingButtonTapped:
                 state.path.append(.setting(.init(
                     nickname: preferences.nickname ?? "", 
-                    isUsingPassword: !keychain.getString(.password).isNil
+                    isUsingPassword: !keychain.getString(.password).isNil, 
+                    cloversCount: state.diaryFeed.diaries.count
                 )))
                 return .none
                 
@@ -168,7 +169,7 @@ struct Main: Reducer {
         case let .destination(.presented(.diaryCreate(.delegate(action)))):
             switch action {
             case let .diaryCreated(diaryCard):
-                return state.diaryFeed.insert(diary: diaryCard).map(Action.diaryFeed)
+                return state.diaryFeed.insert(newDiary: diaryCard).map(Action.diaryFeed)
             }
             
         case .destination:
