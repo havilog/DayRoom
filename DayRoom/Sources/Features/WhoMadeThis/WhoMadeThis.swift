@@ -51,7 +51,6 @@ struct WhoMadeThisView: View {
     
     var body: some View {
         bodyView
-            .padding(.top, 24)
             .navigationBarBackButtonHidden(true)
             .toolbar { 
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -60,23 +59,25 @@ struct WhoMadeThisView: View {
                     }
                     .frame(width: 48, height: 48)
                 }
-                ToolbarItem(placement: .principal) {
-                    Text("만든사람들")
-                        .font(pretendard: .heading3)
-                        .foregroundColor(.text_primary)
-                }
             }
     }
     
     var bodyView: some View {
         VStack(spacing: .zero) { 
+            Text("만든 사람들")
+                .font(pretendard: .display1)
+                .foregroundStyle(Color.grey80)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 8)
+                .padding(.bottom, 20)
+                .padding(.horizontal, 20)
+            
             HStack(spacing: .zero) { 
-                Image("logo_dayroom_symbol")
+                Image("hajin")
                     .resizable()
-                    .frame(width: 66, height: 66)
-                    .padding(.horizontal, 21)
-                    .padding(.top, 18)
-                    .padding(.bottom, 24)
+                    .frame(width: 72, height: 72)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 18)
                 
                 VStack(spacing: .zero) { 
                     Text("UI/UX Designer")
@@ -91,17 +92,16 @@ struct WhoMadeThisView: View {
                 Spacer()
             }
             .background(Color.elevated)
-            .cornerRadius(24)
+            .cornerRadius(12)
             .padding(.horizontal, 20)
             .padding(.bottom, 8)
             
             HStack(spacing: .zero) { 
-                Image("logo_dayroom_symbol")
+                Image("havi")
                     .resizable()
-                    .frame(width: 66, height: 66)
-                    .padding(.horizontal, 21)
-                    .padding(.top, 18)
-                    .padding(.bottom, 24)
+                    .frame(width: 72, height: 72)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 18)
                 
                 VStack(spacing: .zero) { 
                     Text("iOS Developer")
@@ -116,17 +116,16 @@ struct WhoMadeThisView: View {
                 Spacer()
             }
             .background(Color.elevated)
-            .cornerRadius(24)
+            .cornerRadius(12)
             .padding(.horizontal, 20)
             .padding(.bottom, 8)
             
             HStack(spacing: .zero) { 
-                Image("logo_dayroom_symbol")
+                Image("juah")
                     .resizable()
-                    .frame(width: 66, height: 66)
-                    .padding(.horizontal, 21)
-                    .padding(.top, 18)
-                    .padding(.bottom, 24)
+                    .frame(width: 72, height: 72)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 18)
                 
                 VStack(spacing: .zero) { 
                     Text("Android Developer")
@@ -141,20 +140,21 @@ struct WhoMadeThisView: View {
                 Spacer()
             }
             .background(Color.elevated)
-            .cornerRadius(24)
+            .cornerRadius(12)
             .padding(.horizontal, 20)
             
             Spacer()
             
-            Image("logo_dayroom_symbol")
-                .padding(.bottom, 24)
-            HStack(spacing: .zero) { 
-                Image("ic_instagram_24")
-                Text("dayroom_official")
-                    .font(pretendard: .body2)
-                    .foregroundColor(.text_secondary)
-            }
-            .padding(.bottom, 48)
+            Image("ic_instagram_24")
+                .padding(.all, 10)
+                .background(Color.grey10)
+                .cornerRadius(radius: 22, corners: .allCorners)
+                .padding(.bottom, 8)
+            
+            Text("@dayroom_official")
+                .font(pretendard: .body2)
+                .foregroundColor(.text_secondary)
+                .padding(.bottom, 14)
         }
     }
 }
