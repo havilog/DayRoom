@@ -155,8 +155,8 @@ struct DiaryCardView: View {
                     perspective: 0.2
                 )
         }
-        .animation(.spring(duration: 0.7), value: viewStore.page)
-        .animation(.spring(duration: 0.5), value: viewStore.isPressing)
+        .animation(.spring(), value: viewStore.page)
+        .animation(.spring(), value: viewStore.isPressing)
         .onTapGesture {
             hideKeyboard()
             viewStore.send(.viewTapped) 
@@ -226,7 +226,7 @@ struct DiaryCardView: View {
             image
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .transition(.opacity.animation(.spring))
+                .transition(.opacity.animation(.spring()))
         } else {
             Image(viewStore.mood.imageName)
                 .resizable()
