@@ -73,7 +73,8 @@ struct DiaryFeed: Reducer {
     
     // MARK: Dependency
     
-    @Dependency(\.persistence) private var persistence 
+    @Dependency(\.continuousClock) private var clock
+    @Dependency(\.persistence) private var persistence
     
     // MARK: Body
     
@@ -159,12 +160,12 @@ struct DiaryFeed: Reducer {
             state.destination = .none
             guard state.date.isFutureDay == false else {
                 return .run { send in
-                    try await Task.sleep(for: .seconds(0.6))
+                    try await clock.sleep(for: .seconds(0.6))
                     await send(.invalidDateSelected)
                 }
             }
             return .run { send in
-                try await Task.sleep(for: .seconds(0.6))
+                try await clock.sleep(for: .seconds(0.6))
                 await send(.dateSelectComplete)
             }
             

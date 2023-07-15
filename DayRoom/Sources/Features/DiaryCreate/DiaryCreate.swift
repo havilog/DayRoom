@@ -191,14 +191,14 @@ struct DiaryCreate: Reducer {
             state.destination = .none
             guard state.date.isFutureDay == false else {
                 return .run { send in
-                    try await Task.sleep(for: .seconds(0.6))
+                    try await clock.sleep(for: .seconds(0.6))
                     await send(.invalidDateSelected)
                 }
             }
             return .merge(
                 state.mutate(date: state.date),
                 .run { send in
-                    try await Task.sleep(for: .seconds(0.6))
+                    try await clock.sleep(for: .seconds(0.6))
                     await send(.dateSelectComplete)
                 }
             )
