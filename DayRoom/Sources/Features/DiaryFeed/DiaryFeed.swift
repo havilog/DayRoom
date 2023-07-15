@@ -213,7 +213,6 @@ extension DiaryFeed.State {
         feedDiary.cardMode = .feed
         feedDiary.page = .photo
         let index = self.diaries.firstIndex { exsistingDiary in exsistingDiary.date > newDiary.date } ?? .zero
-        print(index)
         self.diaries.insert(feedDiary, at: index)
         return .none
     }

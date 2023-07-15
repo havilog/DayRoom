@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40304E9C2A60B99A00D911D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40304E9B2A60B99A00D911D0 /* GoogleService-Info.plist */; };
+		40304E9F2A60BA4400D911D0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 40304E9E2A60BA4400D911D0 /* FirebaseAnalytics */; };
+		40304EA12A60BA4400D911D0 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 40304EA02A60BA4400D911D0 /* FirebaseCrashlytics */; };
 		403903AC2A0D3C5500C7D077 /* Font+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903AB2A0D3C5500C7D077 /* Font+Custom.swift */; };
 		403903AE2A0D3C6400C7D077 /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903AD2A0D3C6300C7D077 /* UIColor+hex.swift */; };
 		403903B02A0D3C6C00C7D077 /* UIColor+DayRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403903AF2A0D3C6C00C7D077 /* UIColor+DayRoom.swift */; };
@@ -90,6 +93,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		40304E9B2A60B99A00D911D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		403903972A0D3BB700C7D077 /* EBGaramond-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EBGaramond-MediumItalic.ttf"; sourceTree = "<group>"; };
 		403903982A0D3BB700C7D077 /* EBGaramond-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EBGaramond-BoldItalic.ttf"; sourceTree = "<group>"; };
 		403903992A0D3BB700C7D077 /* EBGaramond-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EBGaramond-Regular.ttf"; sourceTree = "<group>"; };
@@ -163,7 +167,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				40D7ED752A09101200BFB428 /* ComposableArchitecture in Frameworks */,
+				40304EA12A60BA4400D911D0 /* FirebaseCrashlytics in Frameworks */,
 				40A624032A35DFD700A00370 /* Lottie in Frameworks */,
+				40304E9F2A60BA4400D911D0 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +190,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		40304E982A60B95F00D911D0 /* GooglePlist */ = {
+			isa = PBXGroup;
+			children = (
+				40304E9B2A60B99A00D911D0 /* GoogleService-Info.plist */,
+			);
+			path = GooglePlist;
+			sourceTree = "<group>";
+		};
 		403903942A0D3B1E00C7D077 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +420,7 @@
 			children = (
 				40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */,
 				403903E72A0E131D00C7D077 /* Assets.xcassets */,
+				40304E982A60B95F00D911D0 /* GooglePlist */,
 				40A624042A35E00C00A00370 /* Lottie */,
 				403903942A0D3B1E00C7D077 /* Font */,
 				40D7ED3E2A090F5700BFB428 /* Preview Content */,
@@ -498,6 +513,8 @@
 			packageProductDependencies = (
 				40D7ED742A09101200BFB428 /* ComposableArchitecture */,
 				40A624022A35DFD700A00370 /* Lottie */,
+				40304E9E2A60BA4400D911D0 /* FirebaseAnalytics */,
+				40304EA02A60BA4400D911D0 /* FirebaseCrashlytics */,
 			);
 			productName = DayRoom;
 			productReference = 40D7ED352A090F5500BFB428 /* DayRoom.app */;
@@ -573,8 +590,8 @@
 			mainGroup = 40D7ED2C2A090F5500BFB428;
 			packageReferences = (
 				40D7ED732A09101200BFB428 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
-				40EFCEC92A18C56B00B30839 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				40A624012A35DFD700A00370 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				40304E9D2A60BA4400D911D0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 40D7ED362A090F5500BFB428 /* Products */;
 			projectDirPath = "";
@@ -609,6 +626,7 @@
 				403903E42A0D7FF000C7D077 /* EBGaramond-SemiBoldItalic.ttf in Resources */,
 				403903DA2A0D7FCF00C7D077 /* Pretendard-Thin.ttf in Resources */,
 				403903E12A0D7FE600C7D077 /* EBGaramond-MediumItalic.ttf in Resources */,
+				40304E9C2A60B99A00D911D0 /* GoogleService-Info.plist in Resources */,
 				403903DB2A0D7FD200C7D077 /* EBGaramond-Bold.ttf in Resources */,
 				40A6240C2A35E03E00A00370 /* clover_motion.json in Resources */,
 				403903E22A0D7FE900C7D077 /* EBGaramond-Regular.ttf in Resources */,
@@ -1008,6 +1026,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		40304E9D2A60BA4400D911D0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.12.0;
+			};
+		};
 		40A624012A35DFD700A00370 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
@@ -1024,17 +1050,19 @@
 				kind = branch;
 			};
 		};
-		40EFCEC92A18C56B00B30839 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		40304E9E2A60BA4400D911D0 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40304E9D2A60BA4400D911D0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		40304EA02A60BA4400D911D0 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40304E9D2A60BA4400D911D0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
 		40A624022A35DFD700A00370 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 40A624012A35DFD700A00370 /* XCRemoteSwiftPackageReference "lottie-ios" */;

@@ -284,26 +284,26 @@ struct MainView: View {
             switch destination {
             case .setting:
                 CaseLet(
-                    state: /Main.Path.State.setting,
+                    /Main.Path.State.setting,
                     action: Main.Path.Action.setting,
                     then: SettingView.init
                 )
             case .passwordSetting:
                 CaseLet(
-                    state: /Main.Path.State.passwordSetting,
+                    /Main.Path.State.passwordSetting,
                     action: Main.Path.Action.passwordSetting,
                     then: PasswordSettingView.init
                 )
             case .whoMadeThis:
                 CaseLet(
-                    state: /Main.Path.State.whoMadeThis,
+                    /Main.Path.State.whoMadeThis,
                     action: Main.Path.Action.whoMadeThis,
                     then: WhoMadeThisView.init
                 )
                 
             case .myClovers:
                 CaseLet(
-                    state: /Main.Path.State.myClovers,
+                    /Main.Path.State.myClovers,
                     action: Main.Path.Action.myClovers,
                     then: MyCloversView.init
                 )

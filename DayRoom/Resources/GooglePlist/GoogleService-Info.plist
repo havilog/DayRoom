@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>439724876119-t91tgb87v4epqb4ace9chegoe81v0s61.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.439724876119-t91tgb87v4epqb4ace9chegoe81v0s61</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBHKvH2v9Xw-KunuBGkGASx0sB3dVoFOIc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>439724876119</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.havi.DayRoom</string>
+	<key>PROJECT_ID</key>
+	<string>dayroom-68f56</string>
+	<key>STORAGE_BUCKET</key>
+	<string>dayroom-68f56.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:439724876119:ios:4c043789bc428738919e12</string>
+</dict>
+</plist>
