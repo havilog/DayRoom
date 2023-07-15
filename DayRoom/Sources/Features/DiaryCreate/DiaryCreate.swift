@@ -178,6 +178,12 @@ struct DiaryCreate: Reducer {
                 return .none
             }
             
+        case .destination(.dismiss):
+            guard state.card?.mood != nil else {
+                return .run { _ in await dismiss() }
+            }
+            return .none
+            
         case .destination:
             return .none
             

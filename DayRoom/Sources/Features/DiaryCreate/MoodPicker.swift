@@ -86,7 +86,6 @@ struct MoodPickerView: View {
             }
             .presentationDetents([.height(450)])
             .presentationCornerRadius(24)
-            .interactiveDismissDisabled()
             .ignoresSafeArea()
             .offset(y: -20)
         }
