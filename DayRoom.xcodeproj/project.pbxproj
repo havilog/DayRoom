@@ -60,12 +60,11 @@
 		40AEB0A22A4FF4A500B1801A /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AEB0A12A4FF4A500B1801A /* KeyChainManager.swift */; };
 		40AEB0A42A4FFAF700B1801A /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AEB0A32A4FFAF700B1801A /* Notification.swift */; };
 		40AEB0A62A5057D200B1801A /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AEB0A52A5057D200B1801A /* DatePickerView.swift */; };
+		40B6E42B2A629272002ABAFB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 40B6E42A2A629272002ABAFB /* Settings.bundle */; };
 		40D7ED392A090F5500BFB428 /* DayRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED382A090F5500BFB428 /* DayRoomApp.swift */; };
 		40D7ED402A090F5700BFB428 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */; };
 		40D7ED452A090F5700BFB428 /* DayRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */; };
 		40D7ED4F2A090F5700BFB428 /* DayRoomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED4E2A090F5700BFB428 /* DayRoomTests.swift */; };
-		40D7ED592A090F5700BFB428 /* DayRoomUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED582A090F5700BFB428 /* DayRoomUITests.swift */; };
-		40D7ED5B2A090F5700BFB428 /* DayRoomUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED5A2A090F5700BFB428 /* DayRoomUITestsLaunchTests.swift */; };
 		40D7ED702A090FAA00BFB428 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED6F2A090FAA00BFB428 /* Root.swift */; };
 		40D7ED752A09101200BFB428 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 40D7ED742A09101200BFB428 /* ComposableArchitecture */; };
 		40D7ED792A09103B00BFB428 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED782A09103B00BFB428 /* Persistence.swift */; };
@@ -77,13 +76,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		40D7ED4B2A090F5700BFB428 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40D7ED2D2A090F5500BFB428 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 40D7ED342A090F5500BFB428;
-			remoteInfo = DayRoom;
-		};
-		40D7ED552A090F5700BFB428 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 40D7ED2D2A090F5500BFB428 /* Project object */;
 			proxyType = 1;
@@ -144,15 +136,13 @@
 		40AEB0A12A4FF4A500B1801A /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		40AEB0A32A4FFAF700B1801A /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		40AEB0A52A5057D200B1801A /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		40B6E42A2A629272002ABAFB /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		40D7ED352A090F5500BFB428 /* DayRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40D7ED382A090F5500BFB428 /* DayRoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomApp.swift; sourceTree = "<group>"; };
 		40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		40D7ED442A090F5700BFB428 /* DayRoom.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DayRoom.xcdatamodel; sourceTree = "<group>"; };
 		40D7ED4A2A090F5700BFB428 /* DayRoomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRoomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40D7ED4E2A090F5700BFB428 /* DayRoomTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomTests.swift; sourceTree = "<group>"; };
-		40D7ED542A090F5700BFB428 /* DayRoomUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRoomUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		40D7ED582A090F5700BFB428 /* DayRoomUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomUITests.swift; sourceTree = "<group>"; };
-		40D7ED5A2A090F5700BFB428 /* DayRoomUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		40D7ED6F2A090FAA00BFB428 /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
 		40D7ED782A09103B00BFB428 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		40EFCEBC2A16237E00B30839 /* PasswordSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordSetting.swift; sourceTree = "<group>"; };
@@ -174,13 +164,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		40D7ED472A090F5700BFB428 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		40D7ED512A090F5700BFB428 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -355,7 +338,6 @@
 			children = (
 				40D7ED372A090F5500BFB428 /* DayRoom */,
 				40D7ED4D2A090F5700BFB428 /* DayRoomTests */,
-				40D7ED572A090F5700BFB428 /* DayRoomUITests */,
 				40D7ED362A090F5500BFB428 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -365,7 +347,6 @@
 			children = (
 				40D7ED352A090F5500BFB428 /* DayRoom.app */,
 				40D7ED4A2A090F5700BFB428 /* DayRoomTests.xctest */,
-				40D7ED542A090F5700BFB428 /* DayRoomUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -396,15 +377,6 @@
 			path = DayRoomTests;
 			sourceTree = "<group>";
 		};
-		40D7ED572A090F5700BFB428 /* DayRoomUITests */ = {
-			isa = PBXGroup;
-			children = (
-				40D7ED582A090F5700BFB428 /* DayRoomUITests.swift */,
-				40D7ED5A2A090F5700BFB428 /* DayRoomUITestsLaunchTests.swift */,
-			);
-			path = DayRoomUITests;
-			sourceTree = "<group>";
-		};
 		40D7ED672A090F7000BFB428 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,6 +396,7 @@
 				40A624042A35E00C00A00370 /* Lottie */,
 				403903942A0D3B1E00C7D077 /* Font */,
 				40D7ED3E2A090F5700BFB428 /* Preview Content */,
+				40B6E42A2A629272002ABAFB /* Settings.bundle */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -539,24 +512,6 @@
 			productReference = 40D7ED4A2A090F5700BFB428 /* DayRoomTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		40D7ED532A090F5700BFB428 /* DayRoomUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 40D7ED642A090F5700BFB428 /* Build configuration list for PBXNativeTarget "DayRoomUITests" */;
-			buildPhases = (
-				40D7ED502A090F5700BFB428 /* Sources */,
-				40D7ED512A090F5700BFB428 /* Frameworks */,
-				40D7ED522A090F5700BFB428 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				40D7ED562A090F5700BFB428 /* PBXTargetDependency */,
-			);
-			name = DayRoomUITests;
-			productName = DayRoomUITests;
-			productReference = 40D7ED542A090F5700BFB428 /* DayRoomUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -565,16 +520,12 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					40D7ED342A090F5500BFB428 = {
 						CreatedOnToolsVersion = 14.3;
 					};
 					40D7ED492A090F5700BFB428 = {
-						CreatedOnToolsVersion = 14.3;
-						TestTargetID = 40D7ED342A090F5500BFB428;
-					};
-					40D7ED532A090F5700BFB428 = {
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = 40D7ED342A090F5500BFB428;
 					};
@@ -600,7 +551,6 @@
 			targets = (
 				40D7ED342A090F5500BFB428 /* DayRoom */,
 				40D7ED492A090F5700BFB428 /* DayRoomTests */,
-				40D7ED532A090F5700BFB428 /* DayRoomUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -624,6 +574,7 @@
 				403903D52A0D7FBF00C7D077 /* Pretendard-ExtraLight.ttf in Resources */,
 				403903D82A0D7FC900C7D077 /* Pretendard-Regular.ttf in Resources */,
 				403903D32A0D7FB800C7D077 /* Pretendard-Bold.ttf in Resources */,
+				40B6E42B2A629272002ABAFB /* Settings.bundle in Resources */,
 				403903E42A0D7FF000C7D077 /* EBGaramond-SemiBoldItalic.ttf in Resources */,
 				403903DA2A0D7FCF00C7D077 /* Pretendard-Thin.ttf in Resources */,
 				403903E12A0D7FE600C7D077 /* EBGaramond-MediumItalic.ttf in Resources */,
@@ -644,13 +595,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		40D7ED522A090F5700BFB428 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -662,8 +606,8 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			outputFileListPaths = (
 			);
@@ -671,7 +615,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+			shellScript = "GOOGLE_SERVICE_INFO_PLIST_FROM=\"${PROJECT_DIR}/Resources/GooglePList/GoogleService-Info.plist\"\nBUILD_APP_DIR=\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -726,15 +670,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		40D7ED502A090F5700BFB428 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				40D7ED5B2A090F5700BFB428 /* DayRoomUITestsLaunchTests.swift in Sources */,
-				40D7ED592A090F5700BFB428 /* DayRoomUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -742,11 +677,6 @@
 			isa = PBXTargetDependency;
 			target = 40D7ED342A090F5500BFB428 /* DayRoom */;
 			targetProxy = 40D7ED4B2A090F5700BFB428 /* PBXContainerItemProxy */;
-		};
-		40D7ED562A090F5700BFB428 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 40D7ED342A090F5500BFB428 /* DayRoom */;
-			targetProxy = 40D7ED552A090F5700BFB428 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -784,9 +714,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -847,6 +778,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -971,42 +903,6 @@
 			};
 			name = Release;
 		};
-		40D7ED652A090F5700BFB428 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 85329TR25G;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.havi.DayRoomUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = DayRoom;
-			};
-			name = Debug;
-		};
-		40D7ED662A090F5700BFB428 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 85329TR25G;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.havi.DayRoomUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = DayRoom;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1033,15 +929,6 @@
 			buildConfigurations = (
 				40D7ED622A090F5700BFB428 /* Debug */,
 				40D7ED632A090F5700BFB428 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		40D7ED642A090F5700BFB428 /* Build configuration list for PBXNativeTarget "DayRoomUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				40D7ED652A090F5700BFB428 /* Debug */,
-				40D7ED662A090F5700BFB428 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
