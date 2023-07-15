@@ -58,36 +58,18 @@ struct MoodPickerView: View {
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            VStack(spacing: .zero) {
-                moodView(mood: .lucky) { 
-                    viewStore.send(.moodSelected(.lucky))
+            ZStack {
+                ForEach(DiaryMood.allCases) { mood in
+                    moodView(mood: mood) { 
+                        viewStore.send(.moodSelected(mood))
+                    }
+                    .padding(.top, mood.index * 90)
                 }
-                .offset(y: 80)
-                
-                moodView(mood: .happy) { 
-                    viewStore.send(.moodSelected(.happy))
-                }
-                .offset(y: 60)
-                
-                moodView(mood: .soso) { 
-                    viewStore.send(.moodSelected(.soso))
-                }
-                .offset(y: 40)
-                
-                moodView(mood: .angry) { 
-                    viewStore.send(.moodSelected(.angry))
-                }
-                .offset(y: 20)
-                
-                moodView(mood: .sad) { 
-                    viewStore.send(.moodSelected(.sad))
-                }
-                .offset(y: 0)
             }
             .presentationDetents([.height(450)])
             .presentationCornerRadius(24)
             .ignoresSafeArea()
-            .offset(y: -20)
+            .background(Image("img_sad")) // 스유 버그인듯?
         }
     }
     
@@ -101,12 +83,12 @@ struct MoodPickerView: View {
             Text(mood.title)
                 .font(garamond: .heading3)
                 .foregroundColor(mood.foregroundColor)
-                .offset(y: -20)
+                .frame(maxHeight: .infinity, alignment: .top)
+                .padding(.top, 20)
         }
         .contentShape(Rectangle())
         .onTapGesture(perform: action)
-        .frame(maxWidth: .infinity)
-        .frame(height: mood == .sad ? 130 : 110)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .cornerRadius(radius: 24, corners: [.topLeft, .topRight])
     }
 }

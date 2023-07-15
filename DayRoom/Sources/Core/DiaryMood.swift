@@ -27,6 +27,16 @@ public enum DiaryMood: String, Identifiable, Equatable, CaseIterable {
         }
     }
     
+    public var index: CGFloat {
+        switch self {
+        case .lucky: return 0
+        case .happy: return 1
+        case .soso: return 2
+        case .angry: return 3
+        case .sad: return 4
+        }
+    }
+    
     public var imageName: String {
         switch self {
         case .lucky: return "img_lucky"
