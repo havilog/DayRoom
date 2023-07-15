@@ -212,7 +212,10 @@ extension DiaryFeed.State {
         var feedDiary = newDiary
         feedDiary.cardMode = .feed
         feedDiary.page = .photo
-        let index = self.diaries.firstIndex { exsistingDiary in exsistingDiary.date > newDiary.date } ?? .zero
+        /// exsisting 12일 - index 3, new 13일 - index 2여야함
+        let index = self.diaries.firstIndex { exsistingDiary in
+            exsistingDiary.date < newDiary.date
+        } ?? .zero
         self.diaries.insert(feedDiary, at: index)
         return .none
     }
@@ -257,7 +260,7 @@ struct DiaryFeedView: View {
     
     private let oneSizeItem: GridItem = GridItem(
         .flexible(), 
-        spacing: 16, 
+        spacing: 30, 
         alignment: .top
     )
     
@@ -268,9 +271,12 @@ struct DiaryFeedView: View {
             ScrollView {
                 Spacer().frame(height: 12)
                 
-                if viewStore.isWrittenToday == false { emptyCardView }
+                if viewStore.isWrittenToday == false { 
+                    emptyCardView
+                        .padding(.bottom, 8)
+                }
                 
-                LazyVGrid(columns: [oneSizeItem]) {
+                LazyVGrid(columns: [oneSizeItem], spacing: 16) {
                     ForEachStore(
                         store.scope(
                             state: \.diaries, 
@@ -292,11 +298,11 @@ struct DiaryFeedView: View {
     private var emptyCardView: some View {
         VStack(spacing: .zero) { 
             Spacer()
-            Text(String(viewStore.date.day))
+            Text(String(Date.today.day))
                 .font(garamond: .hero)
                 .foregroundColor(.text_disabled)
             
-            Text(viewStore.date.weekday.english)
+            Text(Date.today.weekday.english)
                 .font(garamond: .body2)
                 .foregroundColor(.text_disabled)
         }

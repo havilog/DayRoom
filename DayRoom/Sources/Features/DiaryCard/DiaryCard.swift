@@ -171,7 +171,10 @@ struct DiaryCardView: View {
     @ViewBuilder
     private var photoView: some View {
         if viewStore.cardMode == .create {
-            PhotosPicker(selection: viewStore.binding(\.$selectedImageItem), matching: .images) {
+            PhotosPicker(
+                selection: viewStore.binding(\.$selectedImageItem),
+                matching: .images
+            ) {
                 photoViewWithMask
             }
             .buttonStyle(.plain)
