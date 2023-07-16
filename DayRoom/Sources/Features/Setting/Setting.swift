@@ -35,9 +35,9 @@ struct Setting: Reducer {
         
         var title: String {
             switch self {
-            case .lock: return "잠금"
-            case .whoMadeThis: return "만든 사람들"
-            case .version: return "버전 정보"
+            case .lock: return "잠금".localized
+            case .whoMadeThis: return "만든 사람들".localized
+            case .version: return "버전 정보".localized
             }
         }
     } 
@@ -158,7 +158,7 @@ struct SettingView: View {
     } 
     
     private var largeTitle: some View {
-        Text("마이페이지")
+        Text("마이페이지".localized)
             .font(pretendard: .display1)
             .foregroundColor(.grey80)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -180,7 +180,7 @@ struct SettingView: View {
             
             Button { viewStore.send(.myCloverButtonTapped) } label: { 
                 HStack(spacing: .zero) { 
-                    Text("내 클로버")
+                    Text("내 클로버".localized)
                         .font(pretendard: .body2)
                         .foregroundColor(.text_primary)
                         .padding(.trailing, 8)
@@ -201,14 +201,13 @@ struct SettingView: View {
     
     private var settingSection: some View {
         Section { 
-            settingRow(.lock, hasTrailingArrow: true)
-//            {
-//                Text("\(viewStore.isUsingPassword ? "ON" : "OFF")")
-//                    .font(pretendard: .body2)
-//                    .foregroundColor(.text_primary)
-//            }
+            settingRow(.lock, hasTrailingArrow: true) {
+                Text("\(viewStore.isUsingPassword ? "ON" : "OFF")")
+                    .font(pretendard: .body2)
+                    .foregroundColor(.text_primary)
+            }
         } header: { 
-            sectionHeader("설정")
+            sectionHeader("설정".localized)
         } footer: { 
             sectionFooter
         }
@@ -223,7 +222,7 @@ struct SettingView: View {
                     .foregroundColor(.text_primary)
             }
         } header: { 
-            sectionHeader("앱 정보")
+            sectionHeader("앱 정보".localized)
         }
     }
     

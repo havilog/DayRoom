@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		401AE7F62A638E6C00932024 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 401AE7F82A638E6C00932024 /* Localizable.strings */; };
+		401AE7FA2A638EFA00932024 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401AE7F92A638EFA00932024 /* String+Localized.swift */; };
 		40304E9C2A60B99A00D911D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40304E9B2A60B99A00D911D0 /* GoogleService-Info.plist */; };
 		40304E9F2A60BA4400D911D0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 40304E9E2A60BA4400D911D0 /* FirebaseAnalytics */; };
 		40304EA12A60BA4400D911D0 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 40304EA02A60BA4400D911D0 /* FirebaseCrashlytics */; };
@@ -85,6 +87,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		401AE7F72A638E6C00932024 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		401AE7F92A638EFA00932024 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		40304E9B2A60B99A00D911D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		403903972A0D3BB700C7D077 /* EBGaramond-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EBGaramond-MediumItalic.ttf"; sourceTree = "<group>"; };
 		403903982A0D3BB700C7D077 /* EBGaramond-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EBGaramond-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -173,6 +177,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		401AE7F32A638E4B00932024 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				401AE7F82A638E6C00932024 /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		40304E982A60B95F00D911D0 /* GooglePlist */ = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +404,7 @@
 			children = (
 				40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */,
 				403903E72A0E131D00C7D077 /* Assets.xcassets */,
+				401AE7F32A638E4B00932024 /* Localization */,
 				40304E982A60B95F00D911D0 /* GooglePlist */,
 				40A624042A35E00C00A00370 /* Lottie */,
 				403903942A0D3B1E00C7D077 /* Font */,
@@ -463,6 +476,7 @@
 			children = (
 				40EFCEC52A16800F00B30839 /* Date+Extension.swift */,
 				40A6240F2A35E6EE00A00370 /* Bundle+version.swift */,
+				401AE7F92A638EFA00932024 /* String+Localized.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -569,6 +583,7 @@
 				403903DF2A0D7FDE00C7D077 /* EBGaramond-Italic.ttf in Resources */,
 				403903D42A0D7FBB00C7D077 /* Pretendard-ExtraBold.ttf in Resources */,
 				403903E32A0D7FEC00C7D077 /* EBGaramond-SemiBold.ttf in Resources */,
+				401AE7F62A638E6C00932024 /* Localizable.strings in Resources */,
 				403903DC2A0D7FD600C7D077 /* EBGaramond-BoldItalic.ttf in Resources */,
 				403903E02A0D7FE200C7D077 /* EBGaramond-Medium.ttf in Resources */,
 				403903D52A0D7FBF00C7D077 /* Pretendard-ExtraLight.ttf in Resources */,
@@ -642,6 +657,7 @@
 				40D7ED792A09103B00BFB428 /* Persistence.swift in Sources */,
 				40D7ED452A090F5700BFB428 /* DayRoom.xcdatamodeld in Sources */,
 				40AEB0A42A4FFAF700B1801A /* Notification.swift in Sources */,
+				401AE7FA2A638EFA00932024 /* String+Localized.swift in Sources */,
 				405CC5C12A36163200AFE2C0 /* WhoMadeThis.swift in Sources */,
 				40A9CB622A28D2E8003E8BCF /* DiaryMood.swift in Sources */,
 				403903B42A0D490100C7D077 /* Preferences.swift in Sources */,
@@ -679,6 +695,17 @@
 			targetProxy = 40D7ED4B2A090F5700BFB428 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		401AE7F82A638E6C00932024 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				401AE7F72A638E6C00932024 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		40D7ED5C2A090F5700BFB428 /* Debug */ = {

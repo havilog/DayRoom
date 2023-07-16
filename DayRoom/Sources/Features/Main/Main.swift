@@ -135,7 +135,7 @@ struct Main: Reducer {
         case .diaryFeed:
             return .none
             
-        case let .path(.element(id: id, action: .setting(.delegate(action)))):
+        case let .path(.element(id: _, action: .setting(.delegate(action)))):
             switch action {
             case let .settingRowTapped(row):
                 switch row {

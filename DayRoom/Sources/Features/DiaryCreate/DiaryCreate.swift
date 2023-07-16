@@ -142,7 +142,7 @@ struct DiaryCreate: Reducer {
             case .imageSelected:
                 state.destination = nil
                 return .task { 
-                    try await clock.sleep(for: .seconds(0.65))
+                    try await clock.sleep(for: .seconds(0.8))
                     return .imageSelectedAnimation
                 }
                 
@@ -214,23 +214,23 @@ struct DiaryCreate: Reducer {
 
 extension AlertState where Action == DiaryCreate.Destination.Action.Alert {
     static let invalidDate = Self {
-        TextState("날짜 변경 불가")
+        TextState("날짜 변경 불가".localized)
     } actions: {
         ButtonState(action: .send(.confirmInvalidDate, animation: .default)) {
-            TextState("확인")
+            TextState("확인".localized)
         }
     } message: {
-        TextState("오늘 이후의 날짜를 선택 할 수 없어요 :(\n일기가 오늘 날짜로 변경돼요.")
+        TextState("오늘 이후의 날짜를 선택 할 수 없어요 :(\n일기가 오늘 날짜로 변경돼요.".localized)
     }
     
     static let selectComplete = Self {
-        TextState("날짜 변경 완료")
+        TextState("날짜 변경 완료".localized)
     } actions: {
         ButtonState(action: .send(.confirmDateSelectComplete, animation: .default)) {
-            TextState("확인")
+            TextState("확인".localized)
         }
     } message: {
-        TextState("선택한 날짜로 변경이 완료되었어요!")
+        TextState("선택한 날짜로 변경이 완료되었어요!".localized)
     }
 }
 
@@ -304,6 +304,7 @@ struct DiaryCreateView: View {
                     }
                 }
             }
+            .scrollDisabled(viewStore.card?.selectedImage == nil)
             .padding(.horizontal, 20)
         }
     }
@@ -337,7 +338,7 @@ struct DiaryCreateView: View {
     }
     
     private var title: some View {
-        Text("오늘의 추억은\n무엇인가요?")
+        Text("오늘의 추억은\n무엇인가요?".localized)
             .font(pretendard: .heading1)
             .foregroundColor(.text_primary)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -404,7 +405,7 @@ struct DiaryCreateView: View {
 struct CreateFinishView: View {
     var body: some View {
         LottieView(jsonName: "clover_motion", loopMode: .playOnce)
-            .padding(40)
+            .frame(width: 216, height: 216)
     }
 }
 

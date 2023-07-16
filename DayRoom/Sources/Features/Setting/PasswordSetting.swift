@@ -127,7 +127,7 @@ struct PasswordSettingView: View {
     }
     
     private var navigationTitle: some View {
-        Text("잠금")
+        Text("잠금".localized)
             .font(pretendard: .heading3)
             .foregroundColor(.text_primary)
     }
@@ -147,7 +147,7 @@ struct PasswordSettingView: View {
             Image("ic_caution_fill_24")
                 .padding(.leading, 16)
                 .padding(.trailing, 8)
-            Text("비밀번호를 분실하면 찾을 수 없어요")
+            Text("비밀번호를 분실하면 찾을 수 없어요".localized)
                 .font(pretendard: .body4)
                 .foregroundColor(.text_secondary)
         }
@@ -160,7 +160,7 @@ struct PasswordSettingView: View {
     
     private var passwordToggle: some View {
         Toggle(isOn: viewStore.binding(\.$isUsingPassword)) { 
-            Text("비밀번호 사용")
+            Text("비밀번호 사용".localized)
                 .font(pretendard: .heading4)
                 .foregroundColor(.text_primary)
                 .frame(maxWidth: .infinity, maxHeight: 54, alignment: .leading)
@@ -169,7 +169,7 @@ struct PasswordSettingView: View {
     
     private var passwordChange: some View {
         Button { viewStore.send(.changePasswordButtonTapped) } label: { 
-            Text("비밀번호 변경")
+            Text("비밀번호 변경".localized)
                 .font(pretendard: .heading4)
                 .foregroundColor(viewStore.isUsingPassword ? .text_primary : .text_disabled)
                 .frame(maxWidth: .infinity, maxHeight: 54, alignment: .leading)

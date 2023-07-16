@@ -96,7 +96,7 @@ struct DiaryFeed: Reducer {
             }
             
         case .navigationTitleTapped:
-            state.destination = .datePicker
+            // 원래 달력 뜨는데 안뜨게 막음
             return .none
             
         case .settingButtonTapped:
@@ -179,23 +179,23 @@ struct DiaryFeed: Reducer {
 
 extension AlertState where Action == DiaryFeed.Destination.Action.Alert {
     static let invalidDate = Self {
-        TextState("날짜 변경 불가")
+        TextState("날짜 변경 불가".localized)
     } actions: {
         ButtonState(action: .send(.confirmInvalidDate, animation: .default)) {
-            TextState("확인")
+            TextState("확인".localized)
         }
     } message: {
-        TextState("오늘 이후의 날짜를 선택 할 수 없어요 :(\n일기가 오늘 날짜로 변경돼요.")
+        TextState("오늘 이후의 날짜를 선택 할 수 없어요 :(\n일기가 오늘 날짜로 변경돼요.".localized)
     }
     
     static let selectComplete = Self {
-        TextState("날짜 변경 완료")
+        TextState("날짜 변경 완료".localized)
     } actions: {
         ButtonState(action: .send(.confirmDateSelectComplete, animation: .default)) {
-            TextState("확인")
+            TextState("확인".localized)
         }
     } message: {
-        TextState("선택한 날짜로 변경이 완료되었어요!")
+        TextState("선택한 날짜로 변경이 완료되었어요!".localized)
     }
 }
 
@@ -258,11 +258,7 @@ struct DiaryFeedView: View {
             ) { DatePickerView(date: viewStore.binding(\.$date)) }
     }
     
-    private let oneSizeItem: GridItem = GridItem(
-        .flexible(), 
-        spacing: 30, 
-        alignment: .top
-    )
+    private let oneSizeItem: GridItem = GridItem(.flexible(), alignment: .top)
     
     private var bodyView: some View {
         VStack(spacing: .zero) {

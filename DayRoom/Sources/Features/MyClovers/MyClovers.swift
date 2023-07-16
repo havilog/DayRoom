@@ -23,7 +23,7 @@ struct MyClovers: Reducer {
                 grouping: diaries, 
                 by: Self.yearMonth
             )
-            .mapValues(\.count)
+            .mapValues { value in value.count > 31 ? 31 : value.count } // 최대 갯수 고정
             .sorted(by: { $0.key > $1.key })
         }
         
@@ -93,7 +93,18 @@ struct MyCloversView: View {
                 .padding(.top, 8)
                 .padding(.horizontal, 20)
             
-            cloverTabView(viewStore.groupedDiaries)
+            if viewStore.groupedDiaries.isEmpty {
+                Spacer()
+                VStack(spacing: .zero) { 
+                    Image("img_empty_clover")
+                        .padding(.bottom, 20)
+                    Text("모은 클로버가 없어요 :(".localized)
+                        .font(pretendard: .heading3)
+                        .foregroundColor(.grey40)
+                }
+            } else {
+                cloverTabView(viewStore.groupedDiaries)
+            }
             
             Spacer()
         }
@@ -101,7 +112,7 @@ struct MyCloversView: View {
     }
     
     private var navigationTitle: some View {
-        Text("내 클로버")
+        Text("내 클로버".localized)
             .font(pretendard: .display1)
             .foregroundColor(.grey80)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -151,18 +162,19 @@ struct MyCloversView: View {
     
     private func cloverGrids(count: Int) -> some View {
         let gridItems: [GridItem] = [
-            GridItem(.fixed(36)),
-            GridItem(.fixed(36)),
-            GridItem(.fixed(36)),
-            GridItem(.fixed(36)),
-            GridItem(.fixed(36)),
+            GridItem(.adaptive(minimum: 36), spacing: 12),
+            GridItem(.adaptive(minimum: 36), spacing: 12),
+            GridItem(.adaptive(minimum: 36), spacing: 12),
+            GridItem(.adaptive(minimum: 36), spacing: 12),
+            GridItem(.adaptive(minimum: 36), spacing: 12),
         ]
         
         return LazyVGrid(columns: gridItems) {
             ForEach(0..<count, id: \.self) { index in
                 Image("logo_dayroom_symbol")
                     .resizable()
-                    .frame(width: 36, height: 36)
+                    .frame(height: 36)
+                    .frame(maxWidth: .infinity)
                     .padding(.horizontal, 5)
                     .opacity(Int(index).opacity)
             }

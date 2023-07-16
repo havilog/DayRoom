@@ -47,9 +47,9 @@ struct Password: Reducer {
         
         var description: String {
             switch self {
-            case .normal: return "암호 입력"
-            case .new: return "비밀번호를 입력해 주세요"
-            case .change: return "새로운 비밀번호를 입력해 주세요"
+            case .normal: return "암호 입력".localized
+            case .new: return "비밀번호를 입력해 주세요".localized
+            case .change: return "새로운 비밀번호를 입력해 주세요".localized
             }
         }
     }
@@ -115,7 +115,7 @@ struct Password: Reducer {
                 case .new, .change:
                     guard case let .confirm(enteredPassword) = state.status else {
                         state.status = .confirm(enteredPassword: state.inputPassword)
-                        state.informationText = "한 번 더 입력해주세요"
+                        state.informationText = "한 번 더 입력해주세요".localized
                         state.inputPassword.removeAll()
                         return .none 
                     }
@@ -189,7 +189,7 @@ struct PasswordView: View {
             
             Spacer()
             
-            Text("비밀번호 설정")
+            Text(viewStore.mode == .change ? "비밀번호 변경".localized : "비밀번호 설정".localized)
                 .font(pretendard: .heading3)
                 .foregroundColor(.text_primary)
             
@@ -209,7 +209,7 @@ struct PasswordView: View {
     }
     
     private var passwordIncorrectDescription: some View {
-        Text("비밀번호가 일치하지 않습니다")
+        Text("비밀번호가 일치하지 않습니다".localized)
             .font(pretendard: .body2)
             .foregroundColor(.error)
     }

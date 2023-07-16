@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "hajin.png",
+      "filename" : "img_empty_clover.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "img_empty_clover@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "img_empty_clover@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

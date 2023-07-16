@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "juah.png",
+      "filename" : "img_havi.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "img_havi@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "img_havi@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

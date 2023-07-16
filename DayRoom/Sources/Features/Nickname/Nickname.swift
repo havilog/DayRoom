@@ -143,22 +143,14 @@ struct NicknameView: View {
     }
     
     private var enterNicknameTitle: some View {
-        Text("새로운 이름을 알려주세요.")
+        Text("이름을 알려주세요.".localized)
             .font(pretendard: .heading1)
             .foregroundColor(.grey80)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    private var title: some View {
-        Text("글쓴이")
-            .font(pretendard: .body2)
-            .foregroundColor(.text_secondary)
-            .padding(.bottom, 8)
-            .padding(.leading, 8)
-    }
-    
     private var nicknameTextField: some View {
-        TextField("8자 이내 한글, 영문, 숫자", text: viewStore.binding(\.$nickname))
+        TextField("8자 이내 한글, 영문, 숫자".localized, text: viewStore.binding(\.$nickname))
             .frame(height: 28)
             .foregroundColor(.text_primary)
             .font(pretendard: .heading3)
@@ -177,7 +169,7 @@ struct NicknameView: View {
     
     private var doneButton: some View {
         Button { viewStore.send(.doneButtonTapped) } label: { 
-            Text(viewStore.mode == .onboarding ? "시작하기" : "저장")
+            Text(viewStore.mode == .onboarding ? "시작하기".localized : "저장".localized)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .font(pretendard: .body1)
         }

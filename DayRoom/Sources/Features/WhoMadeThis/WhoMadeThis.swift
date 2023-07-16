@@ -73,7 +73,7 @@ struct WhoMadeThisView: View {
                 .padding(.horizontal, 20)
             
             HStack(spacing: .zero) { 
-                Image("hajin")
+                Image("img_hajin")
                     .resizable()
                     .frame(width: 72, height: 72)
                     .padding(.horizontal, 20)
@@ -97,7 +97,7 @@ struct WhoMadeThisView: View {
             .padding(.bottom, 8)
             
             HStack(spacing: .zero) { 
-                Image("havi")
+                Image("img_havi")
                     .resizable()
                     .frame(width: 72, height: 72)
                     .padding(.horizontal, 20)
@@ -121,7 +121,7 @@ struct WhoMadeThisView: View {
             .padding(.bottom, 8)
             
             HStack(spacing: .zero) { 
-                Image("juah")
+                Image("img_juah")
                     .resizable()
                     .frame(width: 72, height: 72)
                     .padding(.horizontal, 20)

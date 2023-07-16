@@ -189,7 +189,7 @@ struct DiaryCardView: View {
                 .frame(maxWidth: viewStore.isPressing ? Constant.maxWidth * 1.03 : Constant.maxWidth)
                 .frame(height: viewStore.isPressing ? Constant.height * 1.03 : Constant.height)
                 .fixedSize()
-                .cornerRadius(24)
+                .cornerRadius(20)
                 .animation(.spring(), value: viewStore.selectedImage)
             
             if viewStore.selectedImage != nil {
@@ -198,7 +198,7 @@ struct DiaryCardView: View {
                     startPoint: .top, 
                     endPoint: .bottom
                 )
-                .cornerRadius(24)
+                .cornerRadius(20)
             }
             
             VStack(spacing: .zero) { 
@@ -216,7 +216,8 @@ struct DiaryCardView: View {
                         viewStore.mood.foregroundColor : .day_white
                     )
             }
-            .padding(24)
+            .padding(.horizontal, 24)
+            .padding(.bottom, 28)
         }
     }
     
@@ -274,7 +275,7 @@ struct DiaryCardView: View {
                 .clipped()
                 .opacity(viewStore.mood.backgroundOpacity)
         )
-        .cornerRadius(24)
+        .cornerRadius(20)
     }
 }
 
