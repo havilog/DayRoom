@@ -118,7 +118,7 @@
 		403903B82A0D4BCF00C7D077 /* Nickname.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nickname.swift; sourceTree = "<group>"; };
 		403903BC2A0D4BE800C7D077 /* DiaryFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryFeed.swift; sourceTree = "<group>"; };
 		403903C02A0D4C0300C7D077 /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
-		403903CB2A0D6EAC00C7D077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		403903CB2A0D6EAC00C7D077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		403903CE2A0D74F300C7D077 /* View+DebugFrameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+DebugFrameInfo.swift"; sourceTree = "<group>"; };
 		403903E52A0E017100C7D077 /* onFirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onFirstAppear.swift; sourceTree = "<group>"; };
 		403903E72A0E131D00C7D077 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -368,7 +368,6 @@
 		40D7ED372A090F5500BFB428 /* DayRoom */ = {
 			isa = PBXGroup;
 			children = (
-				403903CB2A0D6EAC00C7D077 /* Info.plist */,
 				40D7ED672A090F7000BFB428 /* Sources */,
 				40D7ED682A090F7300BFB428 /* Resources */,
 			);
@@ -404,6 +403,7 @@
 		40D7ED682A090F7300BFB428 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				403903CB2A0D6EAC00C7D077 /* Info.plist */,
 				40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */,
 				403903E72A0E131D00C7D077 /* Assets.xcassets */,
 				401AE7F32A638E4B00932024 /* Localization */,
@@ -843,7 +843,7 @@
 				DEVELOPMENT_TEAM = 85329TR25G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DayRoom/Info.plist;
+				INFOPLIST_FILE = DayRoom/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DayRoom;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -880,7 +880,7 @@
 				DEVELOPMENT_TEAM = 85329TR25G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DayRoom/Info.plist;
+				INFOPLIST_FILE = DayRoom/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DayRoom;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
