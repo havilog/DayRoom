@@ -238,7 +238,7 @@ struct DiaryCardView: View {
     
     private var contentView: some View {
         VStack(spacing: .zero) { 
-            Text(viewStore.mood.title)
+            Text(viewStore.cardMode == .create ? viewStore.mood.rawValue : viewStore.date.toString(format: "MMMM"))
                 .font(garamond: .heading3)
                 .foregroundColor(viewStore.mood.foregroundColor)
                 .padding(.bottom, 16)
