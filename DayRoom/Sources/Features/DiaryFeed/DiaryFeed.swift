@@ -17,8 +17,7 @@ struct DiaryFeed: Reducer {
         var isWrittenToday: Bool {
             diaries.isEmpty ? false : diaries.map(\.date).contains(where: \.isToday)
         }
-        
-        @BindingState var date: Date = .now
+        var date: Date { return .now }
         @PresentationState var destination: Destination.State? = nil
     }
     
@@ -30,8 +29,6 @@ struct DiaryFeed: Reducer {
         case settingButtonTapped
         case createButtonTapped
         case todayCardTapped
-        case invalidDateSelected
-        case dateSelectComplete
         case diaryCard(id: DiaryCard.State.ID, action: DiaryCard.Action)
         case diaryLoadResponse(TaskResult<[Diary]>)
         case datePickerDismissed
@@ -108,15 +105,6 @@ struct DiaryFeed: Reducer {
         case .todayCardTapped:
             return .send(.delegate(.todayCardTapped))
             
-        case .dateSelectComplete:
-            state.destination = .alert(.selectComplete)
-            return .none
-            
-        case .invalidDateSelected:
-            state.destination = .alert(.invalidDate)
-            state.date = .today
-            return .none
-            
         case let .diaryCard(id, .delegate(.onLongPressGesture)):
             return .send(.delegate(.diaryLongPressed(id: id)))
             
@@ -154,19 +142,6 @@ struct DiaryFeed: Reducer {
             
         case .destination:
             return .none
-            
-        case .binding(\.$date):
-            state.destination = .none
-            guard state.date.isFutureDay == false else {
-                return .run { send in
-                    try await clock.sleep(for: .seconds(0.6))
-                    await send(.invalidDateSelected)
-                }
-            }
-            return .run { send in
-                try await clock.sleep(for: .seconds(0.6))
-                await send(.dateSelectComplete)
-            }
             
         case .binding:
             return .none
@@ -262,13 +237,6 @@ struct DiaryFeedView: View {
                 state: /DiaryFeed.Destination.State.alert,
                 action: DiaryFeed.Destination.Action.alert
             )
-            .sheet(
-                isPresented: .init(
-                    get: { viewStore.state.destination == .datePicker }, 
-                    set: { if !$0 { viewStore.send(.datePickerDismissed) } }
-                ),
-                onDismiss: { viewStore.send(.datePickerDismissed) }
-            ) { DatePickerView(date: viewStore.binding(\.$date)) }
     }
     
     private let oneSizeItem: GridItem = GridItem(.flexible(), alignment: .top)
@@ -307,7 +275,7 @@ struct DiaryFeedView: View {
     private var emptyCardView: some View {
         VStack(spacing: .zero) { 
             Spacer()
-            Text(String(Date.today.day))
+            Text(String(viewStore.date.day))
                 .font(garamond: .hero)
                 .foregroundColor(.text_disabled)
             
