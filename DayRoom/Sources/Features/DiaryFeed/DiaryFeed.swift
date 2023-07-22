@@ -208,15 +208,27 @@ extension DiaryFeed.State {
         }
     }
     
+    /// 1.
+    /// 23.07.12 -> 2에 들어가야함
+    /// firstIndex == 2
+    /// insert at 2
+    /// [23.07.22, 23.07.19, 22. 08. 10]
+    /// 
+    /// 2. 
+    /// [23.07.09]
+    /// 23.07.6 -> last에 들어가야함
+    /// firstIndex == nil
+    /// index == 1
+    /// insert at 2
     mutating func insert(newDiary: DiaryCard.State) -> Effect<DiaryFeed.Action> {
         var feedDiary = newDiary
         feedDiary.cardMode = .feed
         feedDiary.page = .photo
-        /// exsisting 12일 - index 3, new 13일 - index 2여야함
-        let index = self.diaries.firstIndex { exsistingDiary in
-            exsistingDiary.date < newDiary.date
-        } ?? .zero
-        self.diaries.insert(feedDiary, at: index)
+        if let index = self.diaries.firstIndex(where: { $0.date < newDiary.date }) {
+            self.diaries.updateOrInsert(feedDiary, at: index)    
+        } else {
+            self.diaries.append(feedDiary)
+        }
         return .none
     }
     

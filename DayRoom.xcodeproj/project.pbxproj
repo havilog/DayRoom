@@ -66,7 +66,7 @@
 		40D7ED392A090F5500BFB428 /* DayRoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED382A090F5500BFB428 /* DayRoomApp.swift */; };
 		40D7ED402A090F5700BFB428 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */; };
 		40D7ED452A090F5700BFB428 /* DayRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED432A090F5700BFB428 /* DayRoom.xcdatamodeld */; };
-		40D7ED4F2A090F5700BFB428 /* DayRoomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED4E2A090F5700BFB428 /* DayRoomTests.swift */; };
+		40D7ED4F2A090F5700BFB428 /* FeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED4E2A090F5700BFB428 /* FeedTests.swift */; };
 		40D7ED702A090FAA00BFB428 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED6F2A090FAA00BFB428 /* Root.swift */; };
 		40D7ED752A09101200BFB428 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 40D7ED742A09101200BFB428 /* ComposableArchitecture */; };
 		40D7ED792A09103B00BFB428 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7ED782A09103B00BFB428 /* Persistence.swift */; };
@@ -146,7 +146,7 @@
 		40D7ED3F2A090F5700BFB428 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		40D7ED442A090F5700BFB428 /* DayRoom.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DayRoom.xcdatamodel; sourceTree = "<group>"; };
 		40D7ED4A2A090F5700BFB428 /* DayRoomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRoomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		40D7ED4E2A090F5700BFB428 /* DayRoomTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRoomTests.swift; sourceTree = "<group>"; };
+		40D7ED4E2A090F5700BFB428 /* FeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTests.swift; sourceTree = "<group>"; };
 		40D7ED6F2A090FAA00BFB428 /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
 		40D7ED782A09103B00BFB428 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		40EFCEBC2A16237E00B30839 /* PasswordSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordSetting.swift; sourceTree = "<group>"; };
@@ -384,7 +384,7 @@
 		40D7ED4D2A090F5700BFB428 /* DayRoomTests */ = {
 			isa = PBXGroup;
 			children = (
-				40D7ED4E2A090F5700BFB428 /* DayRoomTests.swift */,
+				40D7ED4E2A090F5700BFB428 /* FeedTests.swift */,
 			);
 			path = DayRoomTests;
 			sourceTree = "<group>";
@@ -682,7 +682,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40D7ED4F2A090F5700BFB428 /* DayRoomTests.swift in Sources */,
+				40D7ED4F2A090F5700BFB428 /* FeedTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
