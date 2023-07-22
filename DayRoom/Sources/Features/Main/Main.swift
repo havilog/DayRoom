@@ -235,20 +235,20 @@ extension ConfirmationDialogState where Action == Main.Destination.DialogAction 
     static func longPress(id: DiaryCard.State.ID) -> ConfirmationDialogState {
         return ConfirmationDialogState(
             title: { 
-                TextState("title")
+                TextState("title".localized)
             }, 
             actions: {
                 ButtonState(action: .edit(id: id)) { 
-                    TextState("수정") 
+                    TextState("수정".localized) 
                 }
                 ButtonState(
                     role: .destructive, 
                     action: .delete(id: id)
                 ) {
-                    TextState("삭제") 
+                    TextState("삭제".localized) 
                 }
                 ButtonState(role: .cancel, action: .cancel) {
-                    TextState("취소") 
+                    TextState("취소".localized) 
                 }
             } 
         )   

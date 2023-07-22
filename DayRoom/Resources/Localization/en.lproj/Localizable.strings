@@ -8,7 +8,7 @@
 
 // Nickname
 
-"이름을 알려주세요" = "How should I call you?";
+"이름을 알려주세요." = "How should I call you?";
 "시작하기" = "Get started";
 "저장" = "Save";
 "8자 이내 한글, 영문, 숫자" = "Enter up to 8 characters";
@@ -46,7 +46,7 @@
 "새로운 비밀번호를 입력해 주세요" = "Enter new password";
 "한 번 더 입력해주세요" = "Re-enter your password";
 
-"비밀번호 변경" = "Chang Password";
+"비밀번호 변경" = "Change Password";
 "비밀번호 설정" = "Password";
 "비밀번호가 일치하지 않습니다" = "Password doesn't match";
 
@@ -58,3 +58,9 @@
 "날짜 변경 완료" = "Date change complete";
 "선택한 날짜로 변경이 완료되었어요!" = "Change Date Completed!";
 "오늘의 추억은\n무엇인가요?" = "What are your\nmemories today?";
+
+// Confirmation Dialog
+
+"수정" = "edit";
+"삭제" = "delete";
+"취소" = "cancel";
