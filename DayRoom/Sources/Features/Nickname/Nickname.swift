@@ -111,6 +111,7 @@ struct NicknameView: View {
     
     var body: some View {
         bodyView
+            .background(Color.day_background)
     }
     
     private var bodyView: some View {

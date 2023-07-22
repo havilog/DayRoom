@@ -103,6 +103,7 @@ struct PasswordSettingView: View {
     
     var body: some View {
         bodyView
+            .background(Color.day_background)
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) { backButton }

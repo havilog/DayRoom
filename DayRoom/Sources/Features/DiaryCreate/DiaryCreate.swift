@@ -261,6 +261,7 @@ struct DiaryCreateView: View {
             CreateFinishView()
         } else {
             bodyView
+                .background(Color.day_background)
                 .onFirstAppear { viewStore.send(.onFirstAppear) }
                 .sheet(
                     store: store.scope(state: \.$destination, action: DiaryCreate.Action.destination),
@@ -372,7 +373,7 @@ struct DiaryCreateView: View {
                 .foregroundColor(viewStore.card?.selectedImage == nil ? .text_disabled : .text_primary)
         }
         .frame(width: 52, height: 52)
-        .background(Color.day_white)
+        .background(Color.day_background)
         .cornerRadius(26)
         .shadow(color: .day_black.opacity(0.03), radius: 2, y: 1)
         .shadow(color: .day_black.opacity(0.03), radius: 6, y: 4)
@@ -384,7 +385,7 @@ struct DiaryCreateView: View {
             Image("ic_image_24")
         }
         .frame(width: 52, height: 52)
-        .background(Color.day_white)
+        .background(Color.day_background)
         .cornerRadius(26)
         .shadow(color: .day_black.opacity(0.03), radius: 2, y: 1)
         .shadow(color: .day_black.opacity(0.03), radius: 6, y: 4)
@@ -395,7 +396,7 @@ struct DiaryCreateView: View {
             Image("ic_calendar_24")
         }
         .frame(width: 52, height: 52)
-        .background(Color.day_white)
+        .background(Color.day_background)
         .cornerRadius(26)
         .shadow(color: .day_black.opacity(0.03), radius: 2, y: 1)
         .shadow(color: .day_black.opacity(0.03), radius: 6, y: 4)

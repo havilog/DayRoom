@@ -255,6 +255,7 @@ struct DiaryFeedView: View {
     
     var body: some View {
         bodyView
+            .background(Color.day_background)
             .onFirstAppear { viewStore.send(.onFirstAppear) }
             .alert(
                 store: self.store.scope(state: \.$destination, action: { .destination($0) }),

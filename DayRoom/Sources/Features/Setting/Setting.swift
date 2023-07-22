@@ -130,6 +130,7 @@ struct SettingView: View {
     
     var body: some View {
         bodyView
+            .background(Color.day_background)
             .navigationBarBackButtonHidden(true)
             .sheet(
                 store: store.scope(state: \.$destination, action: Setting.Action.destination),
