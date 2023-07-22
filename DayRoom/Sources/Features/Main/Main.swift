@@ -36,6 +36,7 @@ struct Main: Reducer {
         enum State: Equatable {
             case setting(Setting.State)
             case whoMadeThis(WhoMadeThis.State)
+            case privacy(Privacy.State)
             case passwordSetting(PasswordSetting.State)
             case myClovers(MyClovers.State)
         }
@@ -43,6 +44,7 @@ struct Main: Reducer {
         enum Action: Equatable {
             case setting(Setting.Action)
             case whoMadeThis(WhoMadeThis.Action)
+            case privacy(Privacy.Action)
             case passwordSetting(PasswordSetting.Action)
             case myClovers(MyClovers.Action)
         }
@@ -56,6 +58,9 @@ struct Main: Reducer {
             }
             Scope(state: /State.whoMadeThis, action: /Action.whoMadeThis) { 
                 WhoMadeThis()
+            }
+            Scope(state: /State.privacy, action: /Action.privacy) { 
+                Privacy()
             }
             Scope(state: /State.myClovers, action: /Action.myClovers) { 
                 MyClovers()
@@ -144,6 +149,10 @@ struct Main: Reducer {
                     
                 case .whoMadeThis:
                     state.path.append(.whoMadeThis(.init()))
+                    return .none
+                    
+                case .privacy:
+                    state.path.append(.privacy(.init()))
                     return .none
                     
                 case .version:
@@ -298,6 +307,13 @@ struct MainView: View {
                     /Main.Path.State.whoMadeThis,
                     action: Main.Path.Action.whoMadeThis,
                     then: WhoMadeThisView.init
+                )
+                
+            case .privacy:
+                CaseLet(
+                    /Main.Path.State.privacy,
+                    action: Main.Path.Action.privacy,
+                    then: PrivacyView.init
                 )
                 
             case .myClovers:

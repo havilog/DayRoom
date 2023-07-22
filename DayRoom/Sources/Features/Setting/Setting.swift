@@ -26,12 +26,14 @@ struct Setting: Reducer {
     enum Row: Equatable {
         case lock
         case whoMadeThis
+        case privacy
         case version
         
         var iconName: String {
             switch self {
             case .lock: return "ic_lock_24"
             case .whoMadeThis: return "ic_user_24"
+            case .privacy: return "ic_info_24" // TODO: 수정
             case .version: return "ic_info_24"
             }
         }
@@ -40,6 +42,7 @@ struct Setting: Reducer {
             switch self {
             case .lock: return "잠금".localized
             case .whoMadeThis: return "만든 사람들".localized
+            case .privacy: return "개인정보처리방침".localized
             case .version: return "버전 정보".localized
             }
         }
@@ -221,6 +224,7 @@ struct SettingView: View {
     private var appInfoSection: some View {
         Section {
             settingRow(.whoMadeThis)
+            settingRow(.privacy)
             settingRow(.version, disableInteraction: true) {
                 Text("v\(viewStore.appVersion)")
                     .font(pretendard: .body2)
@@ -239,9 +243,11 @@ struct SettingView: View {
     ) -> some View {
         Button { viewStore.send(.settingRowTapped(settingRow)) } label: { 
             HStack(spacing: .zero) { 
-                Image(settingRow.iconName)
-                    .frame(width: 24, height: 24)
-                    .padding(.trailing, 8)
+                if settingRow == .lock {
+                    Image(settingRow.iconName)
+                        .frame(width: 24, height: 24)
+                        .padding(.trailing, 8)    
+                }
                 
                 Text("\(settingRow.title)")
                     .font(pretendard: .heading4)

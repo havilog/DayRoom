@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4018D7CF2A6BD0D100129DC4 /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4018D7CE2A6BD0D100129DC4 /* Privacy.swift */; };
 		401AE7F62A638E6C00932024 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 401AE7F82A638E6C00932024 /* Localizable.strings */; };
 		401AE7FA2A638EFA00932024 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401AE7F92A638EFA00932024 /* String+Localized.swift */; };
 		40304E9C2A60B99A00D911D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40304E9B2A60B99A00D911D0 /* GoogleService-Info.plist */; };
@@ -89,6 +90,7 @@
 /* Begin PBXFileReference section */
 		4018D7CC2A6BB82000129DC4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4018D7CD2A6BB8DB00129DC4 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4018D7CE2A6BD0D100129DC4 /* Privacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Privacy.swift; sourceTree = "<group>"; };
 		401AE7F72A638E6C00932024 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		401AE7F92A638EFA00932024 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		40304E9B2A60B99A00D911D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				403903C02A0D4C0300C7D077 /* Password.swift */,
+				40EFCEBC2A16237E00B30839 /* PasswordSetting.swift */,
 			);
 			path = Password;
 			sourceTree = "<group>";
@@ -301,22 +304,6 @@
 				403903EA2A11077A00C7D077 /* Main.swift */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		405CC5BF2A36161300AFE2C0 /* WhoMadeThis */ = {
-			isa = PBXGroup;
-			children = (
-				405CC5C02A36163200AFE2C0 /* WhoMadeThis.swift */,
-			);
-			path = WhoMadeThis;
-			sourceTree = "<group>";
-		};
-		405CC5C62A46F62F00AFE2C0 /* MyClovers */ = {
-			isa = PBXGroup;
-			children = (
-				405CC5C72A46F64200AFE2C0 /* MyClovers.swift */,
-			);
-			path = MyClovers;
 			sourceTree = "<group>";
 		};
 		40A624042A35E00C00A00370 /* Lottie */ = {
@@ -436,7 +423,9 @@
 			isa = PBXGroup;
 			children = (
 				403903EE2A11085F00C7D077 /* Setting.swift */,
-				40EFCEBC2A16237E00B30839 /* PasswordSetting.swift */,
+				4018D7CE2A6BD0D100129DC4 /* Privacy.swift */,
+				405CC5C72A46F64200AFE2C0 /* MyClovers.swift */,
+				405CC5C02A36163200AFE2C0 /* WhoMadeThis.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -453,8 +442,6 @@
 				40A9CB632A28D4AE003E8BCF /* DiaryCreate */,
 				403903B52A0D4BAC00C7D077 /* Password */,
 				40D7ED6B2A090F7F00BFB428 /* Setting */,
-				405CC5BF2A36161300AFE2C0 /* WhoMadeThis */,
-				405CC5C62A46F62F00AFE2C0 /* MyClovers */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -675,6 +662,7 @@
 				403903B92A0D4BCF00C7D077 /* Nickname.swift in Sources */,
 				40D7ED702A090FAA00BFB428 /* Root.swift in Sources */,
 				40EFCEC32A167E8300B30839 /* DiaryImagePicker.swift in Sources */,
+				4018D7CF2A6BD0D100129DC4 /* Privacy.swift in Sources */,
 				40EFCEBD2A16237E00B30839 /* PasswordSetting.swift in Sources */,
 				40EFCEBF2A16798A00B30839 /* DiaryCreate.swift in Sources */,
 				405CC5CC2A47042C00AFE2C0 /* FeedbackGenerator.swift in Sources */,

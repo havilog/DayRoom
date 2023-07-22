@@ -65,7 +65,7 @@ struct WhoMadeThisView: View {
     
     var bodyView: some View {
         VStack(spacing: .zero) { 
-            Text("만든 사람들")
+            Text("만든 사람들".localized)
                 .font(pretendard: .display1)
                 .foregroundStyle(Color.grey80)
                 .frame(maxWidth: .infinity, alignment: .leading)
