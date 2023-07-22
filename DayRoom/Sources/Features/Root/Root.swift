@@ -109,6 +109,7 @@ struct Root: Reducer {
                 .didBecomeActiveNotification, 
                 .willEnterForegroundNotification:
             guard preferences.nickname.isNotNil else { 
+                if case .nickname = state.destination { return .none }
                 state.destination = .nickname(.init(mode: .onboarding)) 
                 return .none
             }
@@ -117,6 +118,7 @@ struct Root: Reducer {
                 if case .main = state.destination { return .none }
                 state.destination = .main(.init())
             } else {
+                if case .password = state.destination { return .none }
                 state.destination = .password(.init(mode: .normal))
             }
             
