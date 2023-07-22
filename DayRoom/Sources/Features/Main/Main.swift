@@ -114,7 +114,6 @@ struct Main: Reducer {
             case .settingButtonTapped:
                 state.path.append(.setting(.init(
                     nickname: preferences.nickname ?? "", 
-                    isUsingPassword: !keychain.getString(.password).isNil, 
                     cloversCount: state.diaryFeed.diaries.count
                 )))
                 return .none
@@ -140,7 +139,7 @@ struct Main: Reducer {
             case let .settingRowTapped(row):
                 switch row {
                 case .lock:
-                    state.path.append(.passwordSetting(.init(isUsingPassword: keychain.getString(.password).isNil ? false : true)))
+                    state.path.append(.passwordSetting(.init(isUsingPassword: !keychain.getString(.password).isNil)))
                     return .none
                     
                 case .whoMadeThis:

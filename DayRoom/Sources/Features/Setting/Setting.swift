@@ -15,7 +15,10 @@ struct Setting: Reducer {
     struct State: Equatable {
         var appVersion: String = Bundle.main.releaseVersionNumber ?? "1.0.0"
         var nickname: String
-        var isUsingPassword: Bool
+        var isUsingPassword: Bool {
+            @Dependency(\.keychain) var keychain
+            return !keychain.getString(.password).isNil 
+        }
         var cloversCount: Int
         @PresentationState var destination: Destination.State? = nil
     }
@@ -206,6 +209,7 @@ struct SettingView: View {
                     .font(pretendard: .body2)
                     .foregroundColor(.text_primary)
             }
+            .animation(.spring(), value: viewStore.isUsingPassword)
         } header: { 
             sectionHeader("설정".localized)
         } footer: { 
@@ -277,7 +281,7 @@ struct SettingView_Previews: PreviewProvider {
         NavigationStack {
             SettingView(
                 store: .init(
-                    initialState: .init(nickname: "havi", isUsingPassword: false, cloversCount: 22), 
+                    initialState: .init(nickname: "havi", cloversCount: 22), 
                     reducer: Setting()
                 )
             )

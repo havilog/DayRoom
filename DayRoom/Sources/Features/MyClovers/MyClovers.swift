@@ -8,8 +8,6 @@
 import SwiftUI
 import ComposableArchitecture
 
-// [[month: Int]]
-
 struct MyClovers: Reducer {
     
     // MARK: State
@@ -175,7 +173,6 @@ struct MyCloversView: View {
                     .resizable()
                     .frame(height: 36)
                     .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 5)
                     .opacity(Int(index).opacity)
             }
         }
