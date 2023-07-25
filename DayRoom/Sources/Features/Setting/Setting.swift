@@ -33,7 +33,7 @@ struct Setting: Reducer {
             switch self {
             case .lock: return "ic_lock_24"
             case .whoMadeThis: return "ic_user_24"
-            case .privacy: return "ic_info_24" // TODO: 수정
+            case .privacy: return "ic_book-open_24"
             case .version: return "ic_info_24"
             }
         }
@@ -243,11 +243,9 @@ struct SettingView: View {
     ) -> some View {
         Button { viewStore.send(.settingRowTapped(settingRow)) } label: { 
             HStack(spacing: .zero) { 
-                if settingRow == .lock {
-                    Image(settingRow.iconName)
-                        .frame(width: 24, height: 24)
-                        .padding(.trailing, 8)    
-                }
+                Image(settingRow.iconName)
+                    .frame(width: 24, height: 24)
+                    .padding(.trailing, 8)    
                 
                 Text("\(settingRow.title)")
                     .font(pretendard: .heading4)
