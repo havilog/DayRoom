@@ -19,12 +19,13 @@ public extension Date {
     var dayroomMonth: String {
         let formatter: DateFormatter = .init()
         formatter.dateStyle = .medium
-        formatter.locale = .init(identifier: "en_US")
-        return self.toString(format: "MMMM, yyyy", formatter: formatter)
+        return self.toString(format: "MMMM, yyyy", locale: .init(identifier: "en_US"))
     }
     
-    func toString(format: String, formatter: DateFormatter = .init()) -> String {
+    func toString(format: String, locale: Locale = .init(identifier: "en_US")) -> String {
+        let formatter: DateFormatter = .init()
         formatter.dateFormat = format
+        formatter.locale = locale
         return formatter.string(from: self)
     }
     

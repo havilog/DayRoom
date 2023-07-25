@@ -16,7 +16,13 @@ struct Privacy: Reducer {
     
     // MARK: Action
     
-    enum Action: Equatable { }
+    enum Action: Equatable {
+        case backButtonTapped
+    }
+    
+    // MARK: Dependency
+    
+    @Dependency(\.dismiss) private var dismiss
     
     // MARK: Body
     
@@ -25,10 +31,12 @@ struct Privacy: Reducer {
     }
     
     func core(into state: inout State, action: Action) -> EffectTask<Action> {
-        return .none
+        switch action {
+        case .backButtonTapped:
+            return .run { _ in await dismiss() }
+        }
     }
 }
-
 
 struct PrivacyView: View {
     let store: StoreOf<Privacy>
@@ -45,8 +53,10 @@ struct PrivacyView: View {
             .navigationBarBackButtonHidden(true)
             .toolbar { 
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Image("ic_chevron_left_ios_24")
-                        .frame(width: 48, height: 48)
+                    Button { viewStore.send(.backButtonTapped) } label: { 
+                        Image("ic_chevron_left_ios_24")
+                    }
+                    .frame(width: 48, height: 48)
                 }
             }
     }

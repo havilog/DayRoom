@@ -128,7 +128,7 @@ struct NicknameView: View {
             }
             
             Image("name_illust")
-                .renderingMode(.original)
+                .background(Color.day_background)
                 .padding(.bottom, 40)
             
             VStack(alignment: .leading, spacing: .zero) {

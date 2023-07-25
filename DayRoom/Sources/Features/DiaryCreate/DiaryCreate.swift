@@ -405,8 +405,12 @@ struct DiaryCreateView: View {
 
 struct CreateFinishView: View {
     var body: some View {
-        LottieView(jsonName: "clover_motion", loopMode: .playOnce)
-            .frame(width: 216, height: 216)
+        ZStack {
+            LottieView(jsonName: "clover_motion", loopMode: .playOnce)
+                .frame(width: 216, height: 216)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.day_background)
     }
 }
 

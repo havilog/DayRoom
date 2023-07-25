@@ -168,7 +168,9 @@ struct PasswordView: View {
                 .opacity(viewStore.mode == .normal ? 0 : 1)
             
             VStack(spacing: .zero) {
-                title.padding(.bottom, 40)
+                title
+                    .padding(.bottom, 40)
+                
                 passwordClovers
                     .shake(viewStore.binding(\.$isPasswordConformIncorrect))
             }
@@ -207,12 +209,7 @@ struct PasswordView: View {
         Text(viewStore.informationText)
             .font(pretendard: .heading2)
             .foregroundColor(.text_primary)
-    }
-    
-    private var passwordIncorrectDescription: some View {
-        Text("비밀번호가 일치하지 않습니다".localized)
-            .font(pretendard: .body2)
-            .foregroundColor(.error)
+            .animation(.spring(), value: viewStore.informationText)
     }
     
     private var passwordClovers: some View {

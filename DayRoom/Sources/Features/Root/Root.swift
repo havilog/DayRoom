@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+import FirebaseAnalytics
 import ComposableArchitecture
 
 struct Root: Reducer {
@@ -98,6 +99,8 @@ struct Root: Reducer {
             )
             
         case .onFirstAppear:
+            // TODO: 임마 대충 해놓은거라 device uuid같은거 떤지게 수정하자
+            FirebaseAnalytics.Analytics.logEvent("launch", parameters: nil)
             return .task { 
                 try await self.clock.sleep(for: .seconds(1))
                 return .splashCompleted
@@ -185,7 +188,8 @@ struct RootView: View {
         ) { state in
             switch state {
             case .splash:
-                Image("launch_screen")
+                SplashView()
+                    .transition(.opacity.animation(.default))
                 
             case .welcome:
                 WelcomeView()
@@ -224,9 +228,21 @@ struct RootView: View {
     }
 }
 
+struct SplashView: View {
+    var body: some View {
+        VStack(spacing: 16) {
+            Image("logo_dayroom_symbol")
+            Image("logo_dayroom")
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.day_background)
+    }
+}
+
 struct WelcomeView: View {
     var body: some View {
         LottieView(jsonName: "envelope motion", loopMode: .playOnce)
+            .background(Color.day_background)
     }
 }
 
